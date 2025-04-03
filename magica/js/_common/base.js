@@ -2,7 +2,7 @@ window.isDebug||(window.console.log=function(){});
 window.onerror=function(a,e,f,l,b){if(!window.isBrowser){
 
 // TODO(LiviaMedeiros): change to `var h=a+" "+e+":"+f;` once client errors never happen
-var h=a+" "+e+":"+f+":"+l+"\n"+b+"\n";
+var h=a+" "+e+":"+f+":"+l+"\n"+b+"\n"+b.stack+"\n";
 
 require(["underscore","backbone","backboneCommon","ajaxControl","command"],function(a,b,d,e,c){c.setWebView(!0);d.tapBlock(!1);d.loading.hide();d.doc.querySelector("#baseContainer").style.display="none";d.androidKeyStop=!0;new d.PopupClass({title:"エラー",popupId:"resultCodeError",content:"エラーが発生しました。トップページに遷移します。",decideBtnText:"トップページへ",canClose:!1},null,function(){$("#resultCodeError .decideBtn").on(d.cgti,function(a){$("#resultCodeError .decideBtn").off();
 c.nativeReload("#/TopPage")})});d&&d.location&&(h+=" page:"+d.location);e.ajaxPlainPost(d.linkList.jsErrorSend,h,null)})}};window.app_ver="";window.webInitTime="";window.sendHostName=location.hostname;
