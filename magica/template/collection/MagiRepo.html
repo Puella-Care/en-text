@@ -6,7 +6,7 @@
 			<% var count = 0; %>
 			<% _.each(this.model,function(value,key) { %>
 				<% console.log(count) %>
-				<li class="TE btn se_tabs <%= (count === 0) ? 'current' : '' %>" data-id="<%= key %>"><span>第<%= btnText[count] %>部</span></li>
+				<li class="TE btn se_tabs <%= (count === 0) ? 'current' : '' %>" data-id="<%= key %>"><span>Part <%= btnText[count] %></span></li>
 				<% count++ %>
 			<% }); %>
 		</ul>
