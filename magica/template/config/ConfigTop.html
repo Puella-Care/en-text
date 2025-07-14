@@ -108,12 +108,12 @@
 
 				<h3>Download All Data</h3>
 				<div class="commonFrame3 dataFrames">
-                    Try doing this when images and voices are not being played/displayed.
+					Try doing this when images and voices are not being played/displayed.
 					<div id="allDownload" class="btn se_decide b_pink TE"><span class="b_screen"></span>Download All Data</div>
 				</div>
 				<h3>Clear Cache</h3>
 				<div class="commonFrame3 dataFrames">
-					Try doing this when images are not being displayed properly.                    
+					Try doing this when images and voices are not being played/displayed.
 					<div id="cacheClear" class="btn se_decide b_pink TE"><span class="b_screen"></span>Clear Cache</div>
 				</div>
 			</div>
@@ -132,7 +132,7 @@
 				<dt class="colLeft">Password</dt>
 				<dd class="colRight" id="transferSettings"><% if(!setPassword){ %>Not Set<% }else{ %>Set<% } %></dd>
 			</dl>
-			<!-- <p class="c_red">※8文字以上15文字以内で入力してください</p> -->
+			<!-- <p class="c_red">※Passwords must be 8-15 characters.</p> -->
 			<p class="transferNotice">※If you don't set a Transfer Password on this device, you can not transfer data to your new device.<br>
 				Once you set a password, make sure not to forget your Transfer ID/Password.</p>
 			<div class="relationWrap">
@@ -206,7 +206,7 @@
 		<div id="<%="<%= model.type %\>"%>DataWrapBefore"<%="<% if(model.onFlag){ %\>"%> class="on"<%="<% } %\>"%>>
 			<span class="pointFrame">Before</span>
 			<span class="<%="<%= model.type %\>"%>Check<%="<% if(model.type === 'movie' && model.oldType !== 0){ %\>"%> on<%="<% } %\>"%>"></span>
-			<span class="changeText"><%="<% if(model.type === 'voice'){ %\>"%><%="<% if(model.onFlag){ %\>"%>Play with Voices<%="<% }else{ %\>"%>Play without Voices<%="<% } %\>"%><%="<% }else{ %\>"%><%='<% if(model.oldType === 0){ %\>'%>Play without Videos<%='<% }else if(model.oldType === 2){ %\>'%>Play with High Quality Videos<%='<% }else if(model.oldType === 1){ %\>'%>Play with Low Quality Videos<%="<% } %\>"%><%="<% } %\>"%></span>
+			<span class="changeText"><%="<% if(model.type === 'voice'){ %\>"%><%="<% if(model.onFlag){ %\>"%>Play With Voices<%="<% }else{ %\>"%>Play Without Voices<%="<% } %\>"%><%="<% }else{ %\>"%><%='<% if(model.oldType === 0){ %\>'%>Play Without Videos<%='<% }else if(model.oldType === 2){ %\>'%>Play With High Quality Videos<%='<% }else if(model.oldType === 1){ %\>'%>Play With Low Quality Videos<%="<% } %\>"%><%="<% } %\>"%></span>
 		</div>
 		<div id="<%="<%= model.type %\>"%>DataWrapAfter"<%="<% if(!model.onFlag){ %\>"%> class="on"<%="<% } %\>"%>>
 			<span class="pointFrame">After</span>
@@ -216,7 +216,7 @@
 		<p id="dataPopText">
 			<%='<% if((model.type === "voice" && model.onFlag) || (model.type === "movie" && model.newType === "off")){ %\>'%>
 				This will delete all downloaded <%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%>.<br>
-				<%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%>will not be played after this change.
+				<%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%> will not be played after this change.
 			<%="<% }else{ %\>"%>
 				Downloading <%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%> Data<br>
 				All <%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%> will be played after this change.<br>
