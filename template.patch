@@ -736,6 +736,60 @@
  		<%='<% } %\>'%>
  	</div>
  </div>
+--- a/magica/template/event/accomplish/EventAccomplishDeck.html
++++ b/magica/template/event/accomplish/EventAccomplishDeck.html
+@@ -151,13 +151,13 @@
+ 						<%="<% var noneNum = RevisionMax - onNum; %\>"%>
+ 
+ 						<%="<% while(i < onNum) { %\>"%>
+-							<div class="on"/>
++							<div class="on"></div>
+ 							<%="<% i=(i+1)|0; %\>"%>
+ 						<%="<% }  %\>"%>
+ 
+ 						<%="<% i = 0; %\>"%>
+ 						<%="<% while(i < noneNum) { %\>"%>
+-							<div class=""/>
++							<div class=""></div>
+ 							<%="<% i=(i+1)|0; %\>"%>
+ 						<%="<% } %\>"%>
+ 					</div>
+--- a/magica/template/formation/DeckFormation.html
++++ b/magica/template/formation/DeckFormation.html
+@@ -238,13 +238,13 @@
+ 						<%="<% var noneNum = RevisionMax - onNum; %\>"%>
+ 
+ 						<%="<% while(i < onNum) { %\>"%>
+-							<div class="on"/>
++							<div class="on"></div>
+ 							<%="<% i=(i+1)|0; %\>"%>
+ 						<%="<% }  %\>"%>
+ 
+ 						<%="<% i = 0; %\>"%>
+ 						<%="<% while(i < noneNum) { %\>"%>
+-							<div class=""/>
++							<div class=""></div>
+ 							<%="<% i=(i+1)|0; %\>"%>
+ 						<%="<% } %\>"%>
+ 					</div>
+--- a/magica/template/formation/ProfileFormationSupport.html
++++ b/magica/template/formation/ProfileFormationSupport.html
+@@ -75,13 +75,13 @@
+ 						<%="<% var noneNum = RevisionMax - onNum; %\>"%>
+ 
+ 						<%="<% while(i < onNum) { %\>"%>
+-							<div class="on"/>
++							<div class="on"></div>
+ 							<%="<% i=(i+1)|0; %\>"%>
+ 						<%="<% }  %\>"%>
+ 
+ 						<%="<% i = 0; %\>"%>
+ 						<%="<% while(i < noneNum) { %\>"%>
+-							<div class=""/>
++							<div class=""></div>
+ 							<%="<% i=(i+1)|0; %\>"%>
+ 						<%="<% } %\>"%>
+ 					</div>
 --- a/magica/template/quest/scene0/BattleSelect.html
 +++ b/magica/template/quest/scene0/BattleSelect.html
 @@ -3,7 +3,7 @@
