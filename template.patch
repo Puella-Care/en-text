@@ -1,0 +1,827 @@
+--- a/magica/template/collection/CharaCollection.html
++++ b/magica/template/collection/CharaCollection.html
+@@ -14,7 +14,7 @@
+ 			</ul>
+ 		</div>
+ 		<div id="charaWrap" class="all commonFrame2">
+-			<h2>魔法少女一覧</h2>
++			<h2>Magical Girls</h2>
+ 			<div class="hiddenWrap">
+ 				<div id="charaHiddenWrap">
+ 					<div id="charaWrapInner" class="charaWrapInner"></div>
+--- a/magica/template/collection/CharaCollectionDetail.html
++++ b/magica/template/collection/CharaCollectionDetail.html
+@@ -42,10 +42,10 @@
+ </div>
+ 
+ <ul id="detailTab" class="common_tab t_gold">
+-	<li data-type="status" class="TE se_tabs current"><span>ステータス</span></li>
+-	<li data-type="skill" class='TE se_tabs'><span>スキル</span></li>
+-	<li data-type="voice" class='TE se_tabs'><span>ボイス</span></li>
+-	<li data-type="illust" class='TE se_tabs'><span>イラスト</span></li>
++	<li data-type="status" class="TE se_tabs current"><span>About</span></li>
++	<li data-type="skill" class='TE se_tabs'><span>Skills</span></li>
++	<li data-type="voice" class='TE se_tabs'><span>Voices</span></li>
++	<li data-type="illust" class='TE se_tabs'><span>Settings</span></li>
+ </ul>
+ 
+ <div id="cardDetailWrap" class="status">
+@@ -78,7 +78,7 @@
+ 						<!-- レベル経験値 -->
+ 						<div class="level">
+ 							<div class="flexBox">
+-								<span class="thStyle">Lv</span>
++								<span class="thStyle">Lvl.</span>
+ 								<p id="detailLv" class="tdStyle">
+ 									<span class="currentLv c_red"><%= model.currentCard.maxLevel %></span>
+ 									<span class="sla">/</span>
+@@ -96,12 +96,12 @@
+ 						</div>
+ 
+ 						<div class="type flexBox">
+-							<span class="thStyle">タイプ</span><span class="tdStyle"><%= model.currentCard.charaType %></span>
++							<span class="thStyle">Type</span><span class="tdStyle"><%= model.currentCard.charaType %></span>
+ 						</div>
+ 
+ 						<div class="revision">
+ 							<div class="flexBox">
+-								<span class="thStyle">魔力解放</span><span class="c_red tdStyle"><%= model.currentCard.revision %></span>
++								<span class="thStyle">Magic Lvl.</span><span class="c_red tdStyle"><%= model.currentCard.revision %></span>
+ 							</div>
+ 							<ul class="flexBox revisionIcon">
+ 								<% var i = 0;%>
+@@ -125,7 +125,7 @@
+ 
+ 						<div class="magiaLv">
+ 							<div class="flexBox">
+-								<span class="thStyle">マギアLv</span> <span class="tdStyle c_red"><%= model.currentCard.magiaLevel %></span>
++								<span class="thStyle">Magia Lvl.</span> <span class="tdStyle c_red"><%= model.currentCard.magiaLevel %></span>
+ 							</div>
+ 							<ul class="flexBox magiaLvIcon">
+ 								<% i = 0;%>
+@@ -156,10 +156,10 @@
+ 
+ 						<div class="epLv">
+ 							<div class="flexBox">
+-								<span class="thStyle">エピソードLv</span>
++								<span class="thStyle">Episode Lvl.</span>
+ 								<span class="c_red tdStyle"><%= model.currentCard.episodeLevel %>
+ 									<% if(model.currentCard.episodeLevel < 5){ %>
+-										<div class="epExpRequire c_gold">あと&nbsp;<%= model.currentCard.epExpRequire %></div>
++										<div class="epExpRequire c_gold">In:&nbsp;<%= model.currentCard.epExpRequire %></div>
+ 									<% }else{ %>
+ 										<div class="epLevelMax"></div>
+ 									<% } %>
+@@ -206,7 +206,7 @@
+ 				</div>
+ 
+ 				<div class="profileWrap">
+-					<div class="thStyle">プロフィール</div>
++					<div class="thStyle">Profile</div>
+ 					<div class="detail commonFrame3">
+ 						<%= model.chara.description %>
+ 					</div>
+@@ -214,7 +214,7 @@
+ 
+ 				<div class="flexBox">
+ 					<div class="exProfile1 flexBox">
+-						<span class="thStyle">学校</span>
++						<span class="thStyle">School</span>
+ 						<span class="tdStyle"><%= model.chara.school %></span>
+ 					</div>
+ 				</div>
+@@ -222,15 +222,15 @@
+ 				<div class="exProfile2">
+ 					<% var rankNum = String(displayCardId).split('')[4] %>
+ 					<div class="flexBox">
+-						<span class="thStyle small">キャラクターデザイン</span>
++						<span class="thStyle small">Character Design</span>
+ 						<span class="tdStyle"><%= model.chara.designer %></span>
+ 					</div>
+ 					<div class="flexBox">
+-						<span class="thStyle illustTitle">★<%= rankNum %>イラスト</span>
++						<span class="thStyle illustTitle">★<%= rankNum %> Illustrator</span>
+ 						<span class="illustrator tdStyle"><%= model.currentCard.card.illustrator %></span>
+ 					</div>
+ 					<div class="flexBox">
+-						<span class="thStyle">声優</span>
++						<span class="thStyle">CV</span>
+ 						<span class="tdStyle"><%= model.chara.voiceActor %></span>
+ 					</div>
+ 				</div>
+@@ -238,7 +238,7 @@
+ 
+ 			<div id="charaSkill">
+ 				<div class="commonFrame3 command">
+-					<p class="common_title_frame">ディスク</p>
++					<p class="common_title_frame">Disks</p>
+ 					<ul class="commandList">
+ 						<li class='<%= (model.currentCard.card.commandType1) ? model.currentCard.card.commandType1 : "" %>'></li>
+ 						<li class='<%= (model.currentCard.card.commandType2) ? model.currentCard.card.commandType2 : "" %>'></li>
+@@ -255,7 +255,7 @@
+ 						<% _exSkill = model.currentCard.card.maxPieceSkillList; %>
+ 					<% } %>
+ 					<div class="commonFrame3 connect">
+-						<p class="common_title_frame">EXスキル</p>
++						<p class="common_title_frame">EX Skill</p>
+ 						<% _.each(_exSkill,function(m) { %>
+ 							<div class="flexBox">
+ 								<p class="img">
+@@ -273,7 +273,7 @@
+ 
+ 				<% if(model.currentCard.card.cardSkill) { %>
+ 				<div class="commonFrame3 connect">
+-					<p class="common_title_frame">コネクト</p>
++					<p class="common_title_frame">Connect</p>
+ 
+ 					<div class="flexBox">
+ 						<p class="img">
+@@ -289,12 +289,12 @@
+ 				<% } %>
+ 				<% if(model.currentCard.card.cardMagia) { %>
+ 				<div class="commonFrame3 magia">
+-					<p class="common_title_frame">マギア</p>
++					<p class="common_title_frame">Magia</p>
+ 
+ 					<div class="border"></div>
+-					<p class="common_title_frame">マギア</p>
++					<p class="common_title_frame">Magia</p>
+ 					<div class="flexBox magiaLevel">
+-						マギアLv<span class="c_red"><%= model.currentCard.magiaLevel %></span>
++						Magia Lvl.<span class="c_red"><%= model.currentCard.magiaLevel %></span>
+ 						<ul class="flexBox magiaLvIcon">
+ 							<% i = 0;%>
+ 							<% var MagiaLevelMax = 5;%>
+@@ -354,9 +354,9 @@
+ 										<img src='/magica/resource/image_web/common/chara/icon_doppel_null.png'>
+ 									</p>
+ 									<div class="detailWrap">
+-										<p class="name c_purple">未解放</p>
++										<p class="name c_purple">Locked</p>
+ 										<div class="common_line lc_beige"></div>
+-										<p class="detail">ドッペルクエストクリアで解放</p>
++										<p class="detail">Unleash through Doppel Quests</p>
+ 									</div>
+ 								<% } %>
+ 							</div>
+@@ -369,72 +369,72 @@
+ 
+ 			<div id="charaVoice">
+ 				<div class="voiceDisplaySwitch">
+-					<span class="c_pink">◆&nbsp;ボイス再生時魔法少女表示設定&nbsp;◆</span><span class="voiceCheck"></span><span class="gemIcon"></span>&nbsp;&nbsp;全画面表示する
++					<span class="c_pink">◆&nbsp;Playback Settings&nbsp;◆</span><span class="voiceCheck"></span><span class="gemIcon"></span>&nbsp;&nbsp;Full Screen
+ 				</div>
+ 				<div class="commonFrame3 chara">
+-					<p class="common_title_frame">魔法少女</p>
+-					<div class="commonFrame4 voiceBtn" data-voice="01">自己紹介①</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="02">自己紹介②</div>
++					<p class="common_title_frame">Magical Girl</p>
++					<div class="commonFrame4 voiceBtn" data-voice="01">Self Introduction 1</div>
++					<div class="commonFrame4 voiceBtn" data-voice="02">Self Introduction 2</div>
+ 
+ 				</div>
+ 
+ 				<div class="commonFrame3 compose">
+-					<p class="common_title_frame">育成</p>
+-					<div class="commonFrame4 voiceBtn" data-voice="13">強化完了</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="14">強化(Lv最大時)</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="15">エピソードLvアップ</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="16">魔力解放①</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="17">魔力解放②</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="18">魔力解放③</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="19">マギアLvアップ</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="20">魔法少女覚醒①</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="21">魔法少女覚醒②</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="22">魔法少女覚醒③</div>
+-					<div class="commonFrame4 voiceBtn off" data-voice="23">魔法少女覚醒④</div>
++					<p class="common_title_frame">Development</p>
++					<div class="commonFrame4 voiceBtn" data-voice="13">Enhance</div>
++					<div class="commonFrame4 voiceBtn" data-voice="14">Enhance (Max Lvl.)</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="15">Episode Lvl. UP</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="16">Unlock Magic 1</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="17">Unlock Magic 2</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="18">Unlock Magic 3</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="19">Magia Lvl. UP</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="20">Magical Girl Awaken 1</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="21">Magical Girl Awaken 2</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="22">Magical Girl Awaken 3</div>
++					<div class="commonFrame4 voiceBtn off" data-voice="23">Magical Girl Awaken 4</div>
+ 				</div>
+ 
+ 				<div class="commonFrame3 home">
+-					<p class="common_title_frame">ホーム</p>
+-					<div class="commonFrame4 voiceBtn" data-voice="24">ログイン①(初回ログイン時)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="25">ログイン②(朝)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="26">ログイン③(昼)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="27">ログイン④(夜)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="28">ログイン⑤(深夜)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="29">ログイン⑥(その他)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="30">ログイン⑦(AP最大時)</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="31">ログイン⑧(BP最大時)</div>
+-
+-					<div class="commonFrame4 voiceBtn" data-voice="33">魔法少女タップ①</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="34">魔法少女タップ②</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="35">魔法少女タップ③</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="36">魔法少女タップ④</div>
++					<p class="common_title_frame">Home</p>
++					<div class="commonFrame4 voiceBtn" data-voice="24">Login 1 (First Login)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="25">Login 2 (Morning)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="26">Login 3 (Midday)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="27">Login 4 (Night)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="28">Login 5 (Late-Night)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="29">Login 6 (Other)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="30">Login 7 (Max AP)</div>
++					<div class="commonFrame4 voiceBtn" data-voice="31">Login 8 (Max BP)</div>
++
++					<div class="commonFrame4 voiceBtn" data-voice="33">Magical Girl Tap 1</div>
++					<div class="commonFrame4 voiceBtn" data-voice="34">Magical Girl Tap 2</div>
++					<div class="commonFrame4 voiceBtn" data-voice="35">Magical Girl Tap 3</div>
++					<div class="commonFrame4 voiceBtn" data-voice="36">Magical Girl Tap 4</div>
+ 
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(model.currentCard.episodeLevel < 2){ %>off<% } %>" data-voice="37">魔法少女タップ⑤</div>
++					<% if(model.currentCard.episodeLevel < 2){ %>off<% } %>" data-voice="37">Magical Girl Tap 5</div>
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(model.currentCard.episodeLevel < 3){ %>off<% } %>" data-voice="38">魔法少女タップ⑥</div>
++					<% if(model.currentCard.episodeLevel < 3){ %>off<% } %>" data-voice="38">Magical Girl Tap 6</div>
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(model.currentCard.episodeLevel < 4){ %>off<% } %>" data-voice="39">魔法少女タップ⑦</div>
++					<% if(model.currentCard.episodeLevel < 4){ %>off<% } %>" data-voice="39">Magical Girl Tap 7</div>
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(model.currentCard.episodeLevel < 5){ %>off<% } %>" data-voice="40">魔法少女タップ⑧</div>
++					<% if(model.currentCard.episodeLevel < 5){ %>off<% } %>" data-voice="40">Magical Girl Tap 8</div>
+ 				</div>
+ 
+ 				<div class="commonFrame3 quest">
+-					<p class="common_title_frame">クエスト</p>
+-					<div class="commonFrame4 voiceBtn" data-voice="42">クエスト開始</div>
+-					<div class="commonFrame4 voiceBtn" data-voice="43">クエスト勝利①</div>
++					<p class="common_title_frame">Quests</p>
++					<div class="commonFrame4 voiceBtn" data-voice="42">Start Quest</div>
++					<div class="commonFrame4 voiceBtn" data-voice="43">Quest Victory 1</div>
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(Number(model.currentCard.card.rank.split('_')[1]) < 4){ %>off<% } %>" data-voice="44">クエスト勝利②</div>
++					<% if(Number(model.currentCard.card.rank.split('_')[1]) < 4){ %>off<% } %>" data-voice="44">Quest Victory 2</div>
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(Number(model.currentCard.card.rank.split('_')[1]) < 5){ %>off<% } %>" data-voice="45">クエスト勝利③</div>
++					<% if(Number(model.currentCard.card.rank.split('_')[1]) < 5){ %>off<% } %>" data-voice="45">Quest Victory 3</div>
+ 					<div class="commonFrame4 voiceBtn
+-					<% if(Number(model.currentCard.card.rank.split('_')[1]) < 6){ %>off<% } %>" data-voice="46">クエスト勝利④</div>
++					<% if(Number(model.currentCard.card.rank.split('_')[1]) < 6){ %>off<% } %>" data-voice="46">Quest Victory 4</div>
+ 				</div>
+ 			</div>
+ 
+ 			<div id="charaIllust">
+ 				<div class="commonFrame3 discSetting">
+-					<p class="common_title_frame">ディスク</p>
++					<p class="common_title_frame">Disks</p>
+ 					<% var dom = '<img data-nativeimgkey="mini_' + model.currentCard.card.magiaCharaNo + '_d" data-src="resource/image_native/mini/image/mini_' + model.currentCard.card.magiaCharaNo + '_d.png">'; %>
+ 
+ 					<div class="discPreview flexBox">
+@@ -477,7 +477,7 @@
+ 				</div>
+ 
+ 				<div class="commonFrame3">
+-					<p class="common_title_frame">魔法少女</p>
++					<p class="common_title_frame">Icon</p>
+ 
+ 					<div class="flexBox">
+ 						<% _.forEach(model.cardList,function(txt,index){ %>
+@@ -509,7 +509,7 @@
+ 
+ 				</div>
+ 				<div class="commonFrame3">
+-					<p class="common_title_frame">ホーム衣装</p>
++					<p class="common_title_frame">Home Page Outfit</p>
+ 
+ 					<div class="live2dBtns">
+ 						<% _.forEach(model.currentCard.live2dList,function(txt,index){ %>
+--- a/magica/template/collection/MagiRepo.html
++++ b/magica/template/collection/MagiRepo.html
+@@ -2,11 +2,11 @@
+ 	<% console.log(this.model);%>
+ 	<div id="tabBtn" class="commonFrame2">
+ 		<ul class="common_tab t_pink">
+-			<% var btnText = ["一","二","三","四","五","六","七","八","九"]; %>
++			<% var btnText = ["1","2","3","4","5","6","7","8","9"]; %>
+ 			<% var count = 0; %>
+ 			<% _.each(this.model,function(value,key) { %>
+ 				<% console.log(count) %>
+-				<li class="TE btn se_tabs <%= (count === 0) ? 'current' : '' %>" data-id="<%= key %>"><span>第<%= btnText[count] %>部</span></li>
++				<li class="TE btn se_tabs <%= (count === 0) ? 'current' : '' %>" data-id="<%= key %>"><span>Part <%= btnText[count] %></span></li>
+ 				<% count++ %>
+ 			<% }); %>
+ 		</ul>
+@@ -15,7 +15,7 @@
+ 	<div id='listWrap' class='commonFrame2'>
+ 		<div class='icon'></div>
+ 
+-		<h2 id="listTitle">マギアレポート 第一部</h2>
++		<h2 id="listTitle">Magia Report: Part 1</h2>
+ 
+ 		<div id='scrollOuter'>
+ 			<div class='scrollInner'>
+--- a/magica/template/collection/StoryCollection.html
++++ b/magica/template/collection/StoryCollection.html
+@@ -5,33 +5,33 @@
+ 	<div id="tabBtn" class="commonFrame2">
+ 		<div class="hiddenWrap" id="storyTabScroll">
+ 			<ul class="common_tab t_gold">
+-				<li class="TE btn se_tabs current" data-wrap="main"><span>メイン【第1部】</span></li>
+-				<li class="TE btn se_tabs" data-wrap="mainSecond"><span>メイン【第2部】</span></li>
+-				<li class="TE btn se_tabs puellaHistoria" data-wrap="puellaHistoria"><span>ピュエラ・ヒストリア</span></li>
+-				<li class="TE btn se_tabs" data-wrap="sub"><span>アナザー【第1部】</span></li>
+-				<li class="TE btn se_tabs" data-wrap="subSecond"><span>アナザー【第2部】</span></li>
+-				<li class="TE btn se_tabs" data-wrap="chara"><span>魔法少女ストーリー</span></li>
+-				<li class="TE btn se_tabs" data-wrap="arena"><span>ミラーズストーリー</span></li>
++				<li class="TE btn se_tabs current" data-wrap="main"><span>Main Story 【Arc 1】</span></li>
++				<li class="TE btn se_tabs" data-wrap="mainSecond"><span>Main Story 【Arc 2】</span></li>
++				<li class="TE btn se_tabs puellaHistoria" data-wrap="puellaHistoria"><span>Puella Historia</span></li>
++				<li class="TE btn se_tabs" data-wrap="sub"><span>Another Story 【Arc 1】</span></li>
++				<li class="TE btn se_tabs" data-wrap="subSecond"><span>Another Story 【Arc 2】</span></li>
++				<li class="TE btn se_tabs" data-wrap="chara"><span>Magical Girl Stories</span></li>
++				<li class="TE btn se_tabs" data-wrap="arena"><span>Mirrors Story</span></li>
+ 				<li class="TE btn se_tabs event none" data-wrap="event">
+-					<span>イベントストーリー</span>
++					<span>Event Stories</span>
+ 					<!-- memo: 開放されたストーリーの数を数字のバッジとして表示する -->
+ 					<div id="eventBatch" class="batch"></div>
+ 				</li>
+-				<li class="TE btn se_tabs accomplish" data-wrap="accomplish"><span>バトルミュージアム</span></li>
++				<li class="TE btn se_tabs accomplish" data-wrap="accomplish"><span>Battle Museum</span></li>
+ 				<li class="TE btn se_tabs special none" data-wrap="special">
+-					<span>スペシャル</span>
++					<span>Special</span>
+ 					<div id="specialBatch" class="batch"></div>
+ 				</li>
+-				<li class="TE btn se_tabs movieBtn" data-id="ep1opening"><span>第1部OPムービー</span></li>
+-				<li class="TE btn se_tabs movieBtn ep1ending none" data-id="ep1ending"><span>第1部EDムービー</span></li>
+-				<li class="TE btn se_tabs movieBtn ep2opening none" data-id="ep2opening"><span>第2部OPムービー</span></li>
+-				<li class="TE btn se_tabs movieBtn ep2ending none" data-id="ep2ending"><span>第2部EDムービー</span></li>
++				<li class="TE btn se_tabs movieBtn" data-id="ep1opening"><span>Arc 1 OP Movie</span></li>
++				<li class="TE btn se_tabs movieBtn ep1ending none" data-id="ep1ending"><span>Arc 1 ED Movie</span></li>
++				<li class="TE btn se_tabs movieBtn ep2opening none" data-id="ep2opening"><span>Arc 2 OP Movie</span></li>
++				<li class="TE btn se_tabs movieBtn ep2ending none" data-id="ep2ending"><span>Arc 2 ED Movie</span></li>
+ 				<li class="TE btn se_tabs magirepo linkBtn" data-href="#/MagiRepo"></li>
+ 			</ul>
+ 		</div>
+ 	</div>
+ 	<div id="listWrap" class="commonFrame1 main">
+-		<h2 id="listTitle">メインストーリー</h2>
++		<h2 id="listTitle">Main Story</h2>
+ 		<div id="unlockItems">
+ 			<img src="/magica/resource/image_web/page/collection/storyCollection/icon_eventstory_open_key_f.png" class="costIcon">
+ 			<span class="pointFrame" id="unlockItemNum"></span>
+@@ -42,14 +42,14 @@
+ 				<div class="scrollInner">
+ 					<div class="wrap">
+ 						<div class="chapterTitleWrap commonFrame4 se_tabs" data-chapter="00">
+-							<h3 class="chapterNumber">プロローグ</h3>
++							<h3 class="chapterNumber">Prologue</h3>
+ 							<div class="panArrow chapterIdPan00"></div>
+ 						</div>
+ 						<div class="sectionListWrap chapterId00">
+ 							<div class="sectionWrap commonFrame3 CLEARED">
+-								<span class="sectionTitle">幾度目かの魔女</span>
+-								<h2 class="sectionNumber">プロローグ</h2>
+-								<p class="sb_gold_01 se_decide TE storyStart prologueStart"><span class="b_screen"></span><span class="buttonUpper c_gold">CLEAR</span><br>再生</p>
++								<span class="sectionTitle">Again, Another Witch</span>
++								<h2 class="sectionNumber">Prologue</h2>
++								<p class="sb_gold_01 se_decide TE storyStart prologueStart"><span class="b_screen"></span><span class="buttonUpper c_gold">CLEAR</span><br>Playback</p>
+ 							</div>
+ 						</div>
+ 					</div>
+@@ -83,7 +83,7 @@
+ 			<div class='panArrow chapterIdPan<%="<%= model.chapterId %\>"%>'></div>
+ 		</div>
+ 		<%="<% if (model.isStillBtn) { %\>"%>
+-		<div class="popupGalleryBtn chapterGallery<%='<%= model.chapterId %\>'%> sb_gold_01 se_decide TE">ギャラリーを鑑賞する</div>
++		<div class="popupGalleryBtn chapterGallery<%='<%= model.chapterId %\>'%> sb_gold_01 se_decide TE">View Gallery</div>
+ 		<%="<% } %\>"%>
+ 		<div class='sectionListWrap chapterId<%="<%= model.chapterId %\>"%><%="<% if (model.isStillBtn) { %\>"%> gallery<%="<% } %\>"%>'></div>
+ </script>
+@@ -92,20 +92,20 @@
+ 		<span class="sectionTitle"><%="<%= model.title %\>"%></span>
+ 	<%="<% if(model.chapterNoForView) { %\>"%>
+ 		<h2 class="sectionNumber"><%="<%= model.chapterNoForView %\>"%> <%="<%= model.sectionNo %\>"%>話</h2>
+-		<p class="sb_gold_01 se_decide TE outline"><span class="b_screen"></span>あらすじ</p>
++		<p class="sb_gold_01 se_decide TE outline"><span class="b_screen"></span>The Story So Far</p>
+ 	<%="<% } else if(model.sectionNo) { %\>"%>
+ 		<h2 class="sectionNumber"><%="<%= model.sectionNo %\>"%></h2>
+ 	<%="<% } %\>"%>
+-	<p class="sb_gold_01 se_decide TE storyStart"><span class="b_screen"></span><span class="buttonUpper c_gold">CLEAR</span><br>再生</p>
+-	<p class="sb_gold_01 se_decide TE nextQuest"><span class="b_screen"></span><span class="buttonUpper c_gold">NEXT</span><br>クエスト</p>
+-	<p class="sb_gold_01 TE lockQuest"><span class="b_screen"></span><span class="buttonUpper c_gold">LOCK</span><br>クエスト</p>
++	<p class="sb_gold_01 se_decide TE storyStart"><span class="b_screen"></span><span class="buttonUpper c_gold">CLEAR</span><br>Playback</p>
++	<p class="sb_gold_01 se_decide TE nextQuest"><span class="b_screen"></span><span class="buttonUpper c_gold">NEXT</span><br>Quest</p>
++	<p class="sb_gold_01 TE lockQuest"><span class="b_screen"></span><span class="buttonUpper c_gold">LOCK</span><br>Quest</p>
+ </script>
+ 
+ <script type="text/template" id="MirrorBattleSectionTemp">
+-	<span class="sectionTitle">奇跡の始まり</span>
+-	<h2 class="sectionNumber">第12章</h2>
++	<span class="sectionTitle">The Beginning of a Miracle</span>
++	<h2 class="sectionNumber">Chapter 12</h2>
+ 	<p class="sb_gold_01 se_decide TE storyStart">
+-		<span class="b_screen"></span>再生
++		<span class="b_screen"></span>Playback
+ 	</p>
+ </script>
+ 
+@@ -146,7 +146,7 @@
+ <script type="text/template" id="OpenConditionPopupTemp">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle common_title">ストーリー解放条件</p>
++		<p id="popupInfoDetailTitle" class="popupTitle common_title">Requirements to Unlock Story</p>
+ 
+ 		<div class="popupTextArea">
+ 			<%="<% _.forEach(model.conditionList,function(txt,index){ %\>"%>
+@@ -212,7 +212,7 @@
+ 					</div>
+ 				<%="<% } %\>"%>
+ 				<div class="btnWrap <%='<% if (txt.isOpen === false) { %\>'%>lock<%='<% } %\>'%>">
+-					<p class="sb_gold_01 TE se_decide eventStoryStart" data-ids="<%='<%= txt.storyIds %\>'%>"><span class="b_screen"></span>再生</p>
++					<p class="sb_gold_01 TE se_decide eventStoryStart" data-ids="<%='<%= txt.storyIds %\>'%>"><span class="b_screen"></span>Playback</p>
+ 				</div>
+ 			</div>
+ 			<%="<% }) %\>"%>
+@@ -241,7 +241,7 @@
+ 					</div>
+ 				<%="<% } %\>"%>
+ 				<div class="btnWrap <%='<% if (txt.isOpen === false) { %\>'%>lock<%='<% } %\>'%>">
+-					<p class="sb_gold_01 TE se_decide eventStoryStart" data-ids="<%='<%= txt.storyIds %\>'%>"><span class="b_screen"></span>再生</p>
++					<p class="sb_gold_01 TE se_decide eventStoryStart" data-ids="<%='<%= txt.storyIds %\>'%>"><span class="b_screen"></span>Playback</p>
+ 				</div>
+ 			</div>
+ 			<%="<% }) %\>"%>
+--- a/magica/template/config/ConfigTop.html
++++ b/magica/template/config/ConfigTop.html
+@@ -1,32 +1,32 @@
+ <div id="ConfigTop">
+ 	<div id="menuPanel" class="commonFrame2">
+ 		<ul class="common_tab t_pink">
+-			<li class="btn se_tabs TE current" data-type="user">ゲーム設定</li>
+-			<li class="btn se_tabs TE" data-type="push">プッシュ通知</li>
+-			<li class="btn se_tabs TE" data-type="datas">データ管理</li>
+-			<li class="btn se_tabs TE" data-type="transfer">引き継ぎ・連携<span class="noPassIcon<% if(setPassword){ %> off<% }%>"></span></li>
++			<li class="btn se_tabs TE current" data-type="user">Game Settings</li>
++			<li class="btn se_tabs TE" data-type="push">Notifications</li>
++			<li class="btn se_tabs TE" data-type="datas">Manage Data</li>
++			<li class="btn se_tabs TE" data-type="transfer">Transfer Data<span class="noPassIcon<% if(setPassword){ %> off<% }%>"></span></li>
+ 			<% if(currentPlatform === "DMM" || currentPlatform === "ANDROID"){ %>
+-				<li class="btn se_tabs TE" data-type="inputCode">シリアルコード</li>
++				<li class="btn se_tabs TE" data-type="inputCode">Serial Code</li>
+ 			<% } %>
+-			<li class="btn se_tabs TE playerData" data-type="deleteUserData">プレイヤーデータ</li>
++			<li class="btn se_tabs TE playerData" data-type="deleteUserData">Player Data</li>
+ 		</ul>
+ 	</div>
+ 	<div id="configWrap" class="commonFrame1 user">
+-		<h2 id="listTitle">ゲーム設定</h2>
++		<h2 id="listTitle">Game Settings</h2>
+ 		<div id="userWrap" class="commonConfigMain">
+-			<h3>プレイヤー</h3>
++			<h3>Player</h3>
+ 			<dl class="colWrap common_dl">
+-				<dt class="colLeft playerName">プレイヤー名</dt>
++				<dt class="colLeft playerName">Player Name</dt>
+ 				<%
+ 					var nameChangeLimited = (gameUser.closeFunctions && gameUser.closeFunctions.indexOf("CHANGE_NAME") > -1) ? true : false;
+ 				%>
+-				<dd class="colRight"><span id="userName" class="black"><%= _.escape(user.loginName) %></span><span class="btn rightPosition sb_gold_01 TE se_decide <% if(!canChangeLoginName || nameChangeLimited){ %> off<% } %>" id="nameChange"><span class="b_screen"></span>変更</span></dd>
++				<dd class="colRight"><span id="userName" class="black"><%= _.escape(user.loginName) %></span><span class="btn rightPosition sb_gold_01 TE se_decide <% if(!canChangeLoginName || nameChangeLimited){ %> off<% } %>" id="nameChange"><span class="b_screen"></span>Change</span></dd>
+ 			</dl>
+ 			<dl class="colWrap common_dl">
+-				<dt class="colLeft">プレイヤーID</dt>
+-				<dd class="colRight"><span id="userName" class="black"><%= gameUser.inviteCode %></span><span class="btn rightPosition se_decide sb_gold_01 TE " id="idCopy"><span class="b_screen"></span>コピー</span></dd>
++				<dt class="colLeft">Player ID</dt>
++				<dd class="colRight"><span id="userName" class="black"><%= gameUser.inviteCode %></span><span class="btn rightPosition se_decide sb_gold_01 TE " id="idCopy"><span class="b_screen"></span>Copy</span></dd>
+ 			</dl>
+-			<h3>音量</h3>
++			<h3>Volume</h3>
+ 			<dl class="colWrap common_dl soundDl">
+ 				<dt class="colLeft">BGM</dt>
+ 				<dd class="colRight soundCol">
+@@ -40,7 +40,7 @@
+ 				</dd>
+ 			</dl>
+ 			<dl class="colWrap common_dl soundDl">
+-				<dt class="colLeft">ボイス</dt>
++				<dt class="colLeft">Voices</dt>
+ 				<dd class="colRight soundCol">
+ 					<input id="voiceSlider" class="slider" type="range" max="10" value="">
+ 				</dd>
+@@ -50,96 +50,95 @@
+ 
+ 		<div id="pushWrap" class="commonConfigMain">
+ 			<div class="pushMiniWrap">
+-				<div class="pushToggle">イベント<span id="pushEvent" class="sb_gold_02 TE se_decide"><span class="b_screen"></span>ON</span></div>
+-				<div class="pushToggle">AP回復時<span id="pushAP" class="sb_gold_02 TE se_decide"><span class="b_screen"></span>ON</span></div>
++				<div class="pushToggle">Event<span id="pushEvent" class="sb_gold_02 TE se_decide"><span class="b_screen"></span>ON</span></div>
++				<div class="pushToggle">AP Recovery<span id="pushAP" class="sb_gold_02 TE se_decide"><span class="b_screen"></span>ON</span></div>
+ 			</div>
+ 		</div>
+ 
+ 		<div id="datasWrap" class="commonConfigMain">
+ 			<div class="configScroll">
+-				<h3>ボイスデータ設定</h3>
++				<h3>Voice Settings</h3>
+ 				<div class="nowDataSet commonFrame3" id="voices">
+ 					<div id="voiceDataWrap">
+ 						<span class="checkBox se_decide"></span>
+ 						<span class="voiceCheck"></span>
+-						<span class="dataTexts">ダウンロードする</span>
++						<span class="dataTexts">Play with Voices</span>
+ 					</div>
+ 					<div id="voiceDataOffWrap">
+ 						<span class="checkBox se_decide"></span>
+ 						<span class="voiceCheck"></span>
+-						<span class="dataTexts">ダウンロードしない</span>
++						<span class="dataTexts">Play without Voices</span>
+ 					</div>
+ 					<div id="voiceDeleteSettingWrap">
+ 						<span class="dataDeleteCheckBox se_decide" data-delete-type="voice"></span>
+-						<span class="dataTexts">ストーリーボイスのデータを端末に保存する</span>
++						<span class="dataTexts">Keep Story Voices After Viewing</span>
+ 					</div>
+ 					<div id="fullVoiceBtn" class="fullVoiceDl btn mb_pink se_decide TE">
+ 						<span class="b_screen"></span>
+-						<span class="fullVoiceTx">ストーリーボイス一括ダウンロード</span>
++						<span class="fullVoiceTx">Download All Story Voice Data</span>
+ 					</div>
+ 				</div>
+ 
+-				<h3>ムービーデータ設定</h3>
++				<h3>Video Settings</h3>
+ 				<div class="nowDataSet commonFrame3" id="movies">
+ 					<div id="movieDataWrap">
+ 						<span class="checkBox se_decide" data-movie-type="high"></span>
+ 						<span class="movieCheck"></span>
+-						<span class="dataTexts">高画質版をダウンロードする</span>
++						<span class="dataTexts">Play with High Quality Videos</span>
+ 					</div>
+ 					<div id="movieDataLowWrap">
+ 						<span class="checkBox se_decide" data-movie-type="low"></span>
+ 						<span class="movieCheck"></span>
+-						<span class="dataTexts">低画質版をダウンロードする</span>
++						<span class="dataTexts">Play with Low Quality Videos</span>
+ 					</div>
+ 					<div id="movieDataOffWrap">
+ 						<span class="checkBox se_decide" data-movie-type="off"></span>
+ 						<span class="movieCheck"></span>
+-						<span class="dataTexts">ダウンロードしない</span>
++						<span class="dataTexts">Play without Videos</span>
+ 					</div>
+ 					<div id="movieDeleteSettingWrap">
+ 						<span class="dataDeleteCheckBox se_decide" data-delete-type="movie"></span>
+-						<span class="dataTexts">変身ムービーデータを端末に保存する</span>
++						<span class="dataTexts">Keep Transformation Videos After Viewing</span>
+ 					</div>
+ 					<div id="fullMovieBtn" class="fullMovieDl btn mb_pink se_decide TE">
+ 						<span class="b_screen"></span>
+-						<span class="fullMovieTx">変身ムービー括ダウンロード</span>
++						<span class="fullMovieTx">Video Data Download</span>
+ 					</div>
+ 				</div>
+ 
+-				<h3>データの最適化</h3>
++				<h3>Download All Data</h3>
+ 				<div class="commonFrame3 dataFrames">
+-					画像が表示されない場合、音声が再生されない場合に実行してください。
+-					<div id="allDownload" class="btn se_decide b_pink TE"><span class="b_screen"></span>データの最適化</div>
++					Try doing this when images and voices are not being played/displayed.
++					<div id="allDownload" class="btn se_decide b_pink TE"><span class="b_screen"></span>Download All Data</div>
+ 				</div>
+-				<h3>キャッシュクリア</h3>
++				<h3>Clear Cache</h3>
+ 				<div class="commonFrame3 dataFrames">
+-					画像が乱れたり、正常に表示されない場合に実行してください。
+-					<div id="cacheClear" class="btn se_decide b_pink TE"><span class="b_screen"></span>キャッシュクリアの実行</div>
++					Try doing this when images and voices are not being played/displayed.
++					<div id="cacheClear" class="btn se_decide b_pink TE"><span class="b_screen"></span>Clear Cache</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 
+ 		<div id="transferWrap" class="commonConfigMain">
+ 			<p class="firstText">
+-				パスワードを設定することで、機種変更時のデータ引き継ぎや<br>
+-				PC版とスマートフォン版間でのデータ連携が行えます。
++				Set your Transfer Password here.
+ 			</p>
+ 			<dl class="colWrap common_dl">
+-				<dt class="colLeft">引き継ぎ・連携ID</dt>
++				<dt class="colLeft">Transfer ID</dt>
+ 				<dd class="colRight"><%= user.personalId %></dd>
+ 			</dl>
+-			<span class="btn rightPosition se_decide sb_gold_01 TE " id="transferIdCopy"><span class="b_screen"></span>コピー</span>
++			<span class="btn rightPosition se_decide sb_gold_01 TE " id="transferIdCopy"><span class="b_screen"></span>Copy</span>
+ 			<dl class="colWrap common_dl">
+-				<dt class="colLeft">パスワード</dt>
+-				<dd class="colRight" id="transferSettings"><% if(!setPassword){ %>未設定<% }else{ %>設定済み<% } %></dd>
++				<dt class="colLeft">Password</dt>
++				<dd class="colRight" id="transferSettings"><% if(!setPassword){ %>Not Set<% }else{ %>Set<% } %></dd>
+ 			</dl>
+-			<!-- <p class="c_red">※8文字以上15文字以内で入力してください</p> -->
+-			<p class="transferNotice">※現在の端末でパスワードを設定していないと、新しい端末に変更した後に、この端末のデータを引き継ぐことができません。<br>
+-				また、パスワード設定した際は、引き継ぎ・連携IDとパスワードを忘れないよう、お願いいたします。</p>
++			<!-- <p class="c_red">※Passwords must be 8-15 characters.</p> -->
++			<p class="transferNotice">※If you don't set a Transfer Password on this device, you can not transfer data to your new device.<br>
++				Once you set a password, make sure not to forget your Transfer ID/Password.</p>
+ 			<div class="relationWrap">
+-				<span class="btn se_decide b_pink TE" id="transfer"><span class="b_screen"></span>パスワード設定</span>
++				<span class="btn se_decide b_pink TE" id="transfer"><span class="b_screen"></span>Set Password</span>
+ 			</div>
+-			<p class="c_red">※データの引き継ぎを行いたい場合はTOPページより行ってください。</p>
++			<p class="c_red">※Data can be transferred from the Title Page.</p>
+ 		</div>
+ 
+ 		<div id="inputCodeWrap" class="commonConfigMain" class="commonConfigMain">
+@@ -194,72 +193,72 @@
+ 
+ <script id="transferInner" type="text/template">
+ 	<div id="transferPopup">
+-		<span class="leftCol c_gold">引き継ぎ・連携ID</span><span class="rightCol transferId"><%='<%= user.personalId %\>'%></span><br>
+-		<span class="leftCol c_gold">パスワード</span><span class="rightCol"><input readonly="readonly" type="password" id="transferPassword" class="commonFrame3" value=""></span><br>
+-		<span class="leftCol c_gold">確認用</span><span class="rightCol"><input readonly="readonly" type="password" id="checkPassWord" class="commonFrame3" value=""></span>
+-		<div class="transferAlert">※パスワードは8文字以上15文字以内です</div>
+-		<div class="transferNotice">引き継ぎ・連携IDは引き継ぎ・連携の際に入力する必要があります。<br>メモに残すなどしてください。</div>
++		<span class="leftCol c_gold">Transfer ID</span><span class="rightCol transferId"><%='<%= user.personalId %\>'%></span><br>
++		<span class="leftCol c_gold">Password</span><span class="rightCol"><input readonly="readonly" type="password" id="transferPassword" class="commonFrame3" value=""></span><br>
++		<span class="leftCol c_gold">Confirm Password</span><span class="rightCol"><input readonly="readonly" type="password" id="checkPassWord" class="commonFrame3" value=""></span>
++		<div class="transferAlert">※Passwords must be 8-15 characters.</div>
++		<div class="transferNotice">Your Transfer ID is needed when transfering accounts.<br>Please make a note of your ID and password.</div>
+ 	</div>
+ </script>
+ 
+ <script id="dataPopInner" type="text/template">
+ 	<div id="dataPopup">
+ 		<div id="<%="<%= model.type %\>"%>DataWrapBefore"<%="<% if(model.onFlag){ %\>"%> class="on"<%="<% } %\>"%>>
+-			<span class="pointFrame">変更前</span>
++			<span class="pointFrame">Before</span>
+ 			<span class="<%="<%= model.type %\>"%>Check<%="<% if(model.type === 'movie' && model.oldType !== 0){ %\>"%> on<%="<% } %\>"%>"></span>
+-			<span class="changeText"><%="<% if(model.type === 'voice'){ %\>"%><%="<% if(model.onFlag){ %\>"%>ダウンロードする<%="<% }else{ %\>"%>ダウンロードしない<%="<% } %\>"%><%="<% }else{ %\>"%><%='<% if(model.oldType === 0){ %\>'%>ダウンロードしない<%='<% }else if(model.oldType === 2){ %\>'%>高画質版をダウンロード<%='<% }else if(model.oldType === 1){ %\>'%>低画質版をダウンロード<%="<% } %\>"%><%="<% } %\>"%></span>
++			<span class="changeText"><%="<% if(model.type === 'voice'){ %\>"%><%="<% if(model.onFlag){ %\>"%>Play With Voices<%="<% }else{ %\>"%>Play Without Voices<%="<% } %\>"%><%="<% }else{ %\>"%><%='<% if(model.oldType === 0){ %\>'%>Play Without Videos<%='<% }else if(model.oldType === 2){ %\>'%>Play With High Quality Videos<%='<% }else if(model.oldType === 1){ %\>'%>Play With Low Quality Videos<%="<% } %\>"%><%="<% } %\>"%></span>
+ 		</div>
+ 		<div id="<%="<%= model.type %\>"%>DataWrapAfter"<%="<% if(!model.onFlag){ %\>"%> class="on"<%="<% } %\>"%>>
+-			<span class="pointFrame">変更後</span>
++			<span class="pointFrame">After</span>
+ 			<span class="<%="<%= model.type %\>"%>Check<%="<% if(model.type === 'movie' && model.newType !== 'off'){ %\>"%> on<%="<% } %\>"%>"></span>
+-			<span class="changeText"><%="<% if(model.type === 'voice'){ %\>"%><%="<% if(model.onFlag){ %\>"%>ダウンロードしない<%="<% }else{ %\>"%>ダウンロードする<%="<% } %\>"%><%="<% }else{ %\>"%><%='<% if(model.newType === "off"){ %\>'%>ダウンロードしない<%='<% }else if(model.newType === "high"){ %\>'%>高画質版をダウンロード<%='<% }else if(model.newType === "low"){ %\>'%>低画質版をダウンロード<%="<% } %\>"%><%="<% } %\>"%></span>
++			<span class="changeText"><%="<% if(model.type === 'voice'){ %\>"%><%="<% if(model.onFlag){ %\>"%>Play Without Voices<%="<% }else{ %\>"%>Play With Voices<%="<% } %\>"%><%="<% }else{ %\>"%><%='<% if(model.newType === "off"){ %\>'%>Play Without Videos<%='<% }else if(model.newType === "high"){ %\>'%>Play With High Quality Videos<%='<% }else if(model.newType === "low"){ %\>'%>Play With Low Quality Videos<%="<% } %\>"%><%="<% } %\>"%></span>
+ 		</div>
+ 		<p id="dataPopText">
+ 			<%='<% if((model.type === "voice" && model.onFlag) || (model.type === "movie" && model.newType === "off")){ %\>'%>
+-				ダウンロード済みの<%="<% if(model.type === 'voice'){ %\>"%>ボイス<%="<% }else{ %\>"%>ムービー<%="<% } %\>"%>データを削除します。<br>
+-				変更することで<%="<% if(model.type === 'voice'){ %\>"%>ボイス<%="<% }else{ %\>"%>ムービー<%="<% } %\>"%>は再生されなくなります。
++				This will delete all downloaded <%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%>.<br>
++				<%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%> will not be played after this change.
+ 			<%="<% }else{ %\>"%>
+-				<%="<% if(model.type === 'voice'){ %\>"%>ボイス<%="<% }else{ %\>"%>ムービー<%="<% } %\>"%>データをダウンロードします。<br>
+-				変更することで<%="<% if(model.type === 'voice'){ %\>"%>ボイス<%="<% }else{ %\>"%>ムービー<%="<% } %\>"%>が再生されるようになります。<br>
+-				<span class="c_red">※Wi-Fiなど安定した通信環境をお勧めいたします。</span>
++				Downloading <%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%> Data<br>
++				All <%="<% if(model.type === 'voice'){ %\>"%>Voices<%="<% }else{ %\>"%>Videos<%="<% } %\>"%> will be played after this change.<br>
++				<span class="c_red">※We recommend using a stable Wi-Fi network.</span>
+ 			<%="<% } %\>"%>
+ 		</p>
+ 		<div class="popBtnWrap">
+-			<span class="btn b_white se_cancel TE popupCloseBtn"><span class="b_screen"></span>キャンセル</span>
++			<span class="btn b_white se_cancel TE popupCloseBtn"><span class="b_screen"></span>Cancel</span>
+ 			<span class="btn b_pink se_decide TE dataDecide popupCloseBtn"><span class="b_screen"></span>OK</span>
+ 		</div>
+ 	</div>
+ </script>
+ 
+ <script id="allDownloadPop" type="text/template">
+-	ゲーム内で使用されるデータの最適化を行います。<br>
+-	<span class="c_red">データ量が多いためWi-Fi環境でのダウンロードをお勧めします。</span>
++	Downloading all necessary images, voices, and videos.<br>
++	<span class="c_red">Due to the amount of data, we recommend using a stable Wi-Fi network.</span>
+ </script>
+ 
+ <script id="nameChangePop" type="text/template">
+-	新しく設定するプレイヤー名を入力してください。<br><br>
++	Please enter your new Player Name.<br><br>
+ 	<input id="changeName" class="commonFrame3" readonly="readonly" type="text" maxlength="8" value="">
+ 	<div class="textCount" style="display:inline-block;margin-left:50px;">
+ 		<span id="textCount">0</span>/8
+ 	</div>
+-	<div class="c_red" style="margin-top:20px;">※名前の変更は1日1回だけ可能です</div>
++	<div class="c_red" style="margin-top:20px;">※Player Names can be changed only once a day.</div>
+ </script>
+ 
+ <script id="deleteConfirmPop" type="text/template">
+ <div id="dataDeletePopupText">
+ 	<%='<% if(isOn){ %\>'%>
+-	ダウンロードした以下のデータを端末へ保存しないように変更しました。<br>
+-	※アプリを終了した時に以下のデータは削除され、<br>使用時に再びダウンロードされます。
++	You have chosen to no longer keep the following data on your device after use.<br>
++	※This data will be deleted when the app is closed and will be downloaded again when needed.
+ 	<%='<% } else { %\>'%>
+-	ダウンロードした以下のデータを端末へ保存するように変更しました。<br>
+-	※アプリを終了しても以下のデータは削除されません。
++	You have chosen to keep the following data on your device after use.<br>
++	※This data will not be deleted when the app is closed.
+ 	<%='<% } %\>'%>
+ 
+ 	<div class="c_red" style="margin-top:20px;">
+ 		<%='<% if(type == "voice"){ %\>'%>
+-		・ストーリーボイス
++		・Story Voices
+ 		<%='<% } else { %\>'%>
+-		・変身ムービー
++		・Transformation Videos
+ 		<%='<% } %\>'%>
+ 	</div>
+ </div>
+--- a/magica/template/quest/scene0/BattleSelect.html
++++ b/magica/template/quest/scene0/BattleSelect.html
+@@ -3,7 +3,7 @@
+ 		<div id="QuestMainSec" class="<%= model.difficultyLevel %>">
+ 			<div id="changeDifficultyLevelBtn" class="se_decide TE sb_gold_01">
+ 				<span class="b_screen"></span>
+-				変更
++				Change
+ 			</div>
+ 		</div>
+ 	</div>
+--- a/magica/template/quest/scene0/QuestList.html
++++ b/magica/template/quest/scene0/QuestList.html
+@@ -3,11 +3,11 @@
+ 		DAY<span class="space"></span> <%= model.dayNum %>
+ 	</div>
+ 	<div class="noClearSec">
+-		ストーリー開放
++		Open Story
+ 		<div class="newIcon"></div>
+ 		<div class="itemSec">
+ 			<div class="icon"></div>
+-			<div class="numSec">消費×<%= model.needItemNum %></div>
++			<div class="numSec">Use×<%= model.needItemNum %></div>
+ 		</div>
+ 	</div>
+ </div>
+--- a/magica/template/quest/scene0/RecollectionBtn.html
++++ b/magica/template/quest/scene0/RecollectionBtn.html
+@@ -1,2 +1,2 @@
+ <span class="b_screen"></span>
+-回想
+\ No newline at end of file
++Recollections
+\ No newline at end of file
+--- a/magica/template/quest/scene0/SideStorySelect.html
++++ b/magica/template/quest/scene0/SideStorySelect.html
+@@ -1,7 +1,7 @@
+ <div id="Scene0SideStorySelect" class="">
+ 	<div id="mainSec" class="mainSec">
+ 		<div id="storyListSec" class="commonFrame1">
+-			<div class="mainTitle">サイドストーリー アーカイブ</div>
++			<div class="mainTitle">Side Story Archive</div>
+ 			<div id='scrollWrap'>
+ 				<ul id="storyList" class="scrollInner">
+ 				</ul>
+@@ -9,16 +9,16 @@
+ 		</div>
+ 		<div id="playBtnSec" class="">
+ 			<div class="textSec">
+-				新しい<br>
+-				サイドストーリーを<br>
+-				ランダムに再生します
++				Recall<br>
++				a randomized<br>
++				new side story
+ 			</div>
+ 			<div class="itemSec">
+ 				<span class="<%= model.itemInfoSide.quantityClass %>"><%= model.itemInfoSide.quantity %></span>/<%= model.questNeedItemNum %>
+ 			</div>
+ 			<div id="playBtn" class="btn b_scene0 <%= model.playBtnClass %>">
+ 				<span class="b_screen"></span>
+-				再生する
++				Playback
+ 			</div>
+ 		</div>
+ 	</div>
+--- a/magica/template/quest/scene0/Top.html
++++ b/magica/template/quest/scene0/Top.html
+@@ -6,14 +6,14 @@
+ 		<div id="missionBtn" class="missionBtn se_decide TE">
+ 			<div class="balloonSec <%= model.limitedMission.balloonSecClass %>">
+ 				<div class="textSec">
+-					<span class="textDate"><%= model.limitedMission.endDateText %><span>まで</span></span><br>
+-					期間限定<br>
+-					ミッション<br>
+-					<span class="textOp">開催中</span>
++					<span class="textDate"><span>Until </span><%= model.limitedMission.endDateText %></span><br>
++					Limited-Time<br>
++					Missions<br>
++					<span class="textOp">Currently Held</span>
+ 				</div>
+ 			</div>
+ 		</div>
+-		<div id="helpBtn" class="se_decide TE sb_gold_02">遊び方</div>
++		<div id="helpBtn" class="se_decide TE sb_gold_02">How to Play</div>
+ 		<div id="movieBtn" class="se_decide TE c_gold">MOVIE</div>
+ 	</div>
+ </div>
