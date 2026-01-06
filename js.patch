@@ -12,6 +12,17 @@
  require(["underscore", "backbone", "backboneCommon", "ajaxControl", "command"], function(a, b, d, e, c) {
  c.setWebView(!0);
  d.tapBlock(!1);
+--- a/magica/js/_common/baseConfig.js
++++ b/magica/js/_common/baseConfig.js
+@@ -13,7 +13,7 @@
+ }));
+ window.breforeReleaseTime = window.document.getElementById("replaceTag").getAttribute("src").split("v\x3d")[1];
+ var pathBlackList = {
+-jquery: "js/libs/jquery-2.2.3.min",
++jquery: "js/libs/jquery-3.7.1.min",
+ underscore: "js/libs/underscore-min",
+ backbone: "js/libs/backbone-min",
+ text: "js/libs/text",
 --- a/magica/js/_common/nativeCommand.js
 +++ b/magica/js/_common/nativeCommand.js
 @@ -479,7 +479,12 @@
