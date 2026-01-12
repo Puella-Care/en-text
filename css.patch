@@ -1,3 +1,86 @@
+--- a/magica/css/_common/common.css
++++ b/magica/css/_common/common.css
+@@ -31,7 +31,7 @@
+ }
+ 
+ .serifFont {
+-  font-family: "mbm",sans-serif;
++  font-family: "koruri","mbm",sans-serif;
+ }
+ 
+ :root {
+@@ -45,7 +45,7 @@
+ 
+ body {
+   background-color: transparent;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+ }
+ 
+ body.ios {
+@@ -5929,7 +5929,7 @@
+ .announcementPopup .popupInner .announceScroll3 .newsField .newsTextField .announceTextLink.btn {
+   margin: 5px auto;
+   display: block;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+   line-height: 63px;
+ }
+ 
+@@ -6035,7 +6035,7 @@
+ .announcementPopup .otherNews.btn, .announcementPopupMainte .otherNews.btn {
+   margin: 5px auto;
+   display: block;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+   line-height: 63px;
+ }
+ 
+@@ -6047,7 +6047,7 @@
+ .announcementPopup .announceOuterLink.btn, .announcementPopup .separateOuterLink.btn, .announcementPopupMainte .announceOuterLink.btn, .announcementPopupMainte .separateOuterLink.btn {
+   margin: 5px auto;
+   display: block;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+   line-height: 63px !important;
+ }
+ 
+@@ -6086,7 +6086,7 @@
+   background: -webkit-linear-gradient(left, #ff549c 0%, #ff549c 15%, rgba(255, 248, 192, 0.4) 100%);
+   position: relative;
+   color: #ffffff;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+   text-shadow: -1px -1px 2px #ff4f92, 1px -1px 2px #ff4f92, -1px 1px 2px #ff4f92, 1px 1px 2px #ff4f92, -1px -1px 2px #ff4f92, 1px -1px 2px #ff4f92, -1px 1px 2px #ff4f92, 1px 1px 2px #ff4f92;
+ }
+ 
+@@ -6105,7 +6105,7 @@
+   padding-left: 5px;
+   position: relative;
+   color: #ff549c;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+   font-size: 18px;
+ }
+ 
+@@ -6122,7 +6122,7 @@
+ 
+ .announcementPopup .newsHeadSmall, .announcementPopupMainte .newsHeadSmall {
+   color: #ff4f9e;
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+ }
+ 
+ .announcementPopup .newsCardList, .announcementPopupMainte .newsCardList {
+@@ -6336,7 +6336,7 @@
+ }
+ 
+ .announcementPopup .pickUpDetail *, .announcementPopupMainte .pickUpDetail * {
+-  font-family: "motoya",sans-serif;
++  font-family: "koruri","motoya",sans-serif;
+ }
+ 
+ .announcementPopup .pickUpDetail .pickUpCard, .announcementPopupMainte .pickUpDetail .pickUpCard {
 --- a/magica/css/config/ConfigTop.css
 +++ b/magica/css/config/ConfigTop.css
 @@ -792,7 +792,7 @@

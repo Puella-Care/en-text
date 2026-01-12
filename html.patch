@@ -1,3 +1,27 @@
+--- a/magica/index.html
++++ b/magica/index.html
+@@ -2,7 +2,7 @@
+ <html lang="ja">
+ <head>
+ 	<meta charset="UTF-8">
+-	<title>magica</title>
++	<title>totentanz</title>
+ 	<meta id="viewport" name="viewport" content="width=1024, user-scalable=no" />
+ 	<meta name="format-detection" content="email=no,telephone=no" />
+ 	<meta name="apple-mobile-web-app-capable" content="yes" />
+@@ -10,10 +10,11 @@
+ 	<link rel="stylesheet" href="/magica/css/_common/sanitize.css">
+ 	<link rel="stylesheet" href="/magica/css/_common/common.css?v=20240701060703222">
+ 	<link rel="stylesheet" href="/magica/css/_common/base.css?v=20240701060703222">
++	<link rel="stylesheet" href="/magica/css/_common/fonts.css?v=20240701060703222">
+ 
+ 	<script type="text/javascript" charset="utf-8" src="/magica/js/system/replacement.js?v=20240701060703222" id="replaceTag"></script>
+ 
+-	<script type="text/javascript" charset="utf-8" src="/magica/js/libs/jquery-2.2.3.min.js"></script>
++	<script type="text/javascript" charset="utf-8" src="/magica/js/libs/jquery-3.7.1.min.js"></script>
+ 
+ 	<script type="text/javascript" charset="utf-8" src="/magica/js/libs/require.js"></script>
+ 	<script type="text/javascript" charset="utf-8" src="/magica/js/_common/baseConfig.js?v=20240701060703222"></script>
 --- a/magica/template/collection/CharaCollection.html
 +++ b/magica/template/collection/CharaCollection.html
 @@ -14,7 +14,7 @@
