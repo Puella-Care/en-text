@@ -22,6 +22,53 @@
  
  	<script type="text/javascript" charset="utf-8" src="/magica/js/libs/require.js"></script>
  	<script type="text/javascript" charset="utf-8" src="/magica/js/_common/baseConfig.js?v=20240701060703222"></script>
+--- a/magica/template/chara/CharaData.html
++++ b/magica/template/chara/CharaData.html
+@@ -21,7 +21,7 @@
+ 	</div>
+ 
+ 	<p id="lv">
+-		<span>Lv</span>
++		<span>Lvl.</span>
+ 		<span class="before">
+ 			<span id="currentLv" class="c_purple"><%= model.level %></span>
+ 			<span class="sla">/</span>
+@@ -68,7 +68,7 @@
+ 	</div>
+ 
+ 	<div class="revisionWrap flexBox">
+-		<p class="c_gold title">魔力解放 </p><p class="num"><%= model.revision %></p>
++		<p class="c_gold title">Magic Lvl.</p><p class="num"><%= model.revision %></p>
+ 		<ul class="flexBox revisionIcon">
+ 			<% var i = 0;%>
+ 			<% var RevisionMax = 3;%>
+@@ -90,7 +90,7 @@
+ 	</div>
+ 
+ 	<div class="episodeLvWrap flexBox">
+-		<p class="c_gold title">エピソードLv </p><p id="episodeLv" class="num"><%= model.episodeLevel %></p>
++		<p class="c_gold title">Episode Lvl.</p><p id="episodeLv" class="num"><%= model.episodeLevel %></p>
+ 		<% if(model.episodeLevel < 5) { %>
+ 		<div class="bondsTotalPt c_gold">あと<%= model.epExpRequire %></div>
+ 		<% } else { %>
+@@ -105,7 +105,7 @@
+ 	</div>
+ 
+ 	<div class="equipWrap flexBox">
+-		<p class="c_gold title">メモリア枠</p>
++		<p class="c_gold title">Memoria Slots</p>
+ 
+ 		<div class="flexBox before ">
+ 			<% i = 0; %>
+@@ -121,7 +121,7 @@
+ 	</div>
+ 
+ 	<div class="magiaLvWrap flexBox">
+-		<p class="c_gold title">マギアLv </p><p class="num"><%= model.magiaLevel %></p>
++		<p class="c_gold title">Magia Lvl. </p><p class="num"><%= model.magiaLevel %></p>
+ 		<ul class="flexBox magiaLvIcon">
+ 			<% i = 0;%>
+ 			<% var MagiaLevelMax = 5;%>
 --- a/magica/template/chara/CharaDetail.html
 +++ b/magica/template/chara/CharaDetail.html
 @@ -30,7 +30,7 @@
