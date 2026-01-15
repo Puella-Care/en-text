@@ -1,6 +1,6 @@
-define("underscore backbone backboneCommon ajaxControl text!template/quest/SubQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html command QuestUtil js/view/quest/ClearAnimationsView js/quest/scene0/Utility iscroll_stage".split(" "),function(g,t,a,m,u,k,v,e,l,n,w
+define("underscore backbone backboneCommon ajaxControl text!template/quest/SubQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html command QuestUtil js/view/quest/ClearAnimationsView js/quest/scene0/Utility iscroll".split(" "),function(g,t,a,m,u,k,v,e,l,n,w
 
-// FIX(LiviaMedeiros): actually import `iscroll_stage`
+// FIX(LiviaMedeiros): actually import `iscroll`
 ,I
 
 ){var p={2001:[2001,2002,2004,2005,2006],2002:[2002,2004,2005,2006,2001],2004:[2004,2005,2006,2001,2002],2005:[2005,2006,2001,2002,2004],2006:[2006,2001,2002,2004,2005]},q=!1,f;return t.View.extend({events:function(){var b=

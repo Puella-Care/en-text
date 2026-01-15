@@ -50,7 +50,7 @@
  d.tapBlock(!1);
 --- a/magica/js/_common/baseConfig.js
 +++ b/magica/js/_common/baseConfig.js
-@@ -13,7 +13,7 @@
+@@ -13,12 +13,11 @@
  }));
  window.breforeReleaseTime = window.document.getElementById("replaceTag").getAttribute("src").split("v\x3d")[1];
  var pathBlackList = {
@@ -59,6 +59,11 @@
  underscore: "js/libs/underscore-min",
  backbone: "js/libs/backbone-min",
  text: "js/libs/text",
+ iscroll: "js/libs/iscroll5",
+-iscroll_stage: "js/libs/iscroll5_stage",
+ isBrowser: "js/_common/isBrowser",
+ ajaxControl: "js/_common/ajaxControl",
+ router: "js/_common/router",
 --- a/magica/js/_common/nativeCommand.js
 +++ b/magica/js/_common/nativeCommand.js
 @@ -479,7 +479,12 @@
@@ -79,9 +84,9 @@
 +++ b/magica/js/regularEvent/accomplish/RegularEventAccomplishTop.js
 @@ -1,4 +1,9 @@
 -define("underscore backbone backboneCommon ajaxControl command text!template/regularEvent/accomplish/RegularEventAccomplishTop.html text!css/regularEvent/accomplish/RegularEventAccomplishTop.css js/view/item/ItemImgPartsView js/regularEvent/accomplish/view/RegularEventAccomplishRecoverView QuestUtil cardUtil iscroll_stage".split(" "), function(h, l, b, p, f, y, z, A, r, B, C) {
-+define("underscore backbone backboneCommon ajaxControl command text!template/regularEvent/accomplish/RegularEventAccomplishTop.html text!css/regularEvent/accomplish/RegularEventAccomplishTop.css js/view/item/ItemImgPartsView js/regularEvent/accomplish/view/RegularEventAccomplishRecoverView QuestUtil cardUtil iscroll_stage".split(" "), function(h, l, b, p, f, y, z, A, r, B, C
++define("underscore backbone backboneCommon ajaxControl command text!template/regularEvent/accomplish/RegularEventAccomplishTop.html text!css/regularEvent/accomplish/RegularEventAccomplishTop.css js/view/item/ItemImgPartsView js/regularEvent/accomplish/view/RegularEventAccomplishRecoverView QuestUtil cardUtil iscroll".split(" "), function(h, l, b, p, f, y, z, A, r, B, C
 +
-+// FIX(LiviaMedeiros): actually import `iscroll_stage`
++// FIX(LiviaMedeiros): actually import `iscroll`
 +, I
 +
 +) {
@@ -471,9 +476,9 @@
 +++ b/magica/js/view/quest/MainQuestView.js
 @@ -1,4 +1,9 @@
 -define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll_stage".split(" "), function(h, w, a, x, p, m, z, q, A, y, B, C) {
-+define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll_stage".split(" "), function(h, w, a, x, p, m, z, q, A, y, B, C
++define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll".split(" "), function(h, w, a, x, p, m, z, q, A, y, B, C
 +
-+// FIX(LiviaMedeiros): actually import `iscroll_stage`
++// FIX(LiviaMedeiros): actually import `iscroll`
 +, I
 +
 +) {
@@ -498,9 +503,9 @@
 +++ b/magica/js/view/quest/SubQuestView.js
 @@ -1,4 +1,9 @@
 -define("underscore backbone backboneCommon ajaxControl text!template/quest/SubQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html command QuestUtil js/view/quest/ClearAnimationsView js/quest/scene0/Utility iscroll_stage".split(" "), function(g, t, a, m, u, k, v, e, l, n, w) {
-+define("underscore backbone backboneCommon ajaxControl text!template/quest/SubQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html command QuestUtil js/view/quest/ClearAnimationsView js/quest/scene0/Utility iscroll_stage".split(" "), function(g, t, a, m, u, k, v, e, l, n, w
++define("underscore backbone backboneCommon ajaxControl text!template/quest/SubQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html command QuestUtil js/view/quest/ClearAnimationsView js/quest/scene0/Utility iscroll".split(" "), function(g, t, a, m, u, k, v, e, l, n, w
 +
-+// FIX(LiviaMedeiros): actually import `iscroll_stage`
++// FIX(LiviaMedeiros): actually import `iscroll`
 +, I
 +
 +) {
