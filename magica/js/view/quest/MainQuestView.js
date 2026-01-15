@@ -1,6 +1,6 @@
-define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll_stage".split(" "),function(h,w,a,x,p,m,z,q,A,y,B,C
+define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll".split(" "),function(h,w,a,x,p,m,z,q,A,y,B,C
 
-// FIX(LiviaMedeiros): actually import `iscroll_stage`
+// FIX(LiviaMedeiros): actually import `iscroll`
 ,I
 
 ){var r=0,t=0,n=0,k,D=w.View.extend({events:function(){var d={};d[a.cgti+" .mapDebugBtn"]=this.debugMapIcon;d[a.cgti+" .modeToggleBtn"]=this.modeToggle;d[a.cgti+" #partToggle"]=

@@ -1,6 +1,6 @@
-define("underscore backbone backboneCommon ajaxControl command text!template/regularEvent/accomplish/RegularEventAccomplishTop.html text!css/regularEvent/accomplish/RegularEventAccomplishTop.css js/view/item/ItemImgPartsView js/regularEvent/accomplish/view/RegularEventAccomplishRecoverView QuestUtil cardUtil iscroll_stage".split(" "),function(h,l,b,p,f,y,z,A,r,B,C
+define("underscore backbone backboneCommon ajaxControl command text!template/regularEvent/accomplish/RegularEventAccomplishTop.html text!css/regularEvent/accomplish/RegularEventAccomplishTop.css js/view/item/ItemImgPartsView js/regularEvent/accomplish/view/RegularEventAccomplishRecoverView QuestUtil cardUtil iscroll".split(" "),function(h,l,b,p,f,y,z,A,r,B,C
 
-// FIX(LiviaMedeiros): actually import `iscroll_stage`
+// FIX(LiviaMedeiros): actually import `iscroll`
 ,I
 
 ){var g,k,a,q,n,D=l.View.extend({events:function(){var a={};a[b.cgti+" #helpBtn"]=this.eventNaviPopup;a[b.cgti+" #nowBattleBtn"]=this.nowBattleBtn;
