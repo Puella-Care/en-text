@@ -404,3 +404,30 @@
  closeBtnText: "OK",
  popupType: "typeC"
  });
+--- a/magica/js/view/quest/MainQuestView.js
++++ b/magica/js/view/quest/MainQuestView.js
+@@ -1,4 +1,9 @@
+-define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll_stage".split(" "), function(h, w, a, x, p, m, z, q, A, y, B, C) {
++define("underscore backbone backboneCommon ajaxControl command QuestUtil text!template/quest/MainQuest.html js/view/quest/QuestChapterListPartsView text!template/quest/OutlinePopup.html js/view/quest/ClearAnimationsView js/quest/puellaHistoria/CreateModel js/quest/scene0/Utility iscroll_stage".split(" "), function(h, w, a, x, p, m, z, q, A, y, B, C
++
++// FIX(LiviaMedeiros): actually import `iscroll_stage`
++, I
++
++) {
+ var r = 0,
+ t = 0,
+ n = 0,
+@@ -204,7 +209,12 @@
+ },
+ scrollListInit: function() {
+ var d = 1 === this.partNo ? "#questListWrap" : "#questListWrapSeason" + this.partNo;
+-this.listScroll = new IScroll(d, {
++this.listScroll = new
++
++// FIX(LiviaMedeiros): use imported varname rather than global `IScroll`
++I
++
++(d, {
+ tap: !0,
+ click: !0,
+ scrollFit: !0,
