@@ -1404,7 +1404,10 @@ input:focus, textarea:focus {
   display: flex;
   position: absolute;
   top: 104px;
-  left: 110px;
+
+  /* FIX(MN): move to the right to fit `Ascension` */
+  left: 130px; /* 110px */
+
   -ms-flex-flow: wrap;
       flex-flow: wrap;
 }
@@ -1654,11 +1657,16 @@ input:focus, textarea:focus {
 }
 
 #memoriaDetailWrap #memoriaDetailPopup .popupDetailWrap .infoWrap .effectiveWrap .intervalTurn {
-  width: 180px;
+  /* FIX(MN): let `Turn(s) Until Available` fit */
+  width: 220px; /* 180px */
+
   height: 20px;
   position: absolute;
   top: 8px;
-  right: 14px;
+
+  /* FIX(MN: ditto */
+  right: 7px; /* 14px */
+
   text-align: right;
 }
 
@@ -1702,7 +1710,10 @@ input:focus, textarea:focus {
   color: #a47122;
   font-size: 13px;
   text-align: center;
-  content: "イラストレーター";
+
+  /* TL(LiviaMedeiros): "イラストレーター" */
+  content: "Illustrator";
+
   text-shadow: none;
 }
 

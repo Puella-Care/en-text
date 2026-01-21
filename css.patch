@@ -18,7 +18,50 @@
  }
  
  body.ios {
-@@ -5929,7 +5929,7 @@
+@@ -1404,7 +1404,10 @@
+   display: flex;
+   position: absolute;
+   top: 104px;
+-  left: 110px;
++
++  /* FIX(MN): move to the right to fit `Ascension` */
++  left: 130px; /* 110px */
++
+   -ms-flex-flow: wrap;
+       flex-flow: wrap;
+ }
+@@ -1654,11 +1657,16 @@
+ }
+ 
+ #memoriaDetailWrap #memoriaDetailPopup .popupDetailWrap .infoWrap .effectiveWrap .intervalTurn {
+-  width: 180px;
++  /* FIX(MN): let `Turn(s) Until Available` fit */
++  width: 220px; /* 180px */
++
+   height: 20px;
+   position: absolute;
+   top: 8px;
+-  right: 14px;
++
++  /* FIX(MN: ditto */
++  right: 7px; /* 14px */
++
+   text-align: right;
+ }
+ 
+@@ -1702,7 +1710,10 @@
+   color: #a47122;
+   font-size: 13px;
+   text-align: center;
+-  content: "イラストレーター";
++
++  /* TL(LiviaMedeiros): "イラストレーター" */
++  content: "Illustrator";
++
+   text-shadow: none;
+ }
+ 
+@@ -5929,7 +5940,7 @@
  .announcementPopup .popupInner .announceScroll3 .newsField .newsTextField .announceTextLink.btn {
    margin: 5px auto;
    display: block;
@@ -27,7 +70,7 @@
    line-height: 63px;
  }
  
-@@ -6035,7 +6035,7 @@
+@@ -6035,7 +6046,7 @@
  .announcementPopup .otherNews.btn, .announcementPopupMainte .otherNews.btn {
    margin: 5px auto;
    display: block;
@@ -36,7 +79,7 @@
    line-height: 63px;
  }
  
-@@ -6047,7 +6047,7 @@
+@@ -6047,7 +6058,7 @@
  .announcementPopup .announceOuterLink.btn, .announcementPopup .separateOuterLink.btn, .announcementPopupMainte .announceOuterLink.btn, .announcementPopupMainte .separateOuterLink.btn {
    margin: 5px auto;
    display: block;
@@ -45,7 +88,7 @@
    line-height: 63px !important;
  }
  
-@@ -6086,7 +6086,7 @@
+@@ -6086,7 +6097,7 @@
    background: -webkit-linear-gradient(left, #ff549c 0%, #ff549c 15%, rgba(255, 248, 192, 0.4) 100%);
    position: relative;
    color: #ffffff;
@@ -54,7 +97,7 @@
    text-shadow: -1px -1px 2px #ff4f92, 1px -1px 2px #ff4f92, -1px 1px 2px #ff4f92, 1px 1px 2px #ff4f92, -1px -1px 2px #ff4f92, 1px -1px 2px #ff4f92, -1px 1px 2px #ff4f92, 1px 1px 2px #ff4f92;
  }
  
-@@ -6105,7 +6105,7 @@
+@@ -6105,7 +6116,7 @@
    padding-left: 5px;
    position: relative;
    color: #ff549c;
@@ -63,7 +106,7 @@
    font-size: 18px;
  }
  
-@@ -6122,7 +6122,7 @@
+@@ -6122,7 +6133,7 @@
  
  .announcementPopup .newsHeadSmall, .announcementPopupMainte .newsHeadSmall {
    color: #ff4f9e;
@@ -72,7 +115,7 @@
  }
  
  .announcementPopup .newsCardList, .announcementPopupMainte .newsCardList {
-@@ -6336,7 +6336,7 @@
+@@ -6336,7 +6347,7 @@
  }
  
  .announcementPopup .pickUpDetail *, .announcementPopupMainte .pickUpDetail * {
