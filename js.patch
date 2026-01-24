@@ -80,6 +80,24 @@
  });
  this.sendCommand(a)
  },
+--- a/magica/js/quest/secondPartLast/parts/StagePartsView.js
++++ b/magica/js/quest/secondPartLast/parts/StagePartsView.js
+@@ -18,7 +18,15 @@
+ return b
+ },
+ initialize: function(a) {
++
++// FIX(LiviaMedeiros): do not listen if this.parentView is not defined
++this.parentView && typeof this.parentView.on === "function" &&
++
+ this.listenTo(this.parentView, "removeView", this.removeView);
++
++// FIX(LiviaMedeiros): do not listen if this.model is not really a model
++this.model && typeof this.model.on === "function" &&
++
+ this.listenTo(this.model, "change", this.replaceView);
+ this.template = d.template(k)
+ },
 --- a/magica/js/regularEvent/accomplish/RegularEventAccomplishTop.js
 +++ b/magica/js/regularEvent/accomplish/RegularEventAccomplishTop.js
 @@ -1,4 +1,9 @@
