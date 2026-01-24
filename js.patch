@@ -92,7 +92,7 @@
 +
  this.listenTo(this.parentView, "removeView", this.removeView);
 +
-+// FIX(LiviaMedeiros: do not listen if this.model is not really a model
++// FIX(LiviaMedeiros): do not listen if this.model is not really a model
 +this.model && typeof this.model.on === "function" &&
 +
  this.listenTo(this.model, "change", this.replaceView);

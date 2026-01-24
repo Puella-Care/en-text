@@ -6,7 +6,7 @@ this.parentView&&typeof this.parentView.on==="function"&&
 
 this.listenTo(this.parentView,"removeView",this.removeView);
 
-// FIX(LiviaMedeiros: do not listen if this.model is not really a model
+// FIX(LiviaMedeiros): do not listen if this.model is not really a model
 this.model&&typeof this.model.on==="function"&&
 
 this.listenTo(this.model,"change",this.replaceView);this.template=d.template(k)},render:function(){this.$el.html(this.template({model:this.model}));return this},replaceView:function(b){this.$el.html(this.template({model:this.model}));this.$el[0].className="stageWrap stage"+this.model.get("index")+" "+this.model.get("battleStatus")+
