@@ -760,7 +760,7 @@
  				<dd class="colRight soundCol">
  					<input id="voiceSlider" class="slider" type="range" max="10" value="">
  				</dd>
-@@ -50,96 +50,95 @@
+@@ -50,112 +50,111 @@
  
  		<div id="pushWrap" class="commonConfigMain">
  			<div class="pushMiniWrap">
@@ -886,6 +886,60 @@
  		</div>
  
  		<div id="inputCodeWrap" class="commonConfigMain" class="commonConfigMain">
+ 			<div class="codeScroll">
+ 				<div class="codeText">
+-					シリアルコードを入力してください。
++					Please enter the serial code.
+ 				</div>
+ 				<input id="presentCode" class="commonFrame3" readonly="readonly" type="text" maxlength="12" value="">
+ 				<div id="codeCaution" class="c_red"></div>
+ 				<div id="codeAfter"></div>
+ 				<div class="defCaution c_red">
+-					※シリアルコードは、ー（ハイフン）を除いた12桁の半角英数字です。<br>
+-					※特典はプレゼントボックスよりお受け取りください。
++					※Serial codes are 12-digit alphanumeric codes, excluding hyphens.<br>
++					※Please claim your special reward from the Present Box.
+ 				</div>
+ 				<div id="codeSubmit" class="btn b_pink TE se_decide off"><div class="b_screen"></div><span>OK</span></div>
+-				<h3>現在獲得可能な特典</h3>
++				<h3>Currently Available Promotions</h3>
+ 				<div class="nowArraival">
+ 					<% if(rewardList.length > 0){ %>
+ 						<% rewardList = _.sortBy(rewardList,function(reward){ return reward.orderNum;}); %>
+@@ -165,27 +164,27 @@
+ 								<span class="rewardDetail"><%= reward.detail.replace(/＠/g, "<br>") %></span>
+ 								<% if(reward.startAt || reward.endAt){ %>
+ 									<br>
+-									<span class="rewardSpan">有効期間：<% if(reward.startAt){ %><%= reward.startAt.substr(0,10) %><% } %>&nbsp;〜&nbsp;<% if(reward.endAt){ %><%= reward.endAt.substr(0,10) %><% } %></span>
++									<span class="rewardSpan">Availability：<% if(reward.startAt){ %><%= reward.startAt.substr(0,10) %><% } %>&nbsp;〜&nbsp;<% if(reward.endAt){ %><%= reward.endAt.substr(0,10) %><% } %></span>
+ 								<% } %>
+ 							</div>
+ 						<% }); %>
+ 					<% }else{ %>
+-						現在獲得可能な特典はありません。
++						No promotions are currently available.
+ 					<% } %>
+ 				</div>
+ 			</div>
+ 		</div>
+ 
+ 		<div id="deleteUserDataWrap" class="commonConfigMain">
+-			<h3>データの削除</h3>
++			<h3>Delete Data</h3>
+ 			<div class="subFrame commonFrame3">
+ 				<div class="mainText">
+-					プレイヤーデータを完全に削除します。
+-					<span class="c_red caution">※削除されたデータはいかなる場合でも元に戻すことはできません。</span>
++					Completely erase your player data.
++					<span class="c_red caution">※Once deleted, data CANNOT be recovered under any circumstances.</span>
+ 				</div>
+ 				<div id="deleteUserDataBtn" class="mainBtn btn mb_pink se_decide TE">
+ 					<span class="b_screen"></span>
+-					<span class="btnText">プレイヤーデータ削除</span>
++					<span class="btnText">Delete Player Data</span>
+ 				</div>
+ 			</div>
+ 		</div><!-- /deleteUserDataWrap -->
 @@ -194,72 +193,72 @@
  
  <script id="transferInner" type="text/template">
@@ -1234,5 +1288,52 @@
 -		<div id="helpBtn" class="se_decide TE sb_gold_02">遊び方</div>
 +		<div id="helpBtn" class="se_decide TE sb_gold_02">How to Play</div>
  		<div id="movieBtn" class="se_decide TE c_gold">MOVIE</div>
+ 	</div>
+ </div>
+--- a/magica/template/user/APPopup.html
++++ b/magica/template/user/APPopup.html
+@@ -17,20 +17,20 @@
+ 	<% } %>
+ 	<div class="maxTime">
+ 		<div class="timer">
+-			あと<span id="apFullTime">0:00</span>で１回復 / あと<span id="apFullTime2">0:00:00</span>で全回復</div>
++			1 AP will recover in <span id="apFullTime">0:00</span> AP will be fully recovered in <span id="apFullTime2">0:00:00</span></div>
+ 	</div>
+ 	<div id="useItemWrap">
+ 		<div class="itemBtn commonFrame4 sp50">
+-			<div class="itemName">AP回復薬50</div>
+-			<div class="useNum c_gold">消費 1個</div>
+-			<div class="itemRemain"><p class="pointFrame">所持数</p><br><%= model.ap50.quantity %>個</div>
+-			<div class="mb_pink cureBtn se_decide TE<% if(model.ap50.quantity === 0){ %> off<% } %>" data-item="CURE_AP_50"><span class="b_screen"></span>回復</div>
++			<div class="itemName">50 AP Potion</div>
++			<div class="useNum c_gold">Use 1</div>
++			<div class="itemRemain"><p class="pointFrame">Stock: <%= model.ap50.quantity %></p></div>
++			<div class="mb_pink cureBtn se_decide TE<% if(model.ap50.quantity === 0){ %> off<% } %>" data-item="CURE_AP_50"><span class="b_screen"></span>Restore</div>
+ 		</div>
+ 		<div class="itemBtn commonFrame4 spmax">
+-			<div class="itemName">AP回復薬</div>
+-			<div class="useNum c_gold">消費 1個</div>
+-			<div class="itemRemain"><p class="pointFrame">所持数</p><br><%= model.apMax.quantity %>個</div>
+-			<div class="mb_pink cureBtn se_decide TE<% if(model.apMax.quantity === 0){ %> off<% } %>" data-item="CURE_AP"><span class="b_screen"></span>回復</div>
++			<div class="itemName">AP Potion</div>
++			<div class="useNum c_gold">Use 1</div>
++			<div class="itemRemain"><p class="pointFrame">Stock: <%= model.apMax.quantity %></p></div>
++			<div class="mb_pink cureBtn se_decide TE<% if(model.apMax.quantity === 0){ %> off<% } %>" data-item="CURE_AP"><span class="b_screen"></span>Restore</div>
+ 		</div>
+ 		<div class="itemBtn commonFrame4 spstone">
+ 			<% var moneyQuantity = 0; %>
+@@ -39,10 +39,10 @@
+ 					moneyQuantity += money.get("quantity");
+ 				}
+ 			}) %>
+-			<div class="itemName">マギアストーン</div>
+-			<div class="useNum c_gold">消費 5個</div>
+-			<div class="itemRemain"><p class="pointFrame">所持数</p><br><%= moneyQuantity %>個</div>
+-			<div class="mb_pink cureBtn se_decide TE<% if(moneyQuantity < 5){ %> off<% } %>" data-item="MONEY"><span class="b_screen"></span>回復</div>
++			<div class="itemName">Magia Stones</div>
++			<div class="useNum c_gold">Cost: 5</div>
++			<div class="itemRemain"><p class="pointFrame">Stock: <%= moneyQuantity %></p></div>
++			<div class="mb_pink cureBtn se_decide TE<% if(moneyQuantity < 5){ %> off<% } %>" data-item="MONEY"><span class="b_screen"></span>Restore</div>
+ 		</div>
  	</div>
  </div>
