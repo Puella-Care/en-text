@@ -46,6 +46,34 @@
 +	<p class="itemRemain"><span class="pointFrame">Stock:</span><br><%= quantity %></p>
 +	<span id="decideUse" class="mb_pink cureBtn se_decide TE popupCloseBtn<% if(quantity < 1 || nowBp.point === maxBp.point){ %> off<% } %>"><span class="b_screen"></span>Restore</span>
  </div>
+--- a/magica/template/arena/ArenaReward.html
++++ b/magica/template/arena/ArenaReward.html
+@@ -1,15 +1,15 @@
+ <div id="ArenaReward">
+-	<div id="arenaRewardHeader" class="arenaColor">ランクアップ報酬</div>
++	<div id="arenaRewardHeader" class="arenaColor">Layer Rewards</div>
+ 	<div id="bgWrap">
+ 		<ul id="arenaRewardTab">
+-			<li class="current se_decide rankUp" data-screen="rankup" data-name="ランクアップ報酬"></li>
++			<li class="current se_decide rankUp" data-screen="rankup" data-name="Level Up Rewards"></li>
+ 			<!-- <li class="ranking se_decide" data-screen="ranking" data-name="ランキング報酬"><span>ランキング報酬</span></li> -->
+ 		</ul>
+ 		<div id="arenaRewardWrap">
+ 			<div class="scrollInner">
+ 				<div id="rewardTypeWrap" class="rankup">
+ 					<div id="rankupRewards">
+-						<h3>◆ 果てなしのミラーズ</h3>
++						<h3>◆ Endless Mirrors</h3>
+ 						<div class="flowWrap">
+ 							<%
+ 								var keyObj = {"ITEM":"item","CARD":"card","PIECE":"piece","GIFT":"gift"};
+@@ -53,4 +53,4 @@
+ 		</div>
+ 	</div>
+ 	<div class="arenaGradationBg"></div>
+-</div>
+\ No newline at end of file
++</div>
 --- a/magica/template/card/CardSort.html
 +++ b/magica/template/card/CardSort.html
 @@ -1,10 +1,10 @@
