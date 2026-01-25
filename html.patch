@@ -22,6 +22,84 @@
  
  	<script type="text/javascript" charset="utf-8" src="/magica/js/libs/require.js"></script>
  	<script type="text/javascript" charset="utf-8" src="/magica/js/_common/baseConfig.js?v=20240701060703222"></script>
+--- a/magica/template/card/CardSort.html
++++ b/magica/template/card/CardSort.html
+@@ -1,10 +1,10 @@
+ <div id="sortfilter" class='chara'>
+-	<p class='filterText'>チェックをつけた項目のみ表示します</p>
++	<p class='filterText'>Only the selected fields will be displayed.</p>
+ 
+ 	<div id="filterAttList">
+ 		<div class='filterBar'>
+-			<p>属性</p>
+-			<span class='filterAtt se_tabs ALL' data-type-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++			<p>Element</p>
++			<span class='filterAtt se_tabs ALL' data-type-filter="ALL"><span class='checkBox'></span>View All</span>
+ 		</div>
+ 		<div class='flexBox'>
+ 			<span class="filterAtt se_tabs FIRE" data-type-filter="FIRE">
+@@ -30,8 +30,8 @@
+ 
+ 	<div id="filterRankList">
+ 		<div class='filterBar'>
+-			<p>レアリティ</p>
+-			<span class='filterRank se_tabs ALL' data-rankfilter-id="ALL"><span class='checkBox'></span>すべて表示</span>
++			<p>Rarity</p>
++			<span class='filterRank se_tabs ALL' data-rankfilter-id="ALL"><span class='checkBox'></span>View All</span>
+ 		</div>
+ 		<div class="flexBox">
+ 			<span class="filterRank RANK_1 se_tabs" data-rankfilter-id="RANK_1" ><span class='checkBox'></span><span class="star"></span>1</span>
+@@ -44,33 +44,33 @@
+ 
+ 	<div id="filterEnhanceList">
+ 		<div class='filterBar'>
+-			<p>精神強化</p>
+-			<span class='filterEnhance se_tabs ALL' data-enhancefilter-id="ALL"><span class='checkBox'></span>すべて表示</span>
++			<p>Spirit</p>
++			<span class='filterEnhance se_tabs ALL' data-enhancefilter-id="ALL"><span class='checkBox'></span>View All</span>
+ 		</div>
+ 		<div class="flexBox">
+-			<span class="filterEnhance enable se_tabs" data-enhancefilter-id="enable" ><span class='checkBox'></span>開放</span>
+-			<span class="filterEnhance disable se_tabs" data-enhancefilter-id="disable" ><span class='checkBox'></span>未開放</span>
++			<span class="filterEnhance enable se_tabs" data-enhancefilter-id="enable" ><span class='checkBox'></span>Unlocked</span>
++			<span class="filterEnhance disable se_tabs" data-enhancefilter-id="disable" ><span class='checkBox'></span>Locked</span>
+ 		</div>
+ 	</div>
+ 
+ 	<div id="filterInitialList">
+ 		<div class='filterBar'>
+-			<p>タイプ</p>
+-			<span class='filterInitial se_tabs ALL' data-initialfilter-id="ALL"><span class='checkBox'></span>すべて表示</span>
++			<p>Type</p>
++			<span class='filterInitial se_tabs ALL' data-initialfilter-id="ALL"><span class='checkBox'></span>View All</span>
+ 		</div>
+ 		<div class="flexBox">
+-			<span class="filterInitial BALANCE se_tabs" data-initialfilter-id="BALANCE" ><span class='checkBox'></span>バランス</span>
+-			<span class="filterInitial ATTACK se_tabs" data-initialfilter-id="ATTACK" ><span class='checkBox'></span>アタック</span>
+-			<span class="filterInitial DEFENSE se_tabs" data-initialfilter-id="DEFENSE" ><span class='checkBox'></span>ディフェンス</span>
+-			<span class="filterInitial SUPPORT se_tabs" data-initialfilter-id="SUPPORT" ><span class='checkBox'></span>サポート</span>
+-			<span class="filterInitial HEAL se_tabs" data-initialfilter-id="HEAL" ><span class='checkBox'></span>ヒール</span>
+-			<span class="filterInitial MAGIA se_tabs" data-initialfilter-id="MAGIA" ><span class='checkBox'></span>マギア</span>
+-			<span class="filterInitial EXCEED se_tabs" data-initialfilter-id="EXCEED" ><span class='checkBox'></span>エクシード</span>
+-			<span class="filterInitial ULTIMATE se_tabs" data-initialfilter-id="ULTIMATE" ><span class='checkBox'></span>アルティメット</span>
++			<span class="filterInitial BALANCE se_tabs" data-initialfilter-id="BALANCE" ><span class='checkBox'></span>Balance</span>
++			<span class="filterInitial ATTACK se_tabs" data-initialfilter-id="ATTACK" ><span class='checkBox'></span>Attack</span>
++			<span class="filterInitial DEFENSE se_tabs" data-initialfilter-id="DEFENSE" ><span class='checkBox'></span>Defense</span>
++			<span class="filterInitial SUPPORT se_tabs" data-initialfilter-id="SUPPORT" ><span class='checkBox'></span>Support</span>
++			<span class="filterInitial HEAL se_tabs" data-initialfilter-id="HEAL" ><span class='checkBox'></span>Heal</span>
++			<span class="filterInitial MAGIA se_tabs" data-initialfilter-id="MAGIA" ><span class='checkBox'></span>Magia</span>
++			<span class="filterInitial EXCEED se_tabs" data-initialfilter-id="EXCEED" ><span class='checkBox'></span>Exceed</span>
++			<span class="filterInitial ULTIMATE se_tabs" data-initialfilter-id="ULTIMATE" ><span class='checkBox'></span>Ultimate</span>
+ 		</div>
+ 	</div>
+ 
+ 	<div id="cardSortBtnsArea">
+-		<span class="btn b_pink se_decide TE sort popupCloseBtn"><span class='b_screen'></span>表示する</span>
++		<span class="btn b_pink se_decide TE sort popupCloseBtn"><span class='b_screen'></span>Show</span>
+ 	</div>
+-</div>
+\ No newline at end of file
++</div>
 --- a/magica/template/chara/CharaData.html
 +++ b/magica/template/chara/CharaData.html
 @@ -21,7 +21,7 @@
