@@ -310,7 +310,7 @@
  					<div class="textBox c_white">
  						<span>
 -							<%="<%= model.questArr[count].section.genericIndex %\>"%>話「<%="<%= model.questArr[count].section.title %\>"%>」
-+							Chapter <%="<%= model.questArr[count].section.genericIndex %\>"%>話「<%="<%= model.questArr[count].section.title %\>"%>」
++							Chapter <%="<%= model.questArr[count].section.genericIndex %\>"%>「<%="<%= model.questArr[count].section.title %\>"%>」
  						</span>
  
  						<%="<% _.each(model.questArr[count].openConditionList,function(condition,index) { %\>"%>
