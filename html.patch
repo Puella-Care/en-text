@@ -1590,3 +1590,21 @@
 -</div>
 \ No newline at end of file
 +</div>
+--- a/magica/template/user/MyPage.html
++++ b/magica/template/user/MyPage.html
+@@ -27,13 +27,13 @@
+ 	</div>
+ 
+ 	<div id="wearWrap" class="commonFrame2 off">
+-		<div id="listTitle" class="ts_pink">衣装一覧</div>
++		<div id="listTitle" class="ts_pink">Outfits</div>
+ 		<div id="mypageWearScrollOuter" class="hiddenWrap">
+ 			<div class="scrollInner"></div>
+ 		</div>
+ 		<div id="wearDecide" class="btn b_pink TE se_decide wearToggle">
+ 			<span class="b_screen"></span>
+-			決定
++			OK
+ 		</div>
+ 		<div class="bg"></div>
+ 	</div>
