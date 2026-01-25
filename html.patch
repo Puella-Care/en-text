@@ -1446,7 +1446,7 @@
  	<div class="maxTime">
  		<div class="timer">
 -			あと<span id="apFullTime">0:00</span>で１回復 / あと<span id="apFullTime2">0:00:00</span>で全回復</div>
-+			1 AP will recover in <span id="apFullTime">0:00</span> AP will be fully recovered in <span id="apFullTime2">0:00:00</span></div>
++			1 AP will recover in <span id="apFullTime">0:00</span> / AP will be fully recovered in <span id="apFullTime2">0:00:00</span></div>
  	</div>
  	<div id="useItemWrap">
  		<div class="itemBtn commonFrame4 sp50">
