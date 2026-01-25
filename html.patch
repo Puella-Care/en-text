@@ -246,6 +246,155 @@
  
  						<div class="live2dBtns">
  							<% _.forEach(model.live2dList,function(txt,index){ %>
+--- a/magica/template/chara/CharaResult.html
++++ b/magica/template/chara/CharaResult.html
+@@ -33,14 +33,14 @@
+ 		</div>
+ 
+ 		<div class="level statusWrap flexBox">
+-			<p class="title">Lv</p>
++			<p class="title">Lvl.</p>
+ 			<p class="before"><%= model.before.level %>/<%= model.before.maxLevel %></p>
+ 			<p class="arrow"></p>
+ 			<p class="after"><span class="afterCurrentLv"><%= model.after.level %></span>/<span class="afterMaxLv"><%= model.after.maxLevel %></span></p>
+ 		</div>
+ 
+ 		<div class="revision statusWrap flexBox">
+-			<p class="title">魔力解放</p>
++			<p class="title">Magic Lvl.</p>
+ 			<p class="before"><%= model.before.revision %></p>
+ 			<p class="arrow"></p>
+ 			<p class="after c_red"><%= model.after.revision %></p>
+@@ -66,7 +66,7 @@
+ 		</div>
+ 
+ 		<div class="magiaLv statusWrap flexBox">
+-			<p class="title">マギアLv</p>
++			<p class="title">Magia Lvl.</p>
+ 			<p class="before"><%= model.before.magiaLevel %></p>
+ 			<p class="arrow"></p>
+ 			<p class="after c_red"><%= model.after.magiaLevel %></p>
+@@ -99,7 +99,7 @@
+ 		</div>
+ 
+ 		<div class="epLv statusWrap flexBox">
+-			<p class="title">エピソードLv</p>
++			<p class="title">Episode Lvl.</p>
+ 			<p class="before"><%= model.before.episodeLevel %></p>
+ 			<p class="arrow"></p>
+ 			<p class="after c_red"><%= model.after.episodeLevel %></p>
+@@ -125,7 +125,7 @@
+ 		</div>
+ 
+ 		<div class="equip statusWrap flexBox">
+-			<p class="title">メモリア装備枠</p>
++			<p class="title">Memoria Slots</p>
+ 			<div class="flexBox before ">
+ 				<% i = 0; %>
+ 				<% while(i < (model.before.revision + 1)) { %>
+@@ -154,7 +154,7 @@
+ 	<%="<% if(model.type == 'episode') { %\>"%>
+ 		<%="<% if(model.after.episodeLevel == 4 || model.after.episodeLevel == 5) { %\>"%>
+ 			<div class="rowBox episodeItem">
+-				<div class="titleBox c_white">マギアストーン獲得</div>
++				<div class="titleBox c_white">Gained Magia Stones</div>
+ 				<div class="composeRewards">
+ 					<img src="/magica/resource/image_web/item/main/money.png">
+ 					<%="<% var rewardNum = (model.after.episodeLevel == 5 && model.before.episodeLevel <= 3) ? 10 : 5; %\>"%>
+@@ -168,10 +168,10 @@
+ 
+ 			<%="<% if(model.questArr[count].closeFlag) { %\>"%>
+ 				<div class="rowBox close">
+-					<div class="titleBox c_white">魔法少女ストーリー</div>
++					<div class="titleBox c_white">Magical Girl Story</div>
+ 					<div class="textBox c_white">
+ 						<span>
+-							<%="<%= model.questArr[count].section.genericIndex %\>"%>話「<%="<%= model.questArr[count].section.title %\>"%>」
++							Chapter <%="<%= model.questArr[count].section.genericIndex %\>"%>話「<%="<%= model.questArr[count].section.title %\>"%>」
+ 						</span>
+ 
+ 						<%="<% _.each(model.questArr[count].openConditionList,function(condition,index) { %\>"%>
+@@ -181,15 +181,15 @@
+ 				</div>
+ 			<%="<% } else { %\>"%>
+ 				<div class="rowBox episodeStory">
+-					<div class="titleBox c_white">魔法少女ストーリー解放</div>
+-					<div class="textBox c_white"><%="<%= model.questArr[count].section.genericIndex %\>"%>話<br>「<%="<%= model.questArr[count].section.title %\>"%>」</div>
++					<div class="titleBox c_white">Unlock Magical Girl Story</div>
++					<div class="textBox c_white">Ep <%="<%= model.questArr[count].section.genericIndex %\>"%><br>「<%="<%= model.questArr[count].section.title %\>"%>」</div>
+ 				</div>
+ 			<%="<% } %\>"%>
+ 		<%="<% } %\>"%>
+ 
+ 		<div class="rowBox episodeMagia">
+-			<div class="titleBox c_white">マギアLv<%="<%= magiaLevel %\>"%>&nbsp;解放</div>
+-			<div class="textBox c_white">強化でマギアLvを<%="<%= magiaLevel %\>"%>に上げられるようになりました</div>
++			<div class="titleBox c_white">Magia Lvl. <%="<%= magiaLevel %\>"%>&nbsp;Unlocked</div>
++			<div class="textBox c_white">Magia Lvl. can now be raised to <%="<%= magiaLevel %\>"%></div>
+ 		</div>
+ 	<%="<% } %\>"%>
+ 
+@@ -197,10 +197,10 @@
+ 		<%="<% if(model.after.magiaLevel == 5 && model.questArr && model.questArr[3]) { %\>"%>
+ 			<%="<% if(model.questArr[3].closeFlag) { %\>"%>
+ 				<div class="rowBox close">
+-					<div class="titleBox c_white">ドッペルクエスト</div>
++					<div class="titleBox c_white">Doppel Quest</div>
+ 					<div class="textBox c_white">
+ 						<span>
+-							ドッペルクエスト「<%="<%= model.questArr[3].section.title %\>"%>」
++							Doppel Quest「<%="<%= model.questArr[3].section.title %\>"%>」
+ 						</span>
+ 
+ 						<%="<% _.each(model.questArr[3].openConditionList,function(condition,index) { %\>"%>
+@@ -210,8 +210,8 @@
+ 				</div>
+ 			<%="<% } else { %\>"%>
+ 				<div class="rowBox doppel">
+-					<div class="titleBox c_white">ドッペルクエスト解放</div>
+-					<div class="textBox c_white">ドッペルクエスト<br>「<%="<%= model.questArr[3].section.title %\>"%>」</div>
++					<div class="titleBox c_white">Unlock Doppel Quest</div>
++					<div class="textBox c_white">Doppel Quest<br>「<%="<%= model.questArr[3].section.title %\>"%>」</div>
+ 				</div>
+ 			<%="<% } %\>"%>
+ 		<%="<% } %\>"%>
+@@ -258,10 +258,10 @@
+ 		<%="<% if(model.questArr && model.questArr[3]) { %\>"%>
+ 			<%="<% if(model.questArr[3].closeFlag) { %\>"%>
+ 				<div class="rowBox close">
+-					<div class="titleBox c_white">ドッペルクエスト</div>
++					<div class="titleBox c_white">Doppel Quest</div>
+ 					<div class="textBox c_white">
+ 						<span>
+-							ドッペルクエスト「<%="<%= model.questArr[3].section.title %\>"%>」
++							Doppel Quest「<%="<%= model.questArr[3].section.title %\>"%>」
+ 						</span>
+ 
+ 						<%="<% _.each(model.questArr[3].openConditionList,function(condition,index) { %\>"%>
+@@ -271,8 +271,8 @@
+ 				</div>
+ 			<%="<% } else { %\>"%>
+ 				<div class="rowBox doppel">
+-					<div class="titleBox c_white">ドッペルクエスト解放</div>
+-					<div class="textBox c_white">ドッペルクエスト<br>「<%="<%= model.questArr[3].section.title %\>"%>」</div>
++					<div class="titleBox c_white">Unlock Doppel Quest</div>
++					<div class="textBox c_white">Doppel Quest<br>「<%="<%= model.questArr[3].section.title %\>"%>」</div>
+ 				</div>
+ 			<%="<% } %\>"%>
+ 		<%="<% } %\>"%>
+--- a/magica/template/chara/Riche.html
++++ b/magica/template/chara/Riche.html
+@@ -1,6 +1,6 @@
+ <dl id="riche" class="flexBox">
+-	<dt>必要なCC</dt>
++	<dt>CC Needed</dt>
+ 	<dd class="needRiche">0</dd>
+-	<dt>所持CC</dt>
++	<dt>CC</dt>
+ 	<dd class="hasRiche"><%= model.gameUser.riche %></dd>
+-</dl>
+\ No newline at end of file
++</dl>
 --- a/magica/template/collection/CharaCollection.html
 +++ b/magica/template/collection/CharaCollection.html
 @@ -14,7 +14,7 @@
@@ -1337,3 +1486,29 @@
  		</div>
  	</div>
  </div>
+--- a/magica/template/user/BackgroundSet.html
++++ b/magica/template/user/BackgroundSet.html
+@@ -1,10 +1,10 @@
+ <div id='BackgroundSet'>
+ 	<div id="backgroundList" class='commonFrame2'>
+-		<h2 id='listTitle' class='ts_pink'>ホーム背景</h2>
++		<h2 id='listTitle' class='ts_pink'>Home Background</h2>
+ 
+ 		<div id="scrollOuter" class='hiddenWrap'>
+ 			<div class="scrollInner">
+-				<div id='defaultBg' class="commonFrame4 bgItem TE se_tabs">青空（デフォルト）</div>
++				<div id='defaultBg' class="commonFrame4 bgItem TE se_tabs">Blue Skies (Default)</div>
+ 
+ 				<% _.forEach(backgroundList,function(bgItem){ console.log(bgItem) %>
+ 					<div class="<%= (bgItem.item.parameter) ? 'bgmIcon' : '' %> commonFrame4 bgItem TE se_tabs" data-bgid="<%= bgItem.itemId %>" data-bgimage="<%= bgItem.item.backgroundImage %>" data-bgm="<%= (bgItem.item.parameter) ? bgItem.item.parameter : 'bgm01_anime07' %>">
+@@ -14,7 +14,7 @@
+ 			</div>
+ 		</div>
+ 
+-		<div id='mainBtn' class='btn b_pink TE se_decide'><span class='b_screen'></span>決定</div>
++		<div id='mainBtn' class='btn b_pink TE se_decide'><span class='b_screen'></span>Set</div>
+ 		<div class='bg'></div>
+ 	</div>
+-</div>
+\ No newline at end of file
++</div>
