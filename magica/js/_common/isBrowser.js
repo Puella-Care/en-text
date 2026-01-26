@@ -4,12 +4,12 @@ a+"\nクエストスタブページへ遷移します。"),location.href="#/Ques
 $("#commandDiv").trigger("nativeCallback"),"320"==a.split(",")[0]&&$("#commandDiv").trigger("nativeCallback"),console.log("native:command: "+a)};$("#baseReceive").on("getBaseDataBrowser",function(b,a){$.extend(f.imgData,a);l()});var l=function(){d.each(f.imgData,function(b,a){var c=f.doc.querySelectorAll("[data-nativeimgkey\x3d"+a+"]");c&&d.each(c,function(a){a.dataset.nativeimgkey="";a.src=
 
 // FEAT(LiviaMedeiros): allow client-defined base
-localStorage.getItem("_ttz_resourceBase")+
+(localStorage.getItem("_ttz_resourceBase")||"")+
 
 b});(a=f.doc.querySelectorAll("[data-nativebgkey\x3d"+a+"]"))&&d.each(a,function(a){a.dataset.nativebgkey="";
 a.style.backgroundImage="url("+
 
 // FEAT(LiviaMedeiros): allow client-defined base
-localStorage.getItem("_ttz_resourceBase")+
+(localStorage.getItem("_ttz_resourceBase")||"")+
 
 b+")"})})}});
