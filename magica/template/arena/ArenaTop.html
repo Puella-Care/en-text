@@ -23,7 +23,7 @@
 				%>
 				<span class="infinitGuageInner" style="width:<%= guageLen %>%;"></span>
 			</div>
-			<p class="pointLeft arenaColor">In:<%= (model.currentFreeRankClass.requiredPoint - model.freeRankArenaPoint) %>Pts</p>
+			<p class="pointLeft arenaColor">In:&nbsp;<%= (model.currentFreeRankClass.requiredPoint - model.freeRankArenaPoint) %>&nbsp;Pts</p>
 
 			<!-- 連勝数 -->
 			<% if(gameUser.numberOfFreeRankConsecutiveWins > 0 && gameUser.numberOfFreeRankConsecutiveWins < 7){ %>
