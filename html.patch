@@ -74,6 +74,154 @@
 -</div>
 \ No newline at end of file
 +</div>
+--- a/magica/template/arena/ArenaTop.html
++++ b/magica/template/arena/ArenaTop.html
+@@ -23,19 +23,19 @@
+ 				%>
+ 				<span class="infinitGuageInner" style="width:<%= guageLen %>%;"></span>
+ 			</div>
+-			<p class="pointLeft arenaColor">あと<%= (model.currentFreeRankClass.requiredPoint - model.freeRankArenaPoint) %>Pt</p>
++			<p class="pointLeft arenaColor">In:&nbsp;<%= (model.currentFreeRankClass.requiredPoint - model.freeRankArenaPoint) %>&nbsp;Pts</p>
+ 
+ 			<!-- 連勝数 -->
+ 			<% if(gameUser.numberOfFreeRankConsecutiveWins > 0 && gameUser.numberOfFreeRankConsecutiveWins < 7){ %>
+ 			<div class="consectiveWrap">
+-				<p class="numberOfWin"><span class="firstNumber"><%= gameUser.numberOfFreeRankConsecutiveWins %></span>/7連勝</p>
++				<p class="numberOfWin"><span class="firstNumber"><%= gameUser.numberOfFreeRankConsecutiveWins %></span>/ 7 Consecutive Wins</p>
+ 				<% var consectiveBonus = [0,1,2,3,5,7,10]; %>
+-				<p class="bonusPoint arenaColor">ミラーズPt+<%= consectiveBonus[gameUser.numberOfFreeRankConsecutiveWins] %></p>
++				<p class="bonusPoint arenaColor">Mirrors Pts +&nbsp;<%= consectiveBonus[gameUser.numberOfFreeRankConsecutiveWins] %></p>
+ 			</div>
+ 			<% } %>
+ 
+ 			<!-- 鏡層未解放時テキスト&鏡層解放条件ボタン -->
+-			<div class="limitedText">次の鏡層は<br>解放されていません</div>
++			<div class="limitedText">The next Layer<br>is locked.</div>
+ 			<div class="limitedBtn se_decide TE<% if(!canPlay || nextCondition){ %> on<% } %>">
+ 				<span class="b_screen"></span>
+ 			</div>
+@@ -46,8 +46,8 @@
+ 			<div class="limitedBtn se_decide TE<% if(!canPlay || nextCondition){ %> on<% } %>">
+ 				<span class="b_screen"></span>
+ 			</div>
+-			<div class="limitedText c_red reachMax">現在解放されている<br>鏡層はここまでです</div>
+-			<div class="cantGetWrap">ミラーズコインは獲得できますが<br>ミラーズptは獲得できません</div>
++			<div class="limitedText c_red reachMax">This is the last<br>unlockable Layer.</div>
++			<div class="cantGetWrap">Mirrors Coins can be earned, but<br>Mirrors Pts cannot.</div>
+ 			<% } %>
+ 
+ 		</div>
+@@ -68,7 +68,7 @@
+ 		%>
+ 		<div class="enterMirror mirrorsEnter se_decide TE<% if(!infinitCanPlay){ %> cantEnter<% } %>">
+ 			<span class="b_screen"></span>
+-			<span class="mirrorsPoint"><%= model.freeRankArenaPoint %>Pt</span>
++			<span class="mirrorsPoint"><%= model.freeRankArenaPoint %>&nbsp;Pts</span>
+ 			<% if(!model.currentFreeRankClass.nextClass){ %>
+ 			<div class="rankMaxMark"></div>
+ 			<% } %>
+@@ -112,18 +112,18 @@
+ 				<p class="periodInner">
+ 					<!-- 予選中 -->
+ 					<% if(ranking.rankingEventStatus === "prelim"){ %>
+-						<span class="limitTitle">予選開催期間</span><br>
+-						<span id="rankingLimit" class="arenaColor"><%= ranking.battleLimit %>まで</span>
++						<span class="limitTitle">Prelims</span><br>
++						<span id="rankingLimit" class="arenaColor">Up to <%= ranking.battleLimit %></span>
+ 					<!-- 集計中 -->
+ 					<% }else if(ranking.rankingEventStatus === "counting"){ %>
+-						<span class="limitTitle">本戦開催</span><br>
+-						<span id="rankingLimit" class="arenaColor"><%= ranking.battleLimit %>から</span>
++						<span class="limitTitle">Finals</span><br>
++						<span id="rankingLimit" class="arenaColor"><%= ranking.battleLimit %> or above</span>
+ 					<!-- 本戦中 -->
+ 					<% }else if(ranking.rankingEventStatus === "final"){ %>
+-						<span class="limitTitle">本戦開催期間</span><br>
+-						<span id="rankingLimit" class="arenaColor"><%= ranking.battleLimit %>まで</span>
++						<span class="limitTitle">Finals</span><br>
++						<span id="rankingLimit" class="arenaColor">Up to <%= ranking.battleLimit %></span>
+ 					<% }else if(ranking.rankingEventStatus === "isOver"){ %>
+-						<span class="limitTitle">結果発表</span><br>
++						<span class="limitTitle">Results</span><br>
+ 						<span id="rankingLimit" class="arenaColor"><%= ranking.battleLimit %></span>
+ 					<% } %>
+ 				</p>
+@@ -132,7 +132,7 @@
+ 			<div class="nowTitle"></div>
+ 			<div class="nowRank rank<%= model.definiteClassRank %>"></div>
+ 			<!-- 未開催時文言 -->
+-			<p class="rankingCloseText">次回開催を<br>お待ちください</p>
++			<p class="rankingCloseText">Please look forward<br>to the next event.</p>
+ 		<% } %>
+ 		<!-- ランキング履歴 -->
+ 		<div class="rankHistoryBtn TE se_tabs linkBtn" data-href="#/EventArenaRankingHistory">
+@@ -152,7 +152,7 @@
+ 			<% if(ranking.rankingEventStatus === "prelim" || ranking.rankingEventStatus === "final"){ %>
+ 			<div class="canPlayRanking">
+ 				<span class="leftCount c_red"><%= ranking.rankingBattleLeftCount %></span>
+-				<span class="maxCount">/<%= ranking.rankingBattleMaxCount %>戦</span>
++				<span class="maxCount">/<%= ranking.rankingBattleMaxCount %></span>
+ 			</div>
+ 			<% } %>
+ 		</div>
+@@ -185,7 +185,7 @@
+ 			<span class="mirrorsPoint"><%= rankMatchModel.userRank %></span>
+ 			<div class="canPlayRanking">
+ 				<span class="leftCount c_red"><%= rankMatchModel.currentBattleCount %></span>
+-				<span class="maxCount">/5戦</span>
++				<span class="maxCount">/5 Matches</span>
+ 			</div>
+ 		</div>
+ 	</div><!-- rankMatchWrap -->
+@@ -212,11 +212,11 @@
+ 	<div id="arenaTopFooter"<% if(ranking.rankingEventStatus){ %> class="rankingRunning"<% } %>>
+ 		<p class="sb_gold_02 se_tabs TE linkBtn battleHistory" data-href="#/ArenaHistory">
+ 			<span class="b_screen"></span>
+-			対戦履歴
++			Battle History
+ 		</p>
+ 		<p class="sb_gold_02 se_tabs TE linkBtn battleReward" data-href="#/ArenaReward">
+ 			<span class="b_screen"></span>
+-			報酬一覧
++			Rewards
+ 		</p>
+ 
+ 		<%
+@@ -232,7 +232,7 @@
+ 		%>
+ 		<p class="sb_gold_02 battleSimulate <%= btnSimulateClass %>" data-href="#/ArenaSimulate">
+ 			<span class="b_screen"></span>
+-			演習
++			Friend Battles
+ 		</p>
+ 
+ 		<!-- ミラーズコイン -->
+@@ -280,20 +280,20 @@
+ 
+ <!-- 前日防衛ポップアップ -->
+ <script type="text/template" id="yestadayBonus">
+-	<div class="common_title_frame yestadayTitle">前日の防衛戦績</div>
+-	<div class="bonusResult"><%='<%= model.winNum %\>'%>勝<%='<%= model.loseNum %\>'%>敗</div>
++	<div class="common_title_frame yestadayTitle">Yesterday's Results</div>
++	<div class="bonusResult">Wins:&nbsp;<%='<%= model.winNum %\>'%>&nbsp;Losses:&nbsp;<%='<%= model.loseNum %\>'%></div>
+ <%='<% if(model.mirrorsWins > 0 || model.rankMatchWins > 0){ %\>'%>
+-	<div class="common_title_frame bonusTitle">防衛ボーナス報酬</div>
++	<div class="common_title_frame bonusTitle">Defense Rewards</div>
+ <%='<% } %\>'%>
+ <%='<% if(model.mirrorsWins > 0){ %\>'%>
+ 	<%='<% var coinNum = (model.mirrorsWins > 50) ? 15 : (model.mirrorsWins > 20) ? 12 : (model.mirrorsWins > 10) ? 10 : (model.mirrorsWins > 5) ? 7 : (model.mirrorsWins > 2) ? 5 : 3; %\>'%>
+ 	<div class="bonusChip">
+-		<img src="/magica/resource/image_web/common/icon/icon_arena_coin_f.png" class="itemImage">ミラーズコイン&nbsp;<%='<%= coinNum %\>'%>個獲得
++		<img src="/magica/resource/image_web/common/icon/icon_arena_coin_f.png" class="itemImage">Earned&nbsp;<%='<%= coinNum %\>'%> Mirrors Coin(s)
+ 	</div>
+ <%='<% } %\>'%>
+ <%='<% if(model.rankMatchWins > 0){ %\>'%>
+ 	<div class="bonusChip">
+-		<img src="/magica/resource/image_web/common/icon/event/icon_event_arenarankmatch_2028_exchange_1_f.png" class="itemImage">ランクメダル&nbsp;<%='<%= model.rankMatchCoinNum %\>'%>個獲得
++		<img src="/magica/resource/image_web/common/icon/event/icon_event_arenarankmatch_2028_exchange_1_f.png" class="itemImage">Earned&nbsp;<%='<%= model.rankMatchCoinNum %\>'%> Rank Medal(s)
+ 	</div>
+ <%='<% } %\>'%>
+ </script>
 --- a/magica/template/card/CardSort.html
 +++ b/magica/template/card/CardSort.html
 @@ -1,10 +1,10 @@
@@ -1317,6 +1465,45 @@
  		<%='<% } %\>'%>
  	</div>
  </div>
+--- a/magica/template/etc/EtcPopup.html
++++ b/magica/template/etc/EtcPopup.html
+@@ -1,6 +1,6 @@
+ <div class="etcPopInner commonFrame1">
+ 	<span class="closeDefault popupCloseBtn se_cancel TE"></span>
+-	<p class="popupTitle">その他</p>
++	<p class="popupTitle">Other</p>
+ 	<div class="etcPopWrap">
+ 		<span class="TE linkBtn se_decide collectionBtn" data-href="#/CollectionTop"><span class='b_screen'></span></span>
+ 		<span class="TE linkBtn se_decide itemBtn" data-href="#/ItemListTop"><span class='b_screen'></span></span>
+@@ -11,8 +11,8 @@
+ 	</div>
+ 
+ 	<% if(window.isDebug) { %>
+-		<span class="backDoorBtn2 linkBtn mb_white" data-href="#/Backdoor">受取</span>
+-		<span class="backDoorBtn popupCloseBtn mb_white">裏口</span>
++		<span class="backDoorBtn2 linkBtn mb_white" data-href="#/Backdoor">Receipt</span>
++		<span class="backDoorBtn popupCloseBtn mb_white">Backdoor</span>
+ 		<span id="backDoorCurrentTimeArea"></span>
+ 	<% } %>
+ </div>
+--- a/magica/template/etc/GameStartPopup.html
++++ b/magica/template/etc/GameStartPopup.html
+@@ -1,8 +1,7 @@
+ <div id="gameStartPopup">
+-	<p>『マギアレコード 魔法少女まどか☆マギカ外伝』を<br>
+-		インストールしていただき誠にありがとうございます。<br><br>
+-		このゲームを開始するには「利用規約」に<br>
+-		同意していただく必要がございます。</p>
+-	<div id="rulePopupBtn" class="mb_white se_decide TE"><span class="b_screen"></span>利用規約</div>
+-	<div id="gameStartBtn" class="btn b_pink se_decide02 TE"><span class="b_screen"></span>同意してゲームを開始する</div>
+-</div>
+\ No newline at end of file
++	<p>Thank you for installing Magia Record!<br><br>
++		Before you start playing you will<br>
++		have to agree to the Terms of Use.</p>
++	<div id="rulePopupBtn" class="mb_white se_decide TE"><span class="b_screen"></span>Terms of Use</div>
++	<div id="gameStartBtn" class="btn b_pink se_decide02 TE"><span class="b_screen"></span>Agree and Start Playing</div>
++</div>
 --- a/magica/template/event/accomplish/EventAccomplishDeck.html
 +++ b/magica/template/event/accomplish/EventAccomplishDeck.html
 @@ -151,13 +151,13 @@
@@ -1335,6 +1522,171 @@
  							<%="<% i=(i+1)|0; %\>"%>
  						<%="<% } %\>"%>
  					</div>
+--- a/magica/template/follow/FollowPopup.html
++++ b/magica/template/follow/FollowPopup.html
+@@ -1,7 +1,7 @@
+ <div id="myProfile">
+ 
+ 	<% if(window.isDebug) { %>
+-		<div id='debugArenaBtn' class='sb_gold_02 TE'><span class='b_screen'></span>たたかう</div>
++		<div id='debugArenaBtn' class='sb_gold_02 TE'><span class='b_screen'></span>Fight</div>
+ 	<% } %>
+ 
+ 	<div class="popupDetailWrap">
+@@ -25,7 +25,7 @@
+ 						</div>
+ 					<% } else { %>
+ 						<div class="userTitle_m">
+-							<div id="targetTitleText" class="userTitleText">称号設定なし</div>
++							<div id="targetTitleText" class="userTitleText">No Title Set</div>
+ 							<img id="targetTitleBg" class="userTitleBg" src="/magica/resource/image_web/common/grade/title_00000.png">
+ 						</div>
+ 					<% } %>
+@@ -36,37 +36,37 @@
+ 					<span class="lastLogin"><%= model.loginTimeLag %></span>
+ 
+ 					<div class="detailUtilPanel">
+-						<div class="detailWrap1Bg">フォロー状況</div>
++						<div class="detailWrap1Bg">Follow Status</div>
+ 						<div id="followIcons">
+ 							<span class="followIcon<% if(!profile.follow){ %> grayScale<% } %>"></span>
+ 							<span class="followerIcon<% if(!profile.follower){ %> grayScale<% } %>"></span>
+ 							<!-- <span class="blockIcon<% if(!profile.blocked){ %> grayScale<% } %>"></span> -->
+ 						</div>
+ 						<ul id="utilBtns">
+-							<li class="sb_gold_01 follow se_decide followerBtn TE<% if(profile.follow){ %> noneDisp<% } %>"><span class="b_screen"></span>フォロー</li>
+-							<li class="sb_gold_01 disFollow se_decide followerBtn TE<% if(!profile.follow){ %> noneDisp<% } %>">フォロー解除</li>
++							<li class="sb_gold_01 follow se_decide followerBtn TE<% if(profile.follow){ %> noneDisp<% } %>"><span class="b_screen"></span>Follow</li>
++							<li class="sb_gold_01 disFollow se_decide followerBtn TE<% if(!profile.follow){ %> noneDisp<% } %>">Unfollow</li>
+ 						</ul>
+ 					</div>
+ 				</div>
+ 				<div class="detailWrap2">
+-					<h2>ミラーズ</h2>
++					<h2>Mirrors</h2>
+ 					<div class="arenaHelpBtn se_decide TE"></div>
+-					<div class="markWrap freeRank"><% if(profile.userArenaBattle){ %><%= profile.userArenaBattle.currentFreeRankClass.className %><% }else{ %>第一鏡層<% } %></span></div>
+-					<div class="arenaFreeTitle">◆果てなしのミラーズ</div>
++					<div class="markWrap freeRank"><% if(profile.userArenaBattle){ %><%= profile.userArenaBattle.currentFreeRankClass.className %><% }else{ %>Layer 1<% } %></span></div>
++					<div class="arenaFreeTitle">◆Endless Mirrors</div>
+ 					<div class="arenaRankingTitle">
+ 						<% if(profile.gameUser.emblemSettingClassType == "RANKING" || !profile.gameUser.emblemSettingClassType){ %>
+-							◆ランキング
++							◆Ranking
+ 						<% }else if(profile.gameUser.emblemSettingClassType == "RANK_MATCH"){ %>
+-							◆ランクマッチ
++							◆Rank Match
+ 						<% } %>
+ 					</div>
+ 					<div class="arenaParams">
+ 						<dl class="rowWrap common_dl">
+-							<dt class="colName">ミラーズPt</dt>
++							<dt class="colName">Mirrors Pts</dt>
+ 							<dd class="colValue"><span class="freeNum"><% if(profile.userArenaBattle && profile.gameUser.freeRankArenaPoint){ %><%= profile.gameUser.freeRankArenaPoint %><% }else{ %>0<% } %></span></dd>
+ 						</dl>
+ 						<dl class="rowWrap common_dl">
+-							<dt class="colName">勝利数</dt>
++							<dt class="colName">Wins</dt>
+ 							<dd class="colValue"><span class="freeNum"><% if(profile.gameUser.numberOfFreeRankTotalWins){ %><%= profile.gameUser.numberOfFreeRankTotalWins %><% }else{ %>0<% } %></span></dd>
+ 						</dl>
+ 					</div>
+@@ -95,7 +95,7 @@
+ 					<% } %>
+ 				</div>
+ 				<div class="helperWrap">
+-					<h2>サポート</h2>
++					<h2>Support</h2>
+ 					<ul class="helperList">
+ 						<%
+ 							var attObj = {
+@@ -123,7 +123,7 @@
+ 						<% }); %>
+ 					</ul>
+ 					<div class="helpBtnWrap">
+-						<span class="profBtn linkBtn se_tabs TE" data-href="#/ProfileFormationSupport"><span class="b_screen"></span>詳細</span>
++						<span class="profBtn linkBtn se_tabs TE" data-href="#/ProfileFormationSupport"><span class="b_screen"></span>Details</span>
+ 					</div>
+ 				</div>
+ 			</div>
+--- a/magica/template/follow/FollowTop.html
++++ b/magica/template/follow/FollowTop.html
+@@ -1,35 +1,35 @@
+ <div id="FriendList">
+ 	<div id="tabBtn" class="commonFrame2">
+ 		<ul class="common_tab t_gold">
+-			<li class="btn se_tabs TE follow" data-wrap="follow">フォロー</li>
+-			<li class="btn se_tabs TE follower" data-wrap="follower">フォロワー</li>
+-			<li class="btn se_tabs TE find" data-wrap="find"><span>プレイヤー検索</span></li>
++			<li class="btn se_tabs TE follow" data-wrap="follow">Follows</li>
++			<li class="btn se_tabs TE follower" data-wrap="follower">Followers</li>
++			<li class="btn se_tabs TE find" data-wrap="find"><span>Find Players</span></li>
+ 		</ul>
+ 	</div>
+ 	<div id="countFollowWrap" class="pointFrame"></div>
+ 	<div id="countFollowerWrap" class="pointFrame"><%= followers %></div>
+ 	<div id="countBlockWrap" class="pointFrame"><%= blocked %></div>
+ 	<ul id="followSearchTab" class="common_tab t_gold">
+-		<li class="searchTabBtn se_tabs TE recommend current" data-wrap="recommend"><span>おすすめ</span></li>
+-		<li class="searchTabBtn se_tabs TE playerName" data-wrap="playerName"><span>プレイヤー名</span></li>
+-		<li class="searchTabBtn se_tabs TE playerId" data-wrap="playerId"><span>プレイヤーID</span></li>
++		<li class="searchTabBtn se_tabs TE recommend current" data-wrap="recommend"><span>Suggested</span></li>
++		<li class="searchTabBtn se_tabs TE playerName" data-wrap="playerName"><span>Player Name</span></li>
++		<li class="searchTabBtn se_tabs TE playerId" data-wrap="playerId"><span>Player ID</span></li>
+ 	</ul>
+ 	<input type="text" id="searchInput" readonly="readonly" placeholder="">
+ 	<div id="followSortWrap">
+ 		<select id="followSort">
+-			<option value="rank-asc">ランク:昇順</option>
+-			<option value="rank-desc">ランク:降順</option>
+-			<option value="login-asc">ログイン時間:昇順</option>
+-			<option value="login-desc">ログイン時間:降順</option>
+-			<option value="followdate-asc">フォローした順:昇順</option>
+-			<option value="followdate-desc">フォローした順:降順</option>
++			<option value="rank-asc">Rank ↑</option>
++			<option value="rank-desc">Rank ↓</option>
++			<option value="login-asc">Login Time ↑</option>
++			<option value="login-desc">Login Time ↓</option>
++			<option value="followdate-asc">Followed ↑</option>
++			<option value="followdate-desc">Followed ↓</option>
+ 		</select>
+ 		<div class="triangleArrow"></div>
+ 	</div>
+-	<div id="followRefresh" class="sb_gold_01 se_decide">更新</div>
++	<div id="followRefresh" class="sb_gold_01 se_decide">Refresh</div>
+ 	<div id="rankSearchWrap">
+ 		<select id="rankSelect">
+-			<option selected="selected" value="0">指定無し</option>
++			<option selected="selected" value="0">All</option>
+ 			<option value="1">Rank1〜</option>
+ 			<option value="10">Rank10〜</option>
+ 			<option value="20">Rank20〜</option>
+@@ -40,7 +40,7 @@
+ 		</select>
+ 		<div class="triangleArrow"></div>
+ 	</div>
+-	<div id="searchRefresh" class="sb_gold_01 se_decide">更新</div>
++	<div id="searchRefresh" class="sb_gold_01 se_decide">Refresh</div>
+ 	<div id="listWrap" class="commonFrame1">
+ 		<h2 id="listTitle"></h2>
+ 		<div class="hiddenWrap" id="scrollOuter">
+@@ -89,14 +89,14 @@
+ 			<span class="userName"><%="<%=_.escape(model.userName)%\>"%></span><br>
+ 
+ 			<span class="leaderName c_purple"><%="<%= _.escape(model.charaName) %\>"%></span>
+-			<span class="loginTime c_gold">最終ログイン&nbsp;<%= "<%= model.loginTimeLag %\>" %></span>
++			<span class="loginTime c_gold">Last Login:&nbsp;<%= "<%= model.loginTimeLag %\>" %></span>
+ 			<div class="iconWrap">
+ 				<span class="followIcon<%="<% if(model.follow){ %\> on<% } %\>"%>"></span>
+ 				<span class="followerIcon<%="<% if(model.follower){ %\> on<% } %\>"%>"></span>
+ 			</div>
+-			<p class="supportCheckBtn sb_gold_02 se_tabs"><span class="c_gold">サポート確認</span></p>
++			<p class="supportCheckBtn sb_gold_02 se_tabs"><span class="c_gold">Check Supports</span></p>
+ 			<div class="messageWrap"></div>
+-			<div class="se_decide followBtn mb_pink<%="<% if(model.follow){ %\>"%> already<%="<% } %\>"%>">フォロー</div>
++			<div class="se_decide followBtn mb_pink<%="<% if(model.follow){ %\>"%> already<%="<% } %\>"%>">Follow</div>
+ 		</div>
+ 	</div>
+ </script>
 --- a/magica/template/formation/DeckFormation.html
 +++ b/magica/template/formation/DeckFormation.html
 @@ -238,13 +238,13 @@
@@ -1371,6 +1723,83 @@
  							<%="<% i=(i+1)|0; %\>"%>
  						<%="<% } %\>"%>
  					</div>
+--- a/magica/template/item/ItemSalePopup.html
++++ b/magica/template/item/ItemSalePopup.html
+@@ -1,5 +1,5 @@
+-<span class="messageWrap<% if(isCrystal){ %> isCrystal<% } %>">マギアチップに変換する個数を選んでください。</span>
+-<% if(isCrystal){ %><span class="c_red crystalCaution">マギアチップに加えて、デスティニークリスタルが付与されます。</span><% } %>
++<span class="messageWrap<% if(isCrystal){ %> isCrystal<% } %>">Select how many you would like to convert into Magia Chips.</span>
++<% if(isCrystal){ %><span class="c_red crystalCaution">Additionally, you will also receive Destiny Crystals.</span><% } %>
+ <div id="saleSelectWrap" class="commonFrame3">
+ 	<div class="gemImage">
+ 		<img data-nativeimgkey="chara_<%= model.charaId %>_h" data-src="resource/image_native/chara/chara_<%= model.charaId %>_h.png">
+@@ -19,9 +19,9 @@
+ 	<div class="itemImg">
+ 		<img src="/magica/resource/image_web/item/main/prism.png">
+ 	</div>
+-	<div class="popNameMiniWrap">マギアチップ</div>
++	<div class="popNameMiniWrap">Magia Chip</div>
+ 	<div class="afterPoint"><span class="pointFrame" id="totalNum"><%= model.saleFactor %></span></div>
+-	<div class="hasCount c_gold">(所持数&nbsp;<%= hasPrism %>)</div>
++	<div class="hasCount c_gold">(Stock&nbsp;<%= hasPrism %>)</div>
+ </div>
+ <% }else{ %>
+ 	<div class="itemPopMiniWrap commonFrame4 isCrystal">
+@@ -30,7 +30,7 @@
+ 		</div>
+ 		<div class="popNameMiniWrap"><%= prism.name %></div>
+ 		<div class="afterPoint"><span class="pointFrame" id="totalNum"><%= model.saleFactor %></span></div>
+-		<div class="hasCount c_gold">(所持数&nbsp;<%= hasPrism %>)</div>
++		<div class="hasCount c_gold">(Stock&nbsp;<%= hasPrism %>)</div>
+ 
+ 		<div class="partition"></div>
+ 		<div class="itemImg crystal">
+@@ -38,26 +38,26 @@
+ 		</div>
+ 		<div class="popNameMiniWrap crystal"><%= crystal.name %></div>
+ 		<div class="afterPoint crystal"><span class="pointFrame" id="crystalTotalNum">1</span></div>
+-		<div class="hasCount c_gold crystal">(所持数&nbsp;<%= hasCrystal %>)</div>
++		<div class="hasCount c_gold crystal">(Stock&nbsp;<%= hasCrystal %>)</div>
+ 	</div>
+ <% } %>
+-<div class="btn se_cancel b_white popupCloseBtn saleCancel TE"><span class="b_screen"></span>キャンセル</div>
+-<div class="btn se_decide b_pink TE" id="saleDecide"><span class="b_screen"></span>変換</div>
++<div class="btn se_cancel b_white popupCloseBtn saleCancel TE"><span class="b_screen"></span>Cancel</div>
++<div class="btn se_decide b_pink TE" id="saleDecide"><span class="b_screen"></span>Exchange</div>
+ 
+ <script type="text/template" id="saleComplete">
+-	<%='<%= selectNum %\>'%>個の
++	<%='<%= selectNum %\>'%>
+ 	<%='<% var displayNames = model.dispName; %\>'%>
+ 	<%='<% if(model.dispTitle){ %\>'%>
+ 		<%='<% displayNames += (" " + model.dispTitle); %\>'%>
+ 	<%='<% } %\>'%>
+-	<%='<%= displayNames %\>'%>の<br>デスティニージェムを交換しました。<br>
++	<%='<%= displayNames %\>'%><br>Destiny Gem(s) have been successfully exchanged.<br>
+ 	<div class="prismWrap commonFrame4">
+ 		<div class="itemImg">
+ 			<img src="/magica/resource/image_web/item/main/prism.png">
+ 		</div>
+ 		<div class="popNameMiniWrap"><%='<%= prism.name %\>'%></div>
+ 		<div class="popDescription"><%='<%= prism.description %\>'%></div>
+-		<div class="hasCount"><span class="hasLeft">所持数</span><span class="hasQuantity"><%='<%= afterNum %\>'%></span></div>
++		<div class="hasCount"><span class="hasLeft">Exchange</span><span class="hasQuantity"><%='<%= afterNum %\>'%></span></div>
+ 	</div>
+ 	<%='<% if(isCrystal){ %\>'%>
+ 		<div class="crystalWrap commonFrame4">
+@@ -66,8 +66,8 @@
+ 			</div>
+ 			<div class="popNameMiniWrap"><%='<%= crystal.name %\>'%></div>
+ 			<div class="popDescription"><%='<%= crystal.description %\>'%></div>
+-			<div class="hasCount"><span class="hasLeft">所持数</span><span class="hasQuantity"><%='<%= afterCrystal %\>'%></span></div>
++			<div class="hasCount"><span class="hasLeft">Stock</span><span class="hasQuantity"><%='<%= afterCrystal %\>'%></span></div>
+ 		</div>
+ 	<%='<% } %\>'%>
+-	<span class="afterText">※変換したアイテムは直接付与されています。</span>
+-</script>
+\ No newline at end of file
++	<span class="afterText">※Item(s) can be found in your inventory.</span>
++</script>
 --- a/magica/template/memoria/MemoriaPopup.html
 +++ b/magica/template/memoria/MemoriaPopup.html
 @@ -3,7 +3,7 @@
