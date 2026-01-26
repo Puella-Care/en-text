@@ -64,6 +64,32 @@
  isBrowser: "js/_common/isBrowser",
  ajaxControl: "js/_common/ajaxControl",
  router: "js/_common/router",
+--- a/magica/js/_common/isBrowser.js
++++ b/magica/js/_common/isBrowser.js
+@@ -43,11 +43,21 @@
+ var c = f.doc.querySelectorAll("[data-nativeimgkey\x3d" + a + "]");
+ c && d.each(c, function(a) {
+ a.dataset.nativeimgkey = "";
+-a.src = b
++a.src =
++
++// FEAT(LiviaMedeiros): allow client-defined base
++localStorage.getItem("_ttz_resourceBase") +
++
++b
+ });
+ (a = f.doc.querySelectorAll("[data-nativebgkey\x3d" + a + "]")) && d.each(a, function(a) {
+ a.dataset.nativebgkey = "";
+-a.style.backgroundImage = "url(" + b + ")"
++a.style.backgroundImage = "url(" +
++
++// FEAT(LiviaMedeiros): allow client-defined base
++localStorage.getItem("_ttz_resourceBase") +
++
++b + ")"
+ })
+ })
+ }
 --- a/magica/js/_common/nativeCommand.js
 +++ b/magica/js/_common/nativeCommand.js
 @@ -479,7 +479,12 @@
