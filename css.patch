@@ -154,6 +154,20 @@
  }
  
  #dataPopup #voiceDataWrapBefore .checkBox, #dataPopup #voiceDataWrapAfter .checkBox, #dataPopup #movieDataWrapBefore .checkBox, #dataPopup #movieDataWrapAfter .checkBox {
+--- a/magica/css/follow/FollowTop.css
++++ b/magica/css/follow/FollowTop.css
+@@ -514,7 +514,10 @@
+ }
+ 
+ #FriendList .wrap .supportCheckBtn {
+-  width: 118px;
++
++  /* FIX(MN): make `Check Supports` fit */
++  width: 128px; /* 118px */
++
+   position: absolute;
+   top: 11px;
+   right: 100px;
 --- a/magica/css/item/ItemListTop.css
 +++ b/magica/css/item/ItemListTop.css
 @@ -217,7 +217,10 @@
