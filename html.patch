@@ -1723,6 +1723,84 @@
  							<%="<% i=(i+1)|0; %\>"%>
  						<%="<% } %\>"%>
  					</div>
+--- a/magica/template/item/ItemListTop.html
++++ b/magica/template/item/ItemListTop.html
+@@ -3,16 +3,16 @@
+ <div id="userItemList" class="item">
+ 	<div class='searchQuestBtn linkBtn TE se_decide' data-href='#/SearchQuest'></div>
+ 	<div id="tabBtn" class="commonFrame2">
+-		<ul class="common_tab t_gold">
+-			<li class="TE btn se_tabs item current" data-wrap="item">素材</li>
+-			<li class="TE btn se_tabs gem destiny_li" data-wrap="gem"><span>デスティニージェム</span></li>
+-			<li class="TE btn se_tabs sticker none" data-wrap="sticker"><span>魔法少女シール</span></li>
++		<ul class="common_tab t_gold ml_tab"><!-- MN -->
++			<li class="TE btn se_tabs item current" data-wrap="item">Materials</li>
++			<li class="TE btn se_tabs gem destiny_li" data-wrap="gem"><span>Destiny Gems</span></li>
++			<li class="TE btn se_tabs sticker none" data-wrap="sticker"><span>Magical Girl<br>Sticker</span></li><!-- MN -->
+ 		</ul>
+ 	</div>
+ 	<div id="listWrap" class="commonFrame1">
+-		<h2 id="listTitle">素材</h2>
+-		<div class="gemShortInfo c_gold">魔力解放に使用します。余ったデスティニージェムはマギアチップ等のアイテムに変換できます。</div>
+-		<div class="stickerCount"><span class="countTitle">所持数</span><span id="stickerCountNum" class="c_pink">0</span></div>
++		<h2 id="listTitle">Materials</h2>
++		<div class="gemShortInfo c_gold">Used to Unlock Magic. Extra Destiny Gems can be converted into Magia Chips.</div>
++		<div class="stickerCount"><span class="countTitle">Stock</span><span id="stickerCountNum" class="c_pink">0</span></div>
+ 		<div class="hiddenWrap" id="scrollMainWrap">
+ 			<div id="item" class="itemInner"></div>
+ 			<div id="gem" class="gemInner"></div>
+@@ -40,7 +40,7 @@
+ 			<%='<% } %\>'%>
+ 
+ 			<div class="revisionWrap">
+-				<span class="revTitle c_gold">魔力解放</span>
++				<span class="revTitle c_gold">Unlock Magic</span>
+ 				<ul class="revIcon">
+ 					<%='<% for(var i=0;i<3;i++){ %\>'%>
+ 						<%='<% if(model.revision >= (i+1) ){ %\>'%>
+@@ -54,7 +54,7 @@
+ 
+ 		<%='<% } %\>'%>
+ 		<dl class="common_dl itemQuantity">
+-			<dt>所持数</dt>
++			<dt>Stock</dt>
+ 			<dd class="itemQuantityNum"><%='<%= model.quantity %\>'%></dd>
+ 		</dl>
+ 	<%='<% }else{ %\>'%>
+@@ -65,12 +65,12 @@
+ </script>
+ 
+ <script type="text/template" id="saleCaution">
+-	選択した魔法少女は最大まで魔力解放されていないため<br>
+-	マギアチップにのみ変換できます。
++	The Magical Girl you have selected hasn't had her Magic fully Enhanced.<br>
++	Because of this your Destiny Gem will NOT be converted into a Destiny Crystal. (You will only get Magia Chips)
+ 	<div class="c_red caution">
+-		※獲得時の初期レアリティが★4の魔法少女を最大まで魔力解放している場合は、<br>
+-		　マギアチップに加えてデスティニークリスタルが付与されます。<br>
+-		※デスティニークリスタルは一定数集めることでショップで★4魔法少女と交換できます。
++		※Fully Unlock your Magical Girl's Magic to receive a Destiny Crystal along with the Magia Chips you get from exchanging a Destiny Gem.<br>
++		　This is only applicable to natural ★4 Magical Girls that were drawn from a Fate Weave.<br>
++		※Destiny Crystals can be exchanged for ★4 Magical Girls.
+ 	</div>
+ </script>
+ 
+@@ -85,7 +85,7 @@
+ 
+ 		<%='<% var descript = model.item.description.replace(/＠/g, "<br>"); %\>'%>
+ 		<div class="description"><%='<%= descript %\>'%></div>
+-		<div class="where"><span class="whereTitle">見つかる場所</span><br><%='<%= model.item.shortDescription %\>'%></div>
++		<div class="where"><span class="whereTitle">Find Her In: </span><br><%='<%= model.item.shortDescription %\>'%></div>
+ 
+ 		<%='<% var prm = model.item.parameter.split(","); %\>'%>
+ 		<div class="live2D">Live2D<span class="spaceStar"></span><%='<%= prm[1] %\>'%></div>
+@@ -94,4 +94,4 @@
+ 			<div class="cameraLink linkBtn TE se_decide" data-href="#/CameraTop"><span class="b_screen"></span></div>
+ 		<%='<% } %\>'%>
+ 	</div>
+-</script>
+\ No newline at end of file
++</script>
 --- a/magica/template/item/ItemSalePopup.html
 +++ b/magica/template/item/ItemSalePopup.html
 @@ -1,5 +1,5 @@
