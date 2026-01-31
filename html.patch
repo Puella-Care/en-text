@@ -301,6 +301,48 @@
 -</div>
 \ No newline at end of file
 +</div>
+--- a/magica/template/chara/CharaCustomizePopup.html
++++ b/magica/template/chara/CharaCustomizePopup.html
+@@ -1,6 +1,6 @@
+ <div class="popupInner">
+ 	<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-	<p id="popupInfoDetailTitle" class="popupTitle common_title">覚醒素材セット</p>
++	<p id="popupInfoDetailTitle" class="popupTitle common_title">Set Materials</p>
+ 
+ 	<div class="popupTextArea">
+ 
+@@ -10,23 +10,23 @@
+ 		</div>
+ 		<p class='giftName'><%= model.name %></p>
+ 		<% if(model.canSet) { %>
+-			<p class="popupBonusWrap"><span class="thStyle">効果</span><%= model.bonusCodeDisp %>+<%= model.bonusNum %>%</p>
++			<p class="popupBonusWrap"><span class="thStyle">Effect</span><%= model.bonusCodeDisp %>+<%= model.bonusNum %>%</p>
+ 		<% } else { %>
+-			<p class='cantSetCaution c_red'>素材が不足しています</p>
++			<p class='cantSetCaution c_red'>Insufficient Materials</p>
+ 		<% } %>
+ 	</div>
+ 	<table class="popupBtnArea" width="400" border="0" cellspacing="0" cellpadding="0">
+ 		<tr>
+ 			<% if(model.canSet) { %>
+-				<td><span class="cancelBtn se_decide popupCloseBtn btn TE b_white"><span class="b_screen"></span>キャンセル</td>
+-				<td><span class="decideBtn btn se_decide TE b_pink"><span class="b_screen"></span>セット</td>
++				<td><span class="cancelBtn se_decide popupCloseBtn btn TE b_white"><span class="b_screen"></span>Cancel</td>
++				<td><span class="decideBtn btn se_decide TE b_pink"><span class="b_screen"></span>Set</td>
+ 			<% } else { %>
+ 				<td><span class="shopBtn se_decide btn TE b_pink linkBtn" data-href="#/ShopTop/72">
+-					<span class="b_screen"></span>ショップへ</td>
++					<span class="b_screen"></span>Go to Shop</td>
+ 				<td><span class="questSearchBtn se_decide btn TE b_pink" data-giftid="<%= model.giftId %>">
+-					<span class="b_screen"></span>クエストへ
++					<span class="b_screen"></span>Go to Quest
+ 				</td>
+ 			<% } %>
+ 		</tr>
+ 	</table>
+-</div>
+\ No newline at end of file
++</div>
 --- a/magica/template/chara/CharaData.html
 +++ b/magica/template/chara/CharaData.html
 @@ -21,7 +21,7 @@
@@ -525,6 +567,20 @@
  
  						<div class="live2dBtns">
  							<% _.forEach(model.live2dList,function(txt,index){ %>
+--- a/magica/template/chara/CharaList.html
++++ b/magica/template/chara/CharaList.html
+@@ -1,7 +1,7 @@
+ <span class='orderBtn TE' data-id=""></span>
+ <span id="sortBtn" class="se_tabs TE c_gold" data-id=""></span>
+-<span id="sortPopup" class="se_tabs TE c_gold">フィルター</span>
++<span id="sortPopup" class="se_tabs TE c_gold">Filter</span>
+ <div id="charaList">
+-	<p class='charaListCaution ts_white hide'>対象の魔法少女は存在しません</p>
++	<p class='charaListCaution ts_white hide'>No Applicable Magical Girls</p>
+ 	<div id='charaListScrollWrap'><ul id="charaListElms" class="list"></ul></div>
+-</div>
+\ No newline at end of file
++</div>
 --- a/magica/template/chara/CharaResult.html
 +++ b/magica/template/chara/CharaResult.html
 @@ -33,14 +33,14 @@
@@ -1690,6 +1746,73 @@
  </script>
 --- a/magica/template/formation/DeckFormation.html
 +++ b/magica/template/formation/DeckFormation.html
+@@ -16,14 +16,14 @@
+ 			<div class='formationSheetListInner'></div>
+ 		</div>
+ 		<div id="formationDetail" class="commonFrame1"></div>
+-		<div class='deckCaution fsFooter'>魔法陣形を選択してください</div>
++		<div class='deckCaution fsFooter'>Select a Magical Formation.</div>
+ 	</div>
+ 
+ 	<div id='deckSelectWrap' class='noneDisp'>
+ 		<div id="deckCancelBtn" class="se_cancel TE"></div>
+-		<div class="copyTitle"><span class="c_purple">編成コピー</span></div>
+-		<div class='deckCaution deckFooter'>編成するチームをタッチしてください</div>
+-		<div class='copyCaution deckFooter'>コピーするチームをタッチしてください</div>
++		<div class="copyTitle"><span class="c_purple">Import Team</span></div>
++		<div class='deckCaution deckFooter'>Tap the Team you'd like to edit.</div>
++		<div class='copyCaution deckFooter'>Tap the Team you'd like to import.</div>
+ 	</div>
+ 
+ 	<% if(deckCatType === 'accomplish') { %>
+@@ -56,23 +56,23 @@
+ 					<div id="simulateBaloon"></div>
+ 				<% } %>
+ 				<% if(deckCatType === 'exterminationCopy' || deckCatType === 'secondPartLastCopy'){ %>
+-					<div id='exterminationCopyBtn' class=''>コピー</div>
++					<div id='exterminationCopyBtn' class=''>Copy</div>
+ 				<% } else { %>
+ 				<div id='deckRemovePopBtn' class='footerBtn se_decide TE c_gold'></div>
+-				<div id='mainBtn' class='off'>決定</div>
+-				<div id='nextPageBtn' class='nextPageBtn noneDisp'>開始</div>
++				<div id='mainBtn' class='off'>OK</div>
++				<div id='nextPageBtn' class='nextPageBtn noneDisp'>Start</div>
+ 				<% } %>
+ 				<% if(questLoopStatus != "none"){ %>
+-				<div id='nextPageBtnLoop' class='nextPageBtn loop noneDisp <%= questLoopStatus %>'>AUTO<br>周回</div>
++				<div id='nextPageBtnLoop' class='nextPageBtn loop noneDisp <%= questLoopStatus %>'>AUTO<br>PLAY</div>
+ 				<% } %>
+ 			</div>
+ 			<div class='btns flexBox preview noneDisp'>
+-				<div class='deckCaution previewFooter'>現在編成中のチームのプレビューです</div>
++				<div class='deckCaution previewFooter'>A preview of your current Team.</div>
+ 				<div id='previewCloseBtn' class='footerBtn se_decide TE c_gold'></div>
+ 			</div>
+ 			<div class='btns flexBox fs noneDisp'>
+ 				<div id="formationDetailBtn" class="btn b_pink se_tabs TE">陣形詳細</div>
+-				<div id='formationSheetDecideBtn' class='footerBtn se_decide'>決定</div>
++				<div id='formationSheetDecideBtn' class='footerBtn se_decide'>OK</div>
+ 			</div>
+ 		</div>
+ 		<div class='bg2'></div>
+@@ -84,7 +84,7 @@
+ <script type="text/template" id="DeckViewTemp">
+ 
+ 	<% if(deckCatType === 'group' || deckCatType === 'groupPrepare'){ %>
+-	<div id="regularEventNaviBtn" class="regularEventNaviBtn sb_gold_01 TE se_decide" data-event-type="groupBattle">攻略のヒント</div>
++	<div id="regularEventNaviBtn" class="regularEventNaviBtn sb_gold_01 TE se_decide" data-event-type="groupBattle">Strategy Tips</div>
+ 	<% } %>
+ 
+ 	<% if(deckCatType !== 'dungeonInMap' &&  deckCatType !== 'extermination' && deckCatType !== 'secondPartLast' && deckCatType !== 'exterminationCopy' && deckCatType !== 'secondPartLastCopy') { %>
+@@ -101,7 +101,7 @@
+ 		<%="<% if(deckCatType !== 'extermination' && deckCatType !== 'secondPartLast' && deckCatType !== 'accomplish') { %\>"%>
+ 			<div class='deckChangeArrow se_tabs TE arrowR'></div>
+ 			<div class='deckChangeArrow se_tabs TE arrowL'></div>
+-			<div class='deckChangeModeBtn TE sb_gold_02 se_decide'>チーム切替</div>
++			<div class='deckChangeModeBtn TE sb_gold_02 se_decide'>Switch Team</div>
+ 		<%="<% } %\>"%>
+ 	<%="<% } %\>"%>
+ 
 @@ -238,13 +238,13 @@
  						<%="<% var noneNum = RevisionMax - onNum; %\>"%>
  
@@ -1706,6 +1829,174 @@
  							<%="<% i=(i+1)|0; %\>"%>
  						<%="<% } %\>"%>
  					</div>
+@@ -577,7 +577,7 @@
+ 											<span class='lbMaxIcon'></span>
+ 										<%="<% } %\>"%>
+ 
+-										<p class='pieceLv'>Lv<%="<%= cardModel[equipKey].level + '/' + cardModel[equipKey].maxLevel  %\>"%></p>
++										<p class='pieceLv'>Lvl.<%="<%= cardModel[equipKey].level + '/' + cardModel[equipKey].maxLevel  %\>"%></p>
+ 									</span>
+ 								<%="<% } else { %\>"%>
+ 									<span class='equiped <%="<%= pieceClass %\>"%>'
+@@ -669,12 +669,12 @@
+ <script type="text/template" id="DeckNameChangeTemp">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle">チーム名変更</p>
++		<p id="popupInfoDetailTitle" class="popupTitle">Rename Team</p>
+ 
+ 		<div class="popupTextArea">
+ 			<div class="profileChange">
+ 				<input id="commentInput" readonly="readonly" value='<%="<%= model.name %\>"%>' maxlength="50" /><br>
+-				<span class="commentNotis c_red">絵文字は使用できません</span>
++				<span class="commentNotis c_red">Emojis cannot be used.</span>
+ 				<div class="textCount c_gold"><span id="textCount" class="c_gold"><%="<%= model.name.length %\>"%></span>/10</div>
+ 				<div class="btn b_pink se_decide TE" id="commentDecide"><span class="b_screen"></span>OK</div>
+ 			</div>
+@@ -685,15 +685,15 @@
+ <script type="text/template" id="TeamRemovePop">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle">チーム解散</p>
++		<p id="popupInfoDetailTitle" class="popupTitle">Dissolve Team</p>
+ 
+ 		<div class="popupTextArea">
+-			<%="<%= _.escape(model.name) %\>"%>を解散しますか？<br>※装備中のメモリアも全てはずれます
++			<%="<%= _.escape(model.name) %\>"%>Are you sure you want to dissolve?<br>※All equipped Memoria will be unequipped.
+ 		</div>
+ 
+ 		<table class="popupBtnArea" border="0" cellspacing="0" cellpadding="0">
+ 			<tr>
+-				<td><span class="cancelBtn se_cancel popupCloseBtn btn TE b_white"><span class='b_screen'></span>キャンセル</span></td>
++				<td><span class="cancelBtn se_cancel popupCloseBtn btn TE b_white"><span class='b_screen'></span>Cancel</span></td>
+ 				<td><span class="decideBtn se_decide btn b_pink TE"><span class='b_screen'></span>OK</span></td>
+ 			</tr>
+ 		</table>
+@@ -762,13 +762,13 @@
+ <script type="text/template" id="autoFormationTemp">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle">お任せ編成</p>
++		<p id="popupInfoDetailTitle" class="popupTitle">Auto Team</p>
+ 
+ 		<div class="popupTextArea">
+-			<div class="autoText">属性と重視する項目を選択してください</div>
++			<div class="autoText">Choose what type of Team you'd like to auto-create.</div>
+ 			<div class='filterBar'>
+-				<p>属性</p>
+-				<span id="autoFilterAtt" class='filterAtt se_tabs ALL on' data-type-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++				<p>Element</p>
++				<span id="autoFilterAtt" class='filterAtt se_tabs ALL on' data-type-filter="ALL"><span class='checkBox'></span>All</span>
+ 			</div>
+ 			<div id='autoFormationAttWrap' class="flexBox">
+ 				<div class="attribute" data-type-filter="FIRE">
+@@ -798,17 +798,17 @@
+ 			</div>
+ 
+ 			<div class='typeBar'>
+-				<p>お任せ編成対象</p>
++				<p>Type of Team</p>
+ 			</div>
+ 			<div id='autoFormationStatusWrap' class='filterWrap flexBox'>
+ 				<div class='se_tabs status TE on' data-status-sort="attack">
+-					<span class="checkBox"></span>攻撃優先
++					<span class="checkBox"></span>Offensive
+ 				</div>
+ 				<div class='se_tabs status TE' data-status-sort="defense">
+-					<span class="checkBox"></span>防御優先
++					<span class="checkBox"></span>Defensive
+ 				</div>
+ 				<div class='se_tabs status TE' data-status-sort="hp">
+-					<span class="checkBox"></span>バランス
++					<span class="checkBox"></span>Balanced
+ 				</div>
+ 			</div>
+ 
+@@ -816,7 +816,7 @@
+ 
+ 		<table class="popupBtnArea" width="400" border="0" cellspacing="0" cellpadding="0">
+ 			<tr>
+-				<td><span class="btn b_white popupCloseBtn TE se_cancel"><span class='b_screen'></span>キャンセル</span></td>
++				<td><span class="btn b_white popupCloseBtn TE se_cancel"><span class='b_screen'></span>Cancel</span></td>
+ 				<td><span id="autoFormationBtn" class="btn b_pink TE se_decide"><span class='b_screen'></span>OK</span></td>
+ 			</tr>
+ 		</table>
+@@ -827,30 +827,30 @@
+ <script type="text/template" id="autoFormationSupportTemp">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle">お任せ編成</p>
++		<p id="popupInfoDetailTitle" class="popupTitle">Auto Team</p>
+ 
+ 		<div class="popupTextArea">
+-			<div class="autoText">重視する項目を選択してください</div>
++			<div class="autoText">Select what kind of Team you'd like.</div>
+ 
+ 			<div class='typeBar'>
+-				<p>お任せ編成対象</p>
++				<p>Type of Team</p>
+ 			</div>
+ 			<div id='autoFormationStatusWrap' class='filterWrap flexBox'>
+ 				<div class='se_tabs status TE on' data-status-sort="attack">
+-					<span class="checkBox"></span>攻撃優先
++					<span class="checkBox"></span>Offensive
+ 				</div>
+ 				<div class='se_tabs status TE' data-status-sort="defense">
+-					<span class="checkBox"></span>防御優先
++					<span class="checkBox"></span>Defensive
+ 				</div>
+ 				<div class='se_tabs status TE' data-status-sort="hp">
+-					<span class="checkBox"></span>バランス
++					<span class="checkBox"></span>Balanced
+ 				</div>
+ 			</div>
+ 		</div>
+ 
+ 		<table class="popupBtnArea" width="400" border="0" cellspacing="0" cellpadding="0">
+ 			<tr>
+-				<td><span class="btn b_white popupCloseBtn TE se_cancel"><span class='b_screen'></span>キャンセル</span></td>
++				<td><span class="btn b_white popupCloseBtn TE se_cancel"><span class='b_screen'></span>Cancel</span></td>
+ 				<td><span id="autoFormationBtn" class="btn b_pink TE se_decide"><span class='b_screen'></span>OK</span></td>
+ 			</tr>
+ 		</table>
+@@ -861,30 +861,30 @@
+ <script type="text/template" id="autoFormationGroupTemp">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle">お任せ編成</p>
++		<p id="popupInfoDetailTitle" class="popupTitle">Auto Team</p>
+ 
+ 		<div class="popupTextArea">
+ 			<div class="autoText" style="height:auto;">
+-				キモチ戦に有効な魔法少女を優先して編成します<br>
+-				重視する項目を選択してください
++				Auto-create a Team that is effective against this Kimochi battle.<br>
++				Select what kind of Team you'd like.
+ 			</div>
+ 
+ 			<div class='typeBar'>
+-				<p>お任せ編成対象</p>
++				<p>Type of Team</p>
+ 			</div>
+ 			<div id='autoFormationStatusWrap' class='filterWrap flexBox'>
+ 				<div class='se_tabs status TE on' data-status-sort="attack">
+-					<span class="checkBox"></span>攻撃優先
++					<span class="checkBox"></span>Offensive
+ 				</div>
+ 				<div class='se_tabs status TE' data-status-sort="defense">
+-					<span class="checkBox"></span>防御優先
++					<span class="checkBox"></span>Defensive
+ 				</div>
+ 			</div>
+ 		</div>
+ 
+ 		<table class="popupBtnArea" width="400" border="0" cellspacing="0" cellpadding="0">
+ 			<tr>
+-				<td><span class="btn b_white popupCloseBtn TE se_cancel"><span class='b_screen'></span>キャンセル</span></td>
++				<td><span class="btn b_white popupCloseBtn TE se_cancel"><span class='b_screen'></span>Cancel</span></td>
+ 				<td><span id="autoFormationBtn" class="btn b_pink TE se_decide"><span class='b_screen'></span>OK</span></td>
+ 			</tr>
+ 		</table>
 --- a/magica/template/formation/ProfileFormationSupport.html
 +++ b/magica/template/formation/ProfileFormationSupport.html
 @@ -75,13 +75,13 @@
@@ -1724,6 +2015,142 @@
  							<%="<% i=(i+1)|0; %\>"%>
  						<%="<% } %\>"%>
  					</div>
+--- a/magica/template/gacha/GachaResult.html
++++ b/magica/template/gacha/GachaResult.html
+@@ -10,18 +10,18 @@
+ 					<div id="bageTextArea" class=""><div class="number1"></div><div class="number2"></div></div>
+ 					<img src="/magica/resource/image_web/page/gacha/baloon/badge_free_additional.png" alt="">
+ 				</div>
+-				<span class="b_screen"></span>もう1回引く</span>
+-			<span class="btn TE se_decide b_white linkBtn" id='backLinkBtn' data-href=""><span class="b_screen"></span>戻る</span>
++				<span class="b_screen"></span>Draw Again</span>
++			<span class="btn TE se_decide b_white linkBtn" id='backLinkBtn' data-href=""><span class="b_screen"></span>OK</span>
+ 		</div>
+ 	</div>
+ 
+ 	<div id="hasMagicGirlNum">
+-		<div class="title">所持魔法少女</div>
++		<div class="title">Magical Girls</div>
+ 		<div class="nums"><%= model.hasCardNum %></div>
+ 	</div>
+ 
+ 	<div id="hasMemoriaNum">
+-		<div class="title">所持メモリア</div>
++		<div class="title">Memoria</div>
+ 		<div class="nums"><%= model.hasPieceNum %>/<%= model.pieceCapacity %></div>
+ 	</div>
+ 
+@@ -48,7 +48,7 @@
+ 		<% } %>
+ 	</div>
+ 
+-	<div id="saleSettingBtn" class="sb_gold_02 TE se_decide">自動設定</div>
++	<div id="saleSettingBtn" class="sb_gold_02 TE se_decide">Auto Settings</div>
+ </div>
+ 
+ <script type="text/template" id="gachaResultParts">
+@@ -94,46 +94,45 @@
+ 	<%='<% var displayTitle = model.displayTitle.replace(/<br>/g, ""); %\>'%>
+ 
+ 	<%='<% if(model.needQuantity === 0) { %\>'%>
+-		無料で<span class='c_pink'><%='<%= displayTitle %\>'%></span>を行います。よろしいですか？
++		Draw the free <span class='c_pink'><%='<%= displayTitle %\>'%></span>.<br>Are you sure?
+ 		<%='<% if(model.userGachaKind) { %\>'%>
+-			<div class='gachaAttentionArea commonFrame3'>本日、<span class='c_pink'>残り<%='<%= model.userGachaKind.canRemainCount - model.userGachaKind.totalCount %\>'%>回無料</span>でガチャを行うことができます</div>
++			<div class='gachaAttentionArea commonFrame3'>Today, you have <span class='c_pink'><%='<%= model.userGachaKind.canRemainCount - model.userGachaKind.totalCount %\>'%> free rolls remaining</span> in this Fate Weave.</div>
+ 		<%='<% } %\>'%>
+ 
+ 	<%='<% } else { %\>'%>
+-	<span class='c_pink'><%='<%= model.userUseItem.item.name %\>'%></span>を<span class='c_pink'><%='<%= (model.userUseItem.subItemFlag) ? "1" : model.needQuantity %\>'%><%='<%= model.userUseItem.item.unit %\>'%></span>使用して<span class='c_pink'><%='<%= displayTitle %\>'%></span>を行います。<br>
+-	よろしいですか？
++	It costs <span class='c_pink'><%='<%= (model.userUseItem.subItemFlag) ? "1" : model.needQuantity %\>'%> <%='<%= model.userUseItem.item.name %\>'%>(s)</span> to perform a <span class='c_pink'><%='<%= displayTitle %\>'%></span> Fate Weave.<br>Are you sure you want to draw?
+ 
+ 	<%='<% if(model.userUseItem.item.itemCode === "MONEY" || model.userUseItem.item.itemCode === "PURCHASED_MONEY") { %\>'%>
+ 		<%='<% if(model.openTermText) { %\>'%>
+ 			<dl class="common_dl <%='<%= model.openTermClass %\>'%>">
+-				<dt>開催期間</dt>
++				<dt>Event Period</dt>
+ 				<dd><%='<%= model.openTermText %\>'%></dd>
+ 			</dl>
+ 		<%='<% } %\>'%>
+ 		<div class="cautionText">
+-			決定後、すぐにガチャが実行されマギアストーンが消費されます。<br>
++			After confirmation, the Fate Weave will be drawn and consume Magia Stones.<br>
+ 			<%='<% if(model.userUseItem.item.itemCode === "MONEY") { %\>'%>
+ 			<!-- 有償限定ガチャでは表示しない -->
+-			マギアストーンは無償分から先に消費され、
++			The free portion of Magia Stones will be consumed first.
+ 			<%='<% } %\>'%>
+-			決定後のキャンセルはできません。
++			This action cannot be canceled after confirmation.
+ 		</div>
+ 		<div class="moneyNumWrap">
+ 			<img class='useItemIcon' src="/magica/resource/image_web/page/gacha/item/icon_money_f.png" />
+ 			<div class='stoneA pointFrame'>
+-				合計
++				Total
+ 				<div class="inner">
+ 					<span class="num"><%='<%= model.userUseItem.moneyObj.totalMoney %\>'%><span class="remain <%='<%= model.remainClassTotalMoney %\>'%>"><span class="arrow">&#9654;</span><%='<%= model.remainTotalMoney %\>'%></span></span>
+ 				</div>
+ 				</div>
+ 			<div class='stoneB'>
+-				有償
++				Paid
+ 				<div class="inner">
+ 					<span class="num"><%='<%= model.userUseItem.moneyObj.userMoney %\>'%><span class="remain <%='<%= model.remainClassUserMoney %\>'%>"><span class="arrow">&#9654;</span><%='<%= model.remainUserMoney %\>'%></span></span>
+ 				</div>
+ 				</div>
+ 			<div class='stoneC'>
+-				無償
++				Free
+ 				<div class="inner">
+ 					<span class="num"><%='<%= model.userUseItem.moneyObj.presentedMoney %\>'%><span class="remain <%='<%= model.remainClassPresentedMoney %\>'%>"><span class="arrow">&#9654;</span><%='<%= model.remainPresentedMoney %\>'%></span></span>
+ 				</div>
+@@ -141,37 +140,37 @@
+ 		</div>
+ 	<%='<% } else { %\>'%>
+ 		<img class='useItemIcon item' src="/magica/resource/image_web/page/gacha/item/icon_<%='<%= model.userUseItem.item.itemCode.toLowerCase() %\>'%>_f.png" />
+-		<div class='itemNumWrap item pointFrame'>所持数<span class="num"><%='<%= model.userUseItem.quantity %\>'%><%='<%= model.userUseItem.item.unit %\>'%></div>
++		<div class='itemNumWrap item pointFrame'>Stock<span class="num"><%='<%= model.userUseItem.quantity %\>'%><%='<%= model.userUseItem.item.unit %\>'%></div>
+ 	<%='<% } %\>'%>
+ 	<%='<% } %\>'%>
+ </script>
+ 
+ <!-- 通貨が足りないときのポップアップ -->
+ <script id="GachaConfPop" type="text/template">
+-	<span class='c_pink'><%='<%= model.userUseItem.item.name %\>'%></span>が<span class='c_pink'><%='<%= needPoint %\>'%><%='<%= model.userUseItem.item.unit %\>'%></span>不足しています。
++	Insufficient <span class='c_pink'><%='<%= model.userUseItem.item.name %\>'%>s</span>.<br>You need <span class='c_pink'><%='<%= needPoint %\>'%></span> more <%='<%= model.userUseItem.item.name %\>'%>(s).
+ 
+ 	<%='<% if(model.userUseItem.item.itemCode === "MONEY" || model.userUseItem.item.itemCode === "PURCHASED_MONEY") { %\>'%>
+ 		<img class='useItemIcon stone' src="/magica/resource/image_web/page/gacha/item/icon_money_f.png" />
+ 
+ 		<div class='itemNumWrap stoneA pointFrame'>
+-			合計<span class="num"><%='<%= model.userUseItem.moneyObj.totalMoney %\>'%>
++			Total<span class="num"><%='<%= model.userUseItem.moneyObj.totalMoney %\>'%>
+ 		</div>
+ 		<div class='itemNumWrap stoneB'>
+-			有償<span class="num"><%='<%= model.userUseItem.moneyObj.userMoney %\>'%>
++			Paid<span class="num"><%='<%= model.userUseItem.moneyObj.userMoney %\>'%>
+ 		</div>
+ 		<div class='itemNumWrap stoneC'>
+-			無償<span class="num"><%='<%= model.userUseItem.moneyObj.presentedMoney %\>'%>
++			Free<span class="num"><%='<%= model.userUseItem.moneyObj.presentedMoney %\>'%>
+ 		</div>
+ 	<%='<% } else { %\>'%>
+ 		<img class='useItemIcon item' src="/magica/resource/image_web/page/gacha/item/icon_<%='<%= model.userUseItem.item.itemCode.toLowerCase() %\>'%>_f.png" />
+-		<div class='itemNumWrap item pointFrame'>所持数<span class="num"><%='<%= model.userUseItem.quantity %\>'%><%='<%= model.userUseItem.item.unit %\>'%></div>
++		<div class='itemNumWrap item pointFrame'>Stock<span class="num"><%='<%= model.userUseItem.quantity %\>'%><%='<%= model.userUseItem.item.unit %\>'%></div>
+ 	<%='<% } %\>'%>
+ </script>
+ 
+ <script type="text/template" id="bonusRewardTemp">
+ 	<div id="bonusRewardWrap"></div>
+ 	<div id="bonusRewardCautionWrap" class="hide">
+-		<div class="caution">※おまけは直接付与されています。</div>
++		<div class="caution">※Bonus rewards are granted automatically.</div>
+ 		<div class="touch_screen"></div>
+ 	</div>
+ </script>
 --- a/magica/template/item/ItemListTop.html
 +++ b/magica/template/item/ItemListTop.html
 @@ -3,16 +3,16 @@
@@ -1988,6 +2415,366 @@
 -		<% if(!model.lockFlg && !model.supportFlag){ %><span id="memoriaProtect" class="se_decide<%= addClass %>"><% if(model.protect){ %>ロック中<% }else{ %>ロック<% } %></span><% } %>
 +		<% if(!model.lockFlg && !model.supportFlag){ %><span id="memoriaProtect" class="se_decide<%= addClass %>"><% if(model.protect){ %>Locked<% }else{ %>Lock<% } %></span><% } %>
  	</div>
+--- a/magica/template/memoria/MemoriaSetEquip.html
++++ b/magica/template/memoria/MemoriaSetEquip.html
+@@ -1,7 +1,7 @@
+ <div id='MemoriaSetEquip'>
+ 
+ 	<div id='setListWrap' class="commonFrame1">
+-		<h2>装備したいセットを選んでください</h2>
++		<h2>Choose a Memoria Set to Equip</h2>
+ 		<div id='scrollOuter'>
+ 			<div id='scrollInner' class='scrollInner'>
+ 			</div>
+@@ -33,7 +33,7 @@
+ 					<%="<%= (model.pieceArr[i].invalidFlag) ? ' '+model.pieceArr[i].invalidFlag : '' %\>"%>'
+ 					data-framenum='<%="<%= i %\>"%>'>
+ 					<span class='eventEffect'></span>
+-					<span class="lv">Lv <%="<%= level %\>"%>/<%="<%= maxLevel %\>"%></span>
++					<span class="lv">Lvl. <%="<%= level %\>"%>/<%="<%= maxLevel %\>"%></span>
+ 					<img class='memoriaImg' src='/magica/resource/image_web/memoria/memoria_<%="<%= pieceId %\>"%>_s.png' alt=''>
+ 				</div>
+ 			<%="<% } else { %\>"%>
+@@ -60,11 +60,11 @@
+ 	</div>
+ 
+ 	<%="<% if(model.pieceArr.length) { %\>"%>
+-		<div class='memoriaSetEquipBtn btn TE se_decide b_pink'>装備</div>
++		<div class='memoriaSetEquipBtn btn TE se_decide b_pink'>Equip</div>
+ 	<%="<% } %\>"%>
+ 
+ 	<%="<% if(!model.rental) { %\>"%><!-- レンタルならセット登録しない -->
+-	<div class='memoriaSetBtn btn TE se_decide b_purple'>セット登録</div>
++	<div class='memoriaSetBtn btn TE se_decide b_purple'>Save Set</div>
+ 	<%="<% } %\>"%>
+ </script>
+ 
+@@ -78,7 +78,7 @@
+ 		</p>
+ 	</div>
+ 
+-	<div class='setCaution'>現在の装備をセット登録</div>
++	<div class='setCaution'>Save Equipped Memoria as Set</div>
+ 
+ 	<div class="memoriaWrap">
+ 		<%="<% var addHp  = 0; %\>"%>
+@@ -105,7 +105,7 @@
+ 				<div class='memoria equip <%="<%= pieceClass %\>"%>
+ 					<%="<%= (model.pieceArr[i].invalidFlag) ? ' '+model.pieceArr[i].invalidFlag : '' %\>"%>' data-framenum='<%="<%= i %\>"%>'>
+ 					<span class='eventEffect'></span>
+-					<span class="lv">Lv <%="<%= level %\>"%>/<%="<%= maxLevel %\>"%></span>
++					<span class="lv">Lvl. <%="<%= level %\>"%>/<%="<%= maxLevel %\>"%></span>
+ 
+ 					<div class='overWrap'></div>
+ 					<img class='memoriaImg' src='/magica/resource/image_web/memoria/memoria_<%="<%= pieceId %\>"%>_s.png' alt=''>
+@@ -140,16 +140,16 @@
+ <script type="text/template" id="SetNameChangeTemp">
+ 	<div class="popupInner">
+ 		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
+-		<p id="popupInfoDetailTitle" class="popupTitle">メモリアセット名入力</p>
++		<p id="popupInfoDetailTitle" class="popupTitle">Memoria Set Name</p>
+ 
+ 		<div class="popupTextArea">
+-			<p class='text'>メモリアセット名を入力してください</p>
++			<p class='text'>Enter a Memoria Set Name</p>
+ 
+ 			<div class="inputWrap">
+ 				<input id="commentInput" class='commonInput' readonly="readonly" value='<%="<%= model.name %\>"%>' maxlength="50" />
+ 
+-				<div id='defaultNameBtn' class='sb_gold_02 TE se_tabs'>デフォルト名</div>
+-				<p class="commentNotis c_red">絵文字は使用できません</p>
++				<div id='defaultNameBtn' class='sb_gold_02 TE se_tabs'>Default Name</div>
++				<p class="commentNotis c_red">Emojis cannot be used.</p>
+ 				<div></div>
+ 				<div class="textCount c_gold"><span id="textCount" class="c_gold"><%="<%= model.name.length %\>"%></span>/15</div>
+ 				<div class="btn b_pink se_decide TE" id="commentDecide"><span class="b_screen"></span>OK</div>
+--- a/magica/template/memoria/MemoriaSort.html
++++ b/magica/template/memoria/MemoriaSort.html
+@@ -1,13 +1,13 @@
+ <div id="sortfilter" class='memoria'>
+-	<p class='filterText'>チェックをつけた項目のみ表示します</p>
++	<p class='filterText'>Only the selected fields will be displayed.</p>
+ 
+ 	<ul id="filterListWrap" class="">
+ 
+ 		<!-- レアリティ -->
+ 		<li id="filterRankList" class="filterList" data-btntype="check" data-sortid="3">
+ 			<div class='filterBar'>
+-				<p>レアリティ</p>
+-				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++				<p>Rarity</p>
++				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>View All</span>
+ 			</div>
+ 			<div class="flexBox">
+ 				<span class="filterBtn se_tabs" data-filter="RANK_1"><span class='checkBox'></span><span class="star"></span>1</span>
+@@ -20,60 +20,60 @@
+ 		<!-- ロックフィルタ -->
+ 		<li id="filterLockList" class="filterList" data-btntype="radio" data-sortid="5">
+ 			<div class='filterBar'>
+-				<p>ロック</p>
+-				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++				<p>Lock</p>
++				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>View All</span>
+ 			</div>
+ 			<div class='flexBox'>
+-				<span class="filterBtn se_tabs" data-filter="LOCKED"><span class='checkBox'></span>ロック中</span>
+-				<span class="filterBtn se_tabs" data-filter="UNLOCKED"><span class='checkBox'></span>ロックなし</span>
++				<span class="filterBtn se_tabs" data-filter="LOCKED"><span class='checkBox'></span>Locked</span>
++				<span class="filterBtn se_tabs" data-filter="UNLOCKED"><span class='checkBox'></span>Not Locked</span>
+ 			</div>
+ 		</li>
+ 
+ 		<!-- アビリティ/スキル -->
+ 		<li id="filterAttList" class="filterList" data-btntype="check" data-sortid="2">
+ 			<div class='filterBar'>
+-				<p>タイプ</p>
+-				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++				<p>Type</p>
++				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>View All</span>
+ 			</div>
+ 			<div class='flexBox'>
+-				<span class="filterBtn se_tabs" data-filter="ABILITY"><span class='checkBox'></span>アビリティ</span>
+-				<span class="filterBtn se_tabs" data-filter="SKILL"><span class='checkBox'></span>スキル</span>
+-				<span style="display:none;" class="filterBtn se_tabs" data-filter="REINFORCEMENT"><span class='checkBox'></span>強化用素材</span>
++				<span class="filterBtn se_tabs" data-filter="ABILITY"><span class='checkBox'></span>Ability</span>
++				<span class="filterBtn se_tabs" data-filter="SKILL"><span class='checkBox'></span>Skill</span>
++				<span style="display:none;" class="filterBtn se_tabs" data-filter="REINFORCEMENT"><span class='checkBox'></span>Enhancement<br>Materials</span>
+ 			</div>
+ 		</li>
+ 
+ 		<!-- 強化済み -->
+ 		<li id="filterComposeList" class="filterList" data-btntype="check2" data-sortid="9">
+ 			<div class='filterBar'>
+-				<p>強化状態</p>
+-				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++				<p>Enhancement Status</p>
++				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>View All</span>
+ 			</div>
+ 			<div class='flexBox'>
+-				<span class="filterBtn se_tabs" data-filter="LV_MAX"><span class='checkBox'></span>Lv MAX</span>
+-				<span class="filterBtn se_tabs" data-filter="LB_MAX"><span class='checkBox'></span>限界突破済</span>
+-				<span class="filterBtn se_tabs" data-filter="ETC"><span class='checkBox'></span>その他</span>
++				<span class="filterBtn se_tabs" data-filter="LV_MAX"><span class='checkBox'></span>Lvl. MAX</span>
++				<span class="filterBtn se_tabs" data-filter="LB_MAX"><span class='checkBox'></span>Ascended</span>
++				<span class="filterBtn se_tabs" data-filter="ETC"><span class='checkBox'></span>Other</span>
+ 			</div>
+ 		</li>
+ 
+ 		<!-- 効果フィルタ -->
+ 		<li id="filterEffectList" class="filterList" data-btntype="check" data-sortid="7">
+ 			<div class='filterBar'>
+-				<p>効果</p>
+-				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>すべて表示</span>
++				<p>Effect</p>
++				<span class='filterBtn se_tabs ALL' data-filter="ALL"><span class='checkBox'></span>View All</span>
+ 			</div>
+ 			<div class="flexBox">
+-				<span class="filterBtn se_tabs" data-filter="HEAL"><span class='checkBox'></span>回復・解除</span>
+-				<span class="filterBtn se_tabs" data-filter="BUFF"><span class='checkBox'></span>バフ</span>
+-				<span class="filterBtn se_tabs" data-filter="ANTI"><span class='checkBox'></span>デバフ</span>
+-				<span class="filterBtn se_tabs" data-filter="EFFECT"><span class='checkBox'></span>状態強化</span>
+-				<span class="filterBtn se_tabs" data-filter="BADSTATUS"><span class='checkBox'></span>状態異常</span>
+-				<span class="filterBtn se_tabs" data-filter="ETC"><span class='checkBox'></span>その他</span>
++				<span class="filterBtn se_tabs" data-filter="HEAL"><span class='checkBox'></span>Heal/Cure</span>
++				<span class="filterBtn se_tabs" data-filter="BUFF"><span class='checkBox'></span>Buff</span>
++				<span class="filterBtn se_tabs" data-filter="ANTI"><span class='checkBox'></span>Debuff</span>
++				<span class="filterBtn se_tabs" data-filter="EFFECT"><span class='checkBox'></span>Passive<br>Effects</span>
++				<span class="filterBtn se_tabs" data-filter="BADSTATUS"><span class='checkBox'></span>Status<br>Ailments</span>
++				<span class="filterBtn se_tabs" data-filter="ETC"><span class='checkBox'></span>Other</span>
+ 			</div>
+ 		</li>
+ 	</ul>
+ 
+ 	<div id="cardSortBtnsArea">
+-		<span class="btn TE b_pink se_decide sort popupCloseBtn"><span class='b_screen'></span>表示する</span>
++		<span class="btn TE b_pink se_decide sort popupCloseBtn"><span class='b_screen'></span>Show</span>
+ 	</div>
+ 
+ </div>
+--- a/magica/template/mission/DoppelMissionTop.html
++++ b/magica/template/mission/DoppelMissionTop.html
+@@ -48,9 +48,9 @@
+ 	<%="<% } %\>"%>
+ 
+ 	<%="<% if(model.isClear) { %\>"%>
+-		<div class='receiveBtn btn b_pink TE se_decide'><span clsas='b_screen'></span>受け取る</div>
++		<div class='receiveBtn btn b_pink TE se_decide'><span clsas='b_screen'></span>Receive</div>
+ 	<%="<% } else if(challenge.pageLink) { %\>"%>
+-		<div class='linkBtn btn b_white TE se_decide' data-href='<%="<%= challenge.pageLink %\>"%>'><span clsas='b_screen'></span>挑戦する</div>
++		<div class='linkBtn btn b_white TE se_decide' data-href='<%="<%= challenge.pageLink %\>"%>'><span clsas='b_screen'></span>Challenge</div>
+ 	<%="<% } %\>"%>
+ 	<div class='textWrap ts_white'>
+ 		<p><%="<%= challenge.displayName %\>"%></p>
+--- a/magica/template/mission/MissionTop.html
++++ b/magica/template/mission/MissionTop.html
+@@ -4,12 +4,12 @@
+ 	<div id="tabBtn" class="commonFrame2">
+ 		<div class="hiddenWrap" id="tabScroll">
+ 			<ul class="common_tab t_gold ml_tab">
+-				<li class="btn TE se_tabs mission1 current" data-wrap="mission1" data-mission-name="デイリー">
+-					<span>デイリー</span>
++				<li class="btn TE se_tabs mission1 current" data-wrap="mission1" data-mission-name="Daily">
++					<span>Daily</span>
+ 					<div id="dailyBatch" class="batch"></div>
+ 				</li>
+-				<li class="btn TE se_tabs mission2" data-wrap="mission2" data-mission-name="累計">
+-					<span>累計</span>
++				<li class="btn TE se_tabs mission2" data-wrap="mission2" data-mission-name="Total">
++					<span>Lifetime</span>
+ 					<div id="totalBatch" class="batch"></div>
+ 				</li>
+ 			</ul>
+@@ -18,13 +18,13 @@
+ 
+ 	<!-- 一覧 -->
+ 	<div id="listWrap" class="commonFrame2">
+-		<h2 id="listTitle">デイリー</h2>
++		<h2 id="listTitle">Daily</h2>
+ 
+ 		<!-- デイリー残り時間表示 -->
+-		<span id="dailyTime" class="c_gold"><br>残り<span id="dailyTimeNum" class="c_gold"></span></span>
++		<span id="dailyTime" class="c_gold"><br>Remaining: <span id="dailyTimeNum" class="c_gold"></span></span>
+ 
+ 		<!-- イベントミッション残り時間表示 -->
+-		<span id="eventTime" class="c_gold">受け取り期限<br><span id="eventTimeNum" class="c_gold"></span>まで</span>
++		<span id="eventTime" class="c_gold">Items Expire:<br><span id="eventTimeNum" class="c_gold"></span></span>
+ 
+ 		<!-- イベントミッションリスト -->
+ 		<div id="missionScrollWrap">
+@@ -36,7 +36,7 @@
+ 	</div>
+ 
+ 	<!-- 一括受け取りボタン -->
+-	<div class="mb_pink off se_decide" id="allReserve">一括受取</div>
++	<div class="mb_pink off se_decide" id="allReserve">Receive All</div>
+ </div>
+ 
+ <!-- ミッションリストパーツ -->
+--- a/magica/template/present/GachaHistory.html
++++ b/magica/template/present/GachaHistory.html
+@@ -1,8 +1,8 @@
+ <div id="GachaHistory">
+ 	<div id="historyBaseWrap" class="commonFrame1">
+ 		<div id="gachaWrap">
+-			<p class="gachaCnt c_gold">ガチャ履歴件数<span id="gachaCnt" class="c_gold"></span>件</p>
+-			<p class='gachaCaution c_gold'>※直近10日間のガチャ履歴が表示されます</p>
++			<p class="gachaCnt c_gold">Fate Weave History: <span id="gachaCnt" class="c_gold"></span> Entries</p>
++			<p class='gachaCaution c_gold'>※History from the last 10 days.</p>
+ 			<div id="gachaScrollWrap">
+ 				<div id="gachaInner" class="gachaScrollInner">
+ 				</div>
+@@ -79,7 +79,7 @@
+ 			<%="<% }) %\>"%>
+ 		</div>
+ 
+-		<p class='popCaution'>※デスティニージェム・交換チケット・各種おまけは、履歴では表示されません。</p>
++		<p class='popCaution'>※Destiny Gems, Tickets, and other bonuses will not be displayed in results.</p>
+ 	</div>
+ 
+ </script>
+--- a/magica/template/present/PresentController.html
++++ b/magica/template/present/PresentController.html
+@@ -4,8 +4,8 @@
+ 		"PresentHistory"
+ 	];
+ 	var btnText = [
+-		"プレゼント<br>ボックス",
+-		"獲得履歴"
++		"Present Box",
++		"History"
+ 	];
+ %>
+ <div id="presentTabBtnWrap" class="commonFrame2">
+--- a/magica/template/present/PresentHistory.html
++++ b/magica/template/present/PresentHistory.html
+@@ -1,10 +1,10 @@
+ <div id="PresentHistory">
+ 	<ul id="filterTab" class="common_tab t_gold">
+ 		<li data-id="ALL" class="se_tabs TE current"><span>ALL</span></li>
+-		<li data-id="LOGIN_BONUS" class="se_tabs TE"><span>ログインボーナス</span></li>
+-		<li data-id="GACHA" class="se_tabs TE"><span>ガチャ</span></li>
+-		<li data-id="QUEST" class="se_tabs TE"><span>クエスト</span></li>
+-		<li data-id="OTHER" class="se_tabs TE"><span>その他</span></li>
++		<li data-id="LOGIN_BONUS" class="se_tabs TE"><span>Login Bonus</span></li>
++		<li data-id="GACHA" class="se_tabs TE"><span>Fate Weave</span></li>
++		<li data-id="QUEST" class="se_tabs TE"><span>Quest</span></li>
++		<li data-id="OTHER" class="se_tabs TE"><span>Other</span></li>
+ 	</ul>
+ 	<div id="historyBaseWrap" class="commonFrame2">
+ 		<h2><span id="titleFilter" class="c_white">ALL</span></h2>
+@@ -15,9 +15,9 @@
+ 			</div>
+ 			<div id="pagingWrap">
+ 			</div>
+-			<div id="historyCaution" class="hide">現在表示できる履歴がありません。</div>
++			<div id="historyCaution" class="hide">No Available History</div>
+ 		</div>
+-		<p class="presentCnt c_gold">ページ内受け取り件数<span id="presentCnt" class="c_gold"></span>件</p>
++		<p class="presentCnt c_gold">Presents: <span id="presentCnt" class="c_gold"></span></p>
+ 	</div>
+ </div>
+ 
+@@ -30,7 +30,7 @@
+ 
+ 		<!-- プレゼント名前 -->
+ 		<%="<% if (model.presentType === 'GEM') { %\>" %>
+-		<p class="presentName c_purple"><%= "<%= model.displayName %\>" %>のデスティニージェム</p>
++		<p class="presentName c_purple"><%= "<%= model.displayName %\>" %>'s Destiny Gem</p>
+ 		<%="<% } else if(model.presentType === 'CARD' && model.chara.id === 1042) { %\>" %>
+ 			<p class="presentName c_purple"><%= "<%= _.escape(userName) %\>" %></p>
+ 		<%="<% } else { %\>" %>
+@@ -46,7 +46,7 @@
+ 			<%= "<% } %\>" %>
+ 			<p class="presentComment c_gold"><%= "<%= presentComment %\>" %></p>
+ 			<%= "<% if(model.presentId) { %\>" %>
+-				<p class="presentCaution">プレゼントボックスから受け取り</p>
++				<p class="presentCaution">Received from your Present Box.</p>
+ 			<%= "<% } %\>" %>
+ 		</div>
+ 	</div>
+--- a/magica/template/present/PresentList.html
++++ b/magica/template/present/PresentList.html
+@@ -1,7 +1,7 @@
+ <div id="PresentList">
+ 
+ 	<div id="presentBaseWrap" class="commonFrame2">
+-		<h2>プレゼントボックス</h2>
++		<h2>Presents</h2>
+ 		<div id="presentWrap">
+ 			<div id="presentScrollWrap">
+ 				<div id="presentInner" class="presentScrollInner">
+@@ -10,8 +10,8 @@
+ 			<div id="pagingWrap">
+ 			</div>
+ 		</div>
+-		<p class="presentCnt c_gold">プレゼント数<span id="presentCnt" class="c_gold"></span>件</p>
+-		<div data-receive-type="ALL" class="mb_pink se_decide receiveBtn TE"><span class="b_screen"></span>一括受取</div>
++		<p class="presentCnt c_gold">Presents:<span id="presentCnt" class="c_gold"></span></p>
++		<div data-receive-type="ALL" class="mb_pink se_decide receiveBtn TE"><span class="b_screen"></span>Receive All</div>
+ 	</div>
+ </div>
+ 
+@@ -22,7 +22,7 @@
+ 
+ 		<!-- プレゼント名前 -->
+ 		<%="<% if (model.presentType === 'GEM') { %\>" %>
+-		<p class="presentName c_purple"><%= "<%= model.displayName %\>" %>のデスティニージェム</p>
++		<p class="presentName c_purple"><%= "<%= model.displayName %\>" %>'s Destiny Gem</p>
+ 		<%="<% } else if(model.presentType === 'CARD' && model.chara.id === 1042) { %\>" %>
+ 			<p class="presentName c_purple"><%= "<%= _.escape(userName) %\>" %></p>
+ 		<%="<% } else { %\>" %>
+@@ -35,9 +35,9 @@
+ 			<p class="presentComment c_gold"><%= "<%= presentComment.replace(/userName/g,_.escape(userName)) %\>" %></p>
+ 			<%='<% var limitDate = model.expiredAt.substr(0,10).split("/"); %\>'%>
+ 			<%='<% var limitDateTime = model.expiredAt.split(" ")[1].split(":"); %\>'%>
+-			<p class="receiveLimit">期限 <%='<%= limitDate[0] %\>'%>年<%='<%= limitDate[1] %\>'%>月<%='<%= limitDate[2] %\>'%>日&nbsp;<%='<%= limitDateTime[0] %\>'%>:<%='<%= limitDateTime[1] %\>'%></p>
++			<p class="receiveLimit">Expires: <%='<%= limitDate[1] %\>'%>/<%='<%= limitDate[2] %\>'%>/<%='<%= limitDate[0] %\>'%>&nbsp;<%='<%= limitDateTime[0] %\>'%>:<%='<%= limitDateTime[1] %\>'%></p>
+ 		</div>
+ 	</div>
+-	<span class="btn se_decide b_white small">受け取る</span>
++	<span class="btn se_decide b_white small">Receive</span>
+ 
+ </script>
 --- a/magica/template/quest/scene0/BattleSelect.html
 +++ b/magica/template/quest/scene0/BattleSelect.html
 @@ -3,7 +3,7 @@
@@ -2180,3 +2967,48 @@
 +		<div class="btn TE se_cancel b_white popupCloseBtn commentCancel"><span class="b_screen"></span>Cancel</div>
  		<div class="btn TE se_decide b_pink" id="commentDecide"><span class="b_screen"></span>OK</div>
  	</div>
+--- a/magica/template/util/SearchQuest.html
++++ b/magica/template/util/SearchQuest.html
+@@ -1,7 +1,7 @@
+ <div id='SearchQuest'>
+ 	<ul class="tabBtns common_tab t_pink">
+-		<li class="TE se_tabs" data-type="gift01">素材</li>
+-		<li class="TE se_tabs" data-type="gift02">オーブ・ブック</li>
++		<li class="TE se_tabs" data-type="gift01">Materials</li>
++		<li class="TE se_tabs" data-type="gift02">Orbs/Books</li>
+ 	</ul>
+ 
+ 	<div id='itemWrap' class='commonFrame1'>
+@@ -17,14 +17,14 @@
+ 	<div id="questWrap" class='commonFrame1'>
+ 		<!-- <div class='orderTypeBtn sb_gold_02 TE se_tabs'></div> -->
+ 		<div class='orderBtn TE se_tabs'></div>
+-		<h2>クエスト一覧</h2>
++		<h2>Quests</h2>
+ 		<div id="questScrollWrap">
+ 			<div class='defaultText'>
+-				<p class='ts_white'>選択した素材を入手できる<br>クエストの一覧が表示されます</p>
+-				<p class='c_red'>クリアしたクエストのみが表示されます</p>
++				<p class='ts_white'>Tap an Item to see which<br>Quests it can drop in.</p>
++				<p class='c_red'>Only completed Quests will be displayed.</p>
+ 			</div>
+ 			<div class='questNoneText hide'>
+-				<p class='ts_white'>該当するクエストがありません</p>
++				<p class='ts_white'>No Applicable Quests</p>
+ 			</div>
+ 			<ul class="questScrollInner">
+ 			</ul>
+@@ -51,11 +51,11 @@
+ 	<%="<% } %\>"%>
+ 
+ 	<p class='pointFrame difficulty'>
+-		難易度
++		Difficulty&nbsp;
+ 		<span><%="<%= model.searchViewObj.difficulty %\>"%></span>
+ 	</p>
+ 	<p class='pointFrame ap'>
+-		消費AP
++		AP Cost
+ 		<span class=' <%="<%= (model.searchViewObj.halfAp) ? 'ts_pink' : '' %\>"%>'>
+ 			<%="<%= (model.searchViewObj.halfAp) ? model.searchViewObj.halfAp : model.searchViewObj.ap %\>"%>
+ 		</span>
