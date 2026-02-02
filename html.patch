@@ -1522,6 +1522,105 @@
  		<%='<% } %\>'%>
  	</div>
  </div>
+--- a/magica/template/config/deleteUserData/popupComplete.html
++++ b/magica/template/config/deleteUserData/popupComplete.html
+@@ -1 +1 @@
+-プレイヤーデータを削除しました																
+\ No newline at end of file
++Player Data has been deleted.
+--- a/magica/template/config/deleteUserData/popupConfirm.html
++++ b/magica/template/config/deleteUserData/popupConfirm.html
+@@ -1,7 +1,7 @@
+-サーバーに保存されているプレイヤーデータを削除しますか？
++Are you sure you want to delete your player data stored on the server?
+ <br><br>
+ <span class='c_red'>
+-	※引き継ぎPW、外部アカウント連携が設定済の場合でも<br>
+-	プレイヤーデータの削除後は<br>
+-	データ復旧を行うことができません
+-</span>
+\ No newline at end of file
++	※Even if your transfer password and account links are set,<br>
++	once your player data has been deleted,<br>
++	it will NOT be possible to recover your data later.
++</span>
+--- a/magica/template/config/deleteUserData/popupError.html
++++ b/magica/template/config/deleteUserData/popupError.html
+@@ -1,5 +1,5 @@
+-プレイヤーIDに誤りがあります
++The Player ID entered is incorrect.
+ <br><br>
+ <span class='c_gold'>
+-	※プレイヤーIDはMENU内に記載されています
+-</span>
+\ No newline at end of file
++	※Your Player ID can be found on the Game Settings menu.
++</span>
+--- a/magica/template/config/deleteUserData/popupInputPlayerID.html
++++ b/magica/template/config/deleteUserData/popupInputPlayerID.html
+@@ -1,13 +1,13 @@
+ <div class="main">
+-	プレイヤーデータを削除する場合はプレイヤーIDを入力してください。
++	To delete you Player Data, please enter your Player ID.
+ 	<br><br>
+ 	<input id="playerID" class="commonFrame3" type="text" value="">
+ 	<br><br>
+ 	<span class="c_gold">
+-		※この端末で利用中のアカウントのみプレイヤーデータを削除できます<br>
+-		※プレイヤーIDはゲーム設定画面やプロフィール画面内に記載されています<br>
++		※Player Data can only be deleted for the account currently active on this device.<br>
++		※Your Player ID can be found on the Game Settings menu or your Profile Screen.<br>
+ 	</span>
+ 	<span class="c_red">
+-		※削除されたプレイヤーデータはいかなる場合でも元に戻すことができません
++		※Once deleted, Player Data CANNOT be recovered under any circumstances.
+ 	</span>
+-</div>
+\ No newline at end of file
++</div>
+--- a/magica/template/config/deleteUserData/popupReConfirm.html
++++ b/magica/template/config/deleteUserData/popupReConfirm.html
+@@ -1,10 +1,10 @@
+-以下のプレイヤーデータをサーバーから削除します。<br>
+-本当によろしいですか？
++The following Player Data will be deleted from the server.<br>
++Are you sure you want to proceed?
+ <br>
+ <div class="statusSec">
+ 	<div class="statusMain">
+ 	<dl class="colWrap common_dl">
+-		<dt class="colLeft">プレイヤー名</dt>
++		<dt class="colLeft">Player Name</dt>
+ 		<dd class="colRight">
+ 			<span class="black"><%= model.loginName %></span>
+ 		</dd>
+@@ -12,7 +12,7 @@
+ 	</div>
+ 	<div class="statusMain">
+ 		<dl class="colWrap common_dl">
+-			<dt class="colLeft">プレイヤーランク</dt>
++			<dt class="colLeft">Player Rank</dt>
+ 			<dd class="colRight">
+ 				<span class="black"><%= model.level %></span>
+ 			</dd>
+@@ -20,7 +20,7 @@
+ 	</div><br>
+ 	<div class="statusMain <%= model.isDispBirthDay %>">
+ 	<dl class="colWrap common_dl">
+-		<dt class="colLeft">誕生日</dt>
++		<dt class="colLeft">Birthday</dt>
+ 		<dd class="colRight">
+ 			<span class="black"><%= model.birthDay %></span>
+ 		</dd>
+@@ -29,5 +29,5 @@
+ </div><!-- statusSec -->
+ <br>
+ <div class="c_red caution">
+-	※削除しない場合は、キャンセルを選択してください
+-</div>
+\ No newline at end of file
++	※If you do not wish to delete your data, please select Cancel.
++</div>
 --- a/magica/template/etc/EtcPopup.html
 +++ b/magica/template/etc/EtcPopup.html
 @@ -1,6 +1,6 @@
@@ -2955,6 +3054,167 @@
  		</div>
  		<div class="bg"></div>
  	</div>
+--- a/magica/template/user/MyProfilePopup.html
++++ b/magica/template/user/MyProfilePopup.html
+@@ -7,7 +7,7 @@
+ 			<div class="messageWrap">
+ 				<div class="messageInner"></div>
+ 			</div>
+-			<div class="miniBtn se_decide profBtn TE"><span class="b_screen"></span>変更</div>
++			<div class="miniBtn se_decide profBtn TE"><span class="b_screen"></span>Change</div>
+ 		</div>
+ 		<div id="followerParamDetail" class="commonFrame3">
+ 			<div id="myProfStone"></div>
+@@ -28,18 +28,18 @@
+ 						</div>
+ 					<% } else { %>
+ 						<div class="userTitle_m">
+-							<div id="targetTitleText" class="userTitleText">称号設定なし</div>
++							<div id="targetTitleText" class="userTitleText">No Title Set</div>
+ 							<img id="targetTitleBg" class="userTitleBg" src="/magica/resource/image_web/common/grade/title_00000.png">
+ 						</div>
+ 					<% } %>
+ 
+-					<div class="titleChangeBtn profBtn se_decide TE">変更</div>
++					<div class="titleChangeBtn profBtn se_decide TE">Change</div>
+ 				</div>
+ 				<div class="totalForcesWrap">
+ 					<span id="totalForces"><%= totalForces %></span>
+ 					<div class="totalForcesHelpBtn se_decide TE"></div>
+ 					<dl class="rowWrap common_dl totalForcesRanking">
+-						<dt class="colName">順位</dt>
++						<dt class="colName">Rank</dt>
+ 						<dd id="totalForcesRanking"></dd>
+ 					</dl>
+ 					<div id="totalForcesRequire"></div>
+@@ -48,32 +48,32 @@
+ 					<span class="userFollow"><%= profile.followCount %></span>
+ 					<span class="userFollower"><%= profile.followerCount %></span>
+ 					<dl class="rowWrap common_dl myprofUserId">
+-						<dt class="colName">プレイヤーID</dt>
++						<dt class="colName">Player ID</dt>
+ 						<dd class="colValue"><%= model.inviteCode %></dd>
+ 					</dl>
+-					<div class="userIdCopyBtn profBtn se_decide TE">コピー</div>
++					<div class="userIdCopyBtn profBtn se_decide TE">Copy</div>
+ 				</div>
+ 				<div class="detailWrap2">
+-					<h2>ミラーズ</h2>
++					<h2>Mirrors</h2>
+ 					<div class="arenaHelpBtn se_decide TE"></div>
+ 					<div class="markWrap freeRank"><% if(profile.userArenaBattle){ %><%= profile.userArenaBattle.currentFreeRankClass.className %><% }else{ %>第一鏡層<% } %></span></div>
+ 
+-					<div class="arenaFreeTitle">◆果てなしのミラーズ</div>
++					<div class="arenaFreeTitle">◆Endless Mirrors</div>
+ 					<div class="arenaRankingTitle">
+ 						<% if(model.emblemSettingClassType == "RANKING" || !model.emblemSettingClassType){ %>
+-							◆ランキング
++							◆Ranking
+ 						<% }else if(model.emblemSettingClassType == "RANK_MATCH"){ %>
+-							◆ランクマッチ
++							◆Ranked Match
+ 						<% } %>
+ 					</div>
+ 
+ 					<div class="arenaParams">
+ 						<dl class="rowWrap common_dl">
+-							<dt class="colName">ミラーズPt</dt>
++							<dt class="colName">Mirrors Pts</dt>
+ 							<dd class="colValue"><span class="freeNum"><% if(profile.userArenaBattle){ %><%= model.freeRankArenaPoint %><% }else{ %>0<% } %></span></dd>
+ 						</dl>
+ 						<dl class="rowWrap common_dl">
+-							<dt class="colName">勝利数</dt>
++							<dt class="colName">Wins</dt>
+ 							<dd class="colValue"><span class="freeNum"><% if(model.numberOfFreeRankTotalWins){ %><%= model.numberOfFreeRankTotalWins %><% }else{ %>0<% } %></span></dd>
+ 						</dl>
+ 					</div>
+@@ -102,10 +102,10 @@
+ 						<% } %>
+ 					<% } %>
+ 
+-					<span class="arenaSettingPopupBtn profBtn TE se_decide"><span class="b_screen"></span>設定</span>
++					<span class="arenaSettingPopupBtn profBtn TE se_decide"><span class="b_screen"></span>Settings</span>
+ 				</div>
+ 				<div class="helperWrap">
+-					<h2>サポート</h2>
++					<h2>Support</h2>
+ 					<ul class="helperList">
+ 						<%
+ 							var attObj = {
+@@ -133,7 +133,7 @@
+ 						<% }); %>
+ 					</ul>
+ 					<div class="helpBtnWrap">
+-						<span class="profBtn se_decide linkBtn TE" data-href="#/DeckFormation/support"><span class="b_screen"></span>変更</span>
++						<span class="profBtn se_decide linkBtn TE" data-href="#/DeckFormation/support"><span class="b_screen"></span>Change</span>
+ 					</div>
+ 				</div>
+ 			</div>
+@@ -143,11 +143,11 @@
+ <div class="porfBgWrap"></div>
+ 
+ <script type="text/template" id="arenaSettingTemp">
+-	<div class="settingTitle">◆エンブレム公開設定</div>
++	<div class="settingTitle">◆Emblem Display Settings</div>
+ 	<div class="visibleSettingWrap">
+ 		<div class="toggle">
+ 			<!-- エンブレム公開設定 -->
+-			OFFにすることで、他のユーザーに対して自身の<br>エンブレムが表示されなくなります。
++			By Selecting OFF, your Emblem will be hidden<br>and no longer be publicly displayed.
+ 			<ul class="visibleSettingCheckBoxWrap <%='<%= currentParam.visibleRankingClassType ? "on" : "off" %\>'%>" data-param="visibleRankingClassType">
+ 				<li class="visibleSettingCheckBoxItem">
+ 					<div class="visibleSettingCheckBox se_decide" data-param="on"></div>
+@@ -161,10 +161,10 @@
+ 		</div>
+ 	</div>
+ 
+-	<div class="settingTitle">◆エンブレム表示設定</div>
++	<div class="settingTitle">◆Emblem Display Settings</div>
+ 	<div class="emblemSettingWrap">
+ 		<div class="emblemSettingToggle">
+-			選択した項目のエンブレムが表示されるようになります。
++			The Emblem you have selected will now be publicly displayed. 
+ 			<% if(model.visibleRankingClassType){
+ 				if(model.emblemSettingClassType){
+ 			%>
+@@ -177,26 +177,26 @@
+ 			<% } %>
+ 					<li class="emblemSettingCheckBoxItem">
+ 						<div class="emblemSettingCheckBox se_decide" data-param="RANKING"></div>
+-						<div class="checkBoxText">ランキング</div>
++						<div class="checkBoxText">Ranking</div>
+ 					</li>
+ 					<li class="emblemSettingCheckBoxItem">
+ 						<div class="emblemSettingCheckBox se_decide" data-param="RANK_MATCH"></div>
+-						<div class="checkBoxText">ランクマッチ</div>
++						<div class="checkBoxText">Ranked Match</div>
+ 					</li>
+ 				</ul>
+ 		</div>
+ 	</div>
+ 	<div class="emblemSettingWrapBlock <%='<%= !currentParam.visibleRankingClassType ? "on" : "" %\>'%>">
+ 		<div class="emblemSettingToggle">
+-			選択した項目のエンブレムが表示されるようになります。
++			The Emblem you have selected will now be publicly displayed.
+ 			<ul class="emblemSettingCheckBoxWrap" data-param="emblemSettingClassType">
+ 				<li class="emblemSettingCheckBoxItem" data-param="RANKING">
+ 					<div class="se_decide"></div>
+-					<div class="checkBoxText">ランキング</div>
++					<div class="checkBoxText">Ranking</div>
+ 				</li>
+ 				<li class="emblemSettingCheckBoxItem" data-param="RANK_MATCH">
+ 					<div class="se_decide"></div>
+-					<div class="checkBoxText">ランクマッチ</div>
++					<div class="checkBoxText">Ranked Match</div>
+ 				</li>
+ 			</ul>
+ 		</div>
+@@ -222,5 +222,3 @@
+ 	</script>
+ 
+ </script>
+-
+-
 --- a/magica/template/user/MyProfilePopup2.html
 +++ b/magica/template/user/MyProfilePopup2.html
 @@ -1,7 +1,7 @@
