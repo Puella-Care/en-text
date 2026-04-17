@@ -2917,6 +2917,509 @@
  
  		<div class="popupTextArea">
  			<%="<% _.forEach(model.conditionList,function(txt,index){ %\>"%>
+--- a/magica/template/quest/MainQuest.html
++++ b/magica/template/quest/MainQuest.html
+@@ -56,7 +56,7 @@
+ <!-- チャプターリストテンプレート -->
+ <script type="text/template" id="ChapterParts">
+ 	<div class="chapterTitleWrap">
+-		<span class="chapterNo"><span><%="<%= model.chapter.chapterNoForView %\>"%></span></span>
++		<span class="chapterNo">Ch.<span><%="<%= model.chapter.chapterNoForView %\>"%> </span></span>
+ 		<span class="chapterTitle"><%="<%= model.chapter.title %\>"%></span>
+ 		<span class="toggleBtn"></span>
+ 		<span class='param'><%="<%= model.chapterId %\>"%></span>
+@@ -117,7 +117,7 @@
+ 		<%="<% } %\>"%>
+ 	</span>
+ 
+-	<span class="sectionNo"><%="<%= model.chapterNoForView %\>"%> <%="<%= model.section.genericIndex %\>"%>話</span>
++	<span class="sectionNo">Ch.<%="<%= model.chapterNoForView %\>"%>: Ep.<%="<%= model.section.genericIndex %\>"%></span>
+ 	<span class="sectionTitle"><%="<%= model.section.title %\>"%></span>
+ 
+ 	<span class="questTip">
+@@ -137,5 +137,5 @@
+ 	</span>
+ 	<span class="param mapPrm"><%="<%= model.section.areaMapId %\>"%></span>
+ 	<span class="param extentionPrm"><%="<%= model.section.mapFileExtention %\>"%></span>
+-	<span class="noChallengeText">※再挑戦できません</span>
++	<span class="noChallengeText">※You cannot retry the challenge.</span>
+ </script>
+--- a/magica/template/quest/QuestBattleSelect.html
++++ b/magica/template/quest/QuestBattleSelect.html
+@@ -7,12 +7,12 @@
+ 
+ 	<div id="settingBtnWrap" class="">
+ 		<div id="advSkipPopBtn" class="">
+-			既読ストーリー再生<span class='icon'></span>
++			Replay Cutscenes<span class='icon'></span>
+ 		</div>
+ 	</div>
+ 	<div id="archiveBtnWrap" class="">
+ 		<div id="archiveBtn" class="sb_gold_02 se_decide">
+-			アーカイブ
++			Archive
+ 		</div>
+ 	</div>
+ 
+@@ -33,22 +33,22 @@
+ 		<p class="chapter">
+ 			<% if(model.questType !== "COSTUME"){ %>
+ 				<% if(model.chapterNoForView){ %>
+-					<span class="chapterNo"><%= model.chapterNoForView %></span>
++					Ch.<span class="chapterNo"><%= model.chapterNoForView %>: </span>
+ 				<% } %>
+-				<span class="c_purple sectionNo"><%= model.genericIndex %>話</span>
++				<span class="c_purple sectionNo">Ep. <%= model.genericIndex %></span>
+ 			<% }else{ %>
+-				<span class="c_purple sectionNo">衣装</span>
++				<span class="c_purple sectionNo">Costume</span>
+ 			<% } %>
+ 		</p>
+ 		<p class="title c_white"><%= model.title %></p>
+ 		<div class="line"></div>
+-		<span class="btn sb_gold_01 se_tabs missionBtn TE"><span class="b_screen"></span>ミッション</span>
++		<span class="btn sb_gold_01 se_tabs missionBtn TE"><span class="b_screen"></span>Missions</span>
+ 
+ 		<div class="inlineWrap">
+-			<p><span class='pointTitle'>難易度</span><span class='point'>
++			<p><span class='pointTitle'>Difficulty:</span><span class='point'>
+ 				<%= (model.challengeModeDifficulty) ? model.challengeModeDifficulty : model.difficulty %>
+ 			</span></p>
+-			<p><span class='pointTitle'>消費AP</span>
++			<p><span class='pointTitle'>AP Cost:</span>
+ 				<span id='apDisp' class='point <%= (model.halfAp) ? "ts_pink" : "" %>'>
+ 					<%= (model.halfAp) ? model.halfAp : (model.challengeModeAp) ? model.challengeModeAp : model.ap %>
+ 				</span>
+@@ -88,8 +88,8 @@
+ 	<%="<% } %\>"%>
+ 
+ 	<%="<% if(model.questBattle.ap && model.questBattle.difficulty && model.puellaHistoriaNum &&  model.puellaHistoriaNum != 0 && model.puellaHistoriaNum != 99) { %\>"%>
+-	<p class="pointFrame apFrame">消費AP <span><%="<%= (model.campaignFreeAtNotClear) ? 0 : (model.halfAp) ? model.halfAp : model.questBattle.ap %\>"%></span></p>
+-	<p class="pointFrame difficultyFrame">難易度 <span><%="<%= model.questBattle.difficulty %\>"%></span></p>
++	<p class="pointFrame apFrame">AP Cost: <span><%="<%= (model.campaignFreeAtNotClear) ? 0 : (model.halfAp) ? model.halfAp : model.questBattle.ap %\>"%></span></p>
++	<p class="pointFrame difficultyFrame">Difficulty: <span><%="<%= model.questBattle.difficulty %\>"%></span></p>
+ 	<%="<% } %\>"%>
+ 
+ 	<span class='questState <%="<%= questState %\>"%>'></span>
+--- a/magica/template/quest/QuestDetailPopup.html
++++ b/magica/template/quest/QuestDetailPopup.html
+@@ -5,7 +5,7 @@
+ 	<% var mission3 = (model.missionStatus3 === 'CLEARED') ? 'cleared' : null %>
+ 
+ 	<div class="popQuestDetailContent">
+-		<div class="questDetailTitle c_white">ミッション</div>
++		<div class="questDetailTitle c_white">Mission</div>
+ 
+ 		<ul class="missionList">
+ 			<li class='<%= mission1 %>'><%= model.questBattle.missionMaster1.description %></li>
+@@ -15,7 +15,7 @@
+ 	</div>
+ 
+ 	<div class="popQuestDetailContent">
+-		<div class="questDetailTitle c_white">獲得報酬</div>
++		<div class="questDetailTitle c_white">Rewards</div>
+ 		<div class="common_line lc_beige"></div>
+ 		<div id="dropListWrap">
+ 			<ul class="dropList flexBox">
+--- a/magica/template/quest/QuestResult.html
++++ b/magica/template/quest/QuestResult.html
+@@ -80,10 +80,10 @@
+ 			<div class="expWrap" id="expWrap">
+ 				<!-- Exp:プレイヤー系 -->
+ 				<div class="expWrapTitle exp"></div>
+-				<div class="expMiniTitle">プレイヤー</div>
++				<div class="expMiniTitle">Player</div>
+ 				<div class='rankTitle'></div>
+ 				<div class="rank c_red" id="playerLv"></div>
+-				<div class="nextRankExp c_gold" id="nextRankExp">RankUPまで<span id="nextRankExpNum">0</span></div>
++				<div class="nextRankExp c_gold" id="nextRankExp">Rank UP in:<span id="nextRankExpNum">0</span></div>
+ 				<div class="exp">
+ 					<div class="exGuageWrap">
+ 						<div class="exGuageBar" id="exRankGuageBar"></div>
+@@ -101,16 +101,16 @@
+ 			<!-- リザルト表示2ページ目:アイテム系 -->
+ 			<div class="itemWrap off" id="itemWrap">
+ 				<div class="expWrapTitle item"></div>
+-				<div class="wrapTitle clearRiche">クリア報酬</div>
++				<div class="wrapTitle clearRiche">Rewards</div>
+ 				<span class="gold c_red" id="goldNum"></span>
+-				<div class="wrapTitle clearItem">宝箱</div>
++				<div class="wrapTitle clearItem">Treasure Boxes</div>
+ 			</div>
+ 			<dl class="common_dl getTotalRiche off" id="getTotalRiche">
+-				<dt>獲得合計</dt>
++				<dt>Earned</dt>
+ 				<dd><span class="c_red"><%= (rewardRiche + model.riche) %></span>&nbsp;CC</dd>
+ 			</dl>
+ 			<dl class="common_dl hasTotalRiche off" id="hasTotalRiche">
+-				<dt>所持合計</dt>
++				<dt>Stock</dt>
+ 				<dd><span class="c_red"><%= (gameUser.riche) %></span>&nbsp;CC</dd>
+ 			</dl>
+ 			<!-- 2ページ目ここまで -->
+@@ -227,28 +227,28 @@
+ 	<div id="rankPop">
+ 		<div id="rankUpTitle"></div>
+ 		<div id="rankUpWrap" class="commonFrame1<%='<% if(number.beforeMaxFollow === number.afterMaxFollow){ %\>'%> notFollowUp<%='<% } %\>'%>">
+-			<div class="common_title_frame">プレイヤーランク</div>
++			<div class="common_title_frame">Player Rank</div>
+ 			<div class="rankUpNumber">
+ 				<span class="rankBefore"><%='<%= number.beforeLv %\>'%></span>
+ 				<span class="rankAfter c_red"><%='<%= number.afterLv %\>'%></span>
+ 			</div>
+ 			<div class="maxApWrap">
+-				<span class="secondWrapTitle">最大AP</span>
++				<span class="secondWrapTitle">MAX AP</span>
+ 				<div class="wrapNumber">
+ 					<span class="beforeNum"><%='<%= number.beforeMaxAp %\>'%></span>
+ 					<span class="afterNum c_red"><%='<%= number.afterMaxAp %\>'%></span>
+ 				</div>
+ 			</div>
+-			<div class="rankUpText c_purple">AP/BPが全回復しました。</div>
++			<div class="rankUpText c_purple">AP/BP has been fully restored.</div>
+ 			<%='<% if(number.beforeMaxFollow !== number.afterMaxFollow){ %\>'%>
+ 			<div class="maxFollowWrap">
+-				<span class="secondWrapTitle">最大フォロー</span>
++				<span class="secondWrapTitle">Max Followers</span>
+ 				<div class="wrapNumber">
+ 					<span class="beforeNum"><%='<%= number.beforeMaxFollow %\>'%></span>
+ 					<span class="afterNum c_red"><%='<%= number.afterMaxFollow %\>'%></span>
+ 				</div>
+ 			</div>
+-			<div class="rankUpText c_purple">最大フォロー数の上限が増えました。</div>
++			<div class="rankUpText c_purple">The maximum number of Players you can follow has increased.</div>
+ 			<%='<% } %\>'%>
+ 			<span class="btn TE b_pink rankPopClose popupCloseBtn"><span class="b_screen"></span>OK</span>
+ 		</div>
+@@ -297,7 +297,7 @@
+ 		</div>
+ 		<div class="epFlashWrap"></div>
+ 	</div>
+-	<div class="charaEpLeftWrap c_gold">あと&nbsp;<span class="epLeft c_gold"><%='<%= model.epRequire %\>'%></span></div>
++	<div class="charaEpLeftWrap c_gold">In&nbsp;<span class="epLeft c_gold"><%='<%= model.epRequire %\>'%></span></div>
+ 	<div class="getEpExNum ts_white"></div>
+ 
+ </script>
+@@ -305,7 +305,7 @@
+ <!-- フォローポップアップ -->
+ <script type="text/template" id="followPopTemp">
+ 
+-	<div class="nowFollowTitle">現在のフォロー数</div>
++	<div class="nowFollowTitle">Follows:</div>
+ 	<div class="followCount"><%='<%= follow %\>'%>/<%='<%= maxFollow %\>'%></div>
+ 
+ 	<!-- 属性ボタン -->
+@@ -332,7 +332,7 @@
+ 			<div class="supportUnitWrap">
+ 				<p class='level'>Rank<%="<%= model.userRank %\>"%></p>
+ 				<p class='playerName c_purple'><%="<%= _.escape(model.userName) %\>"%></p>
+-				<p class='lastLogin c_gold'>最終ログイン&nbsp;<%='<%= model.loginTimeLag %\>'%></p>
++				<p class='lastLogin c_gold'>Last Login:&nbsp;<%='<%= model.loginTimeLag %\>'%></p>
+ 
+ 				<!-- サポートキャラ：属性別に表示 -->
+ 				<div id="supportDecks"></div>
+@@ -340,10 +340,10 @@
+ 		</div>
+ 	</div>
+ 
+-	<div class="followMessageWrap">サポートしてくれたプレイヤーをフォローしますか？</div>
++	<div class="followMessageWrap">Follow the Player that supported you?</div>
+ 
+-	<div class="btn TE se_decide b_pink" id="followDecide"><span class="b_screen"></span>はい</div>
+-	<div class="btn TE se_cancel popupCloseBtn b_white" id="followNoBtn"><span class="b_screen"></span>いいえ</div>
++	<div class="btn TE se_decide b_pink" id="followDecide"><span class="b_screen"></span>Yes</div>
++	<div class="btn TE se_cancel popupCloseBtn b_white" id="followNoBtn"><span class="b_screen"></span>No</div>
+ 
+ </script>
+ 
+@@ -387,7 +387,7 @@
+ 		<p class='charaTitle c_purple' ><%="<%= model.chara.title %\>"%></p>
+ 	<%="<% } %\>"%>
+ 
+-	<p class='lastLogin c_gold'>最終ログイン <%="<%= model.loginTimeLag %\>"%></p>
++	<p class='lastLogin c_gold'>Last Login: <%="<%= model.loginTimeLag %\>"%></p>
+ 
+ 	<%="<% if (model && model.card.cardName !== '未設定') { %\>"%>
+ 		<div class='flexBox magiaWrap'>
+--- a/magica/template/quest/SectionClearAnimation.html
++++ b/magica/template/quest/SectionClearAnimation.html
+@@ -61,28 +61,28 @@
+ 
+ 		<% if(rewardType == 'live2d') { %>
+ 			<div id='sectionItemDetail'>
+-				<%= displayName %>を手に入れました<br>
+-				<span class='c_red'>手に入れた衣装に着替えることができます</span>
++				You got <%= displayName %>.<br>
++				<span class='c_red'>You can change your Magical Girl into this outfit.</span>
+ 			</div>
+ 		<% } else if(rewardType == 'doppel') { %>
+ 			<div id='sectionItemDetail'>
+-				ドッペルを解放しました<br>
+-				<span class='c_red'>クエスト中マギアゲージのMPを150消費して、ドッペルを発動できます</span>
++				Doppel unleashed<br>
++				<span class='c_red'>During a Quest, you can activate a Doppel by using 150 MP.</span>
+ 			</div>
+ 		<% } else if(rewardType == 'memoria') { %>
+ 			<div id='sectionItemDetail'>
+-				メモリア「<%= displayName %>」を手に入れました<br>
+-				<span class='c_red'>メモリアは直接付与されています</span>
++				You got "<%= displayName %>".<br>
++				<span class='c_red'>This Memoria can be found in your Inventory.</span>
+ 			</div>
+ 		<% } else if(rewardType == 'gem') { %>
+ 			<div id='sectionItemDetail'>
+-				<%= displayName %>のデスティニージェムを手に入れました<br>
+-				<span class='c_red'>デスティニージェムは直接付与されています</span>
++				You got <%= displayName %>'s Destiny Gem(s).<br>
++				<span class='c_red'>The Destiny Gem(s) can be found in your Inventory.</span>
+ 			</div>
+ 		<% } else { %>
+ 			<div id='sectionItemDetail'>
+-				<%= displayName %>を手に入れました<br>
+-				<span class='c_red'>アイテムは直接付与されています</span>
++				You got <%= displayName %>(s).<br>
++				<span class='c_red'>Items can be found in your Inventory.</span>
+ 			</div>
+ 		<% } %>
+ 
+--- a/magica/template/quest/StoryClearAnimation.html
++++ b/magica/template/quest/StoryClearAnimation.html
+@@ -1,6 +1,6 @@
+ <div id="StoryClearAnimation">
+ 	<div id="centerDomS">
+-		<div id="storyNumber1"><%= before.chapterNoForView %></div>
++		<div id="storyNumber1">Chapter <%= before.chapterNoForView %></div>
+ 		<div id="storyClear1"></div>
+ 		<div id="storyClear2"></div>
+ 		<div id="storyClearMiniBg"></div>
+@@ -11,7 +11,7 @@
+ 		<div id="storyPetal3" class="sectionAnimation"></div>
+ 
+ 		<% if(after){ %>
+-		<div id="storyNumber2"><%= after.chapterNoForView %></div>
++		<div id="storyNumber2">Chapter <%= after.chapterNoForView %></div>
+ 		<div id="storyTitle2" class="sectionAnimation"><%= after.title %></div>
+ 		<div id="storySmall"></div>
+ 		<% } %>
+--- a/magica/template/quest/SubQuest.html
++++ b/magica/template/quest/SubQuest.html
+@@ -33,7 +33,7 @@
+ <!-- チャプターリストテンプレート -->
+ <script type="text/template" id="ChapterParts">
+ 	<div class="chapterTitleWrap">
+-		<span class="chapterNo"><span><%="<%= model.chapter.chapterNoForView %\>"%></span></span>
++		<span class="chapterNo">Ch <span><%="<%= model.chapter.chapterNoForView %\>"%></span></span>
+ 		<span class="chapterTitle"><%="<%= model.chapter.title %\>"%></span>
+ 		<span class="prm_chapterId"><%="<%= model.chapterId %\>"%></span>
+ 		<span class="toggleBtn"></span>
+@@ -91,7 +91,7 @@
+ 		<%="<% } %\>"%>
+ 	</span>
+ 
+-	<span class="sectionNo"><%="<%= model.chapterNoForView %\>"%> <%="<%= model.section.genericIndex %\>"%>話</span>
++	<span class="sectionNo">Ch.<%="<%= model.chapterNoForView %\>"%>: Ep.<%="<%= model.section.genericIndex %\>"%></span>
+ 	<span class="sectionTitle"><%="<%= model.section.title %\>"%></span>
+ 
+ 	<span class="questTip">
+--- a/magica/template/quest/SupportSelect.html
++++ b/magica/template/quest/SupportSelect.html
+@@ -2,15 +2,15 @@
+ 	<% if(window.isDebug){ %>
+ 	<div id="debugBtn" class="sb_pink TE" style="position: absolute;top: 10px;z-index: 9999;right: 118px;">
+ 		<span class="b_screen"></span>
+-		フレ復活
++		Full Restore
+ 	</div>
+ 	<% } %>
+ 	<div id="tabArea" class="flexBox">
+-		<p>サポートキャラを選んでください</p>
++		<p>Choose a Support Magical Girl</p>
+ 		<span id="sortBtnWrap">
+ 
+ 			<% if(bonusEventFlag) { %>
+-				<span id="eventFilterBtn" class="sb_gold_02 se_tabs TE"><span class="b_screen"></span>イベントフィルタ<span class='switchIcon'></span></span>
++				<span id="eventFilterBtn" class="sb_gold_02 se_tabs TE"><span class="b_screen"></span>Event Filter<span class='switchIcon'></span></span>
+ 			<% } %>
+ 
+ 			<span id="friendSortBtn" class="sb_gold_02 se_tabs TE"><span class="b_screen"></span></span>
+@@ -27,7 +27,7 @@
+ 
+ 	<div id="friendWrap" class="all">
+ 		<div class="friendWrapInner">
+-			<p class='supportCation ts_white'>対象の魔法少女は存在しません</p>
++			<p class='supportCation ts_white'>No Applicable Magical Girls</p>
+ 		</div>
+ 	</div>
+ </div>
+@@ -39,18 +39,18 @@
+ 
+ 	<%="<% if(model.chapterNoForView) { %\>"%>
+ 		<%="<% if(model.noDispStoryNum) { %\>"%>
+-		<p class="chapterTitle c_white"><%="<%= model.chapterNoForView %\>"%></p>
++		<p class="chapterTitle c_white">Ch.<%="<%= model.chapterNoForView %\>"%>: </p>
+ 		<%="<% } else { %\>"%>
+-		<p class="chapterTitle c_white"><%="<%= model.chapterNoForView %\>"%></p>
+-		<p class="sectionTitle c_purple"><%="<%= model.genericIndex %\>"%>話</p>
++		<p class="chapterTitle c_white">Ch.<%="<%= model.chapterNoForView %\>"%>: </p>
++		<p class="sectionTitle c_purple">Ep.<%="<%= model.genericIndex %\>"%></p>
+ 		<%="<% } %\>"%>
+ 	<%="<% } else if(model.eventObj || model.eventFlag) { %\>"%>
+-		<p class="chapterTitle c_white event">期間限定</p>
++		<p class="chapterTitle c_white event">Event</p>
+ 	<%="<% } else if(!model.weekText) { %\>"%>
+ 		<%="<% if(model.questType !== 'COSTUME') { %\>"%>
+-			<p class="chapterTitle c_white"><%="<%= model.genericIndex %\>"%>話</p>
++			<p class="chapterTitle c_white">Ch:<%="<%= model.genericIndex %\>"%></p>
+ 		<%="<% } else { %\>"%>
+-			<p class="chapterTitle c_white">衣装</p>
++			<p class="chapterTitle c_white">Costume</p>
+ 		<%="<% } %\>"%>
+ 	<%="<% } %\>"%>
+ 	<%="<% if(model.weekText) { %\>"%>
+@@ -69,7 +69,7 @@
+ 			<%="<% } %\>"%>
+ 
+ 			<%="<% if(model.mainQuestMode) { %\>"%>
+-				<p class='questSubTitle'>チャレンジクエスト</p>
++				<p class='questSubTitle'>Challenge Quests</p>
+ 			<%="<% } %\>"%>
+ 		</div>
+ 
+@@ -91,18 +91,18 @@
+ 
+ 		<div class="pointWrap">
+ 			<div class="pointInner difficulty">
+-				<p class="title">難易度</p><p class="point"><%="<%= model.difficulty %\>"%></p>
++				<p class="title">Difficulty:</p><p class="point"><%="<%= model.difficulty %\>"%></p>
+ 			</div>
+ 			<div class="pointInner ap">
+ 				<%="<% if(model.useItemId) { %\>"%>
+ 					<%="<% var dir = model.useItemId.indexOf('EVENT_')>-1 ? 'event' : 'campaign' %\>"%>
+ 					<img class='useItem' src='/magica/resource/image_web/common/icon/<%="<%= dir %\>"%>/icon_<%="<%= model.useItemId.toLowerCase() %\>"%>_f.png' alt=''>
+-					<p class="title useItemTitle">消費</p>
++					<p class="title useItemTitle">Cost</p>
+ 					<p class="point">
+ 						<%="<%= model.needItemNum %\>"%>
+ 					</p>
+ 				<%="<% } else { %\>"%>
+-					<p class="title">消費AP</p>
++					<p class="title">AP Cost:</p>
+ 					<%="<% var classTxt = (model.overwriteAp || model.overwriteAp === 0) ? 'ts_pink' : '' %\>"%>
+ 					<p class='point <%="<%= classTxt %\>"%>'>
+ 						<%="<%= (model.overwriteAp || model.overwriteAp === 0) ? Number(model.overwriteAp) : model.ap %\>"%>
+@@ -121,11 +121,11 @@
+ 			<div class="att void"></div>
+ 		</div>
+ 
+-		<div id="dropItemBtn" class="btn b_white TE se_decide">獲得報酬<span class="b_screen"></span></div>
++		<div id="dropItemBtn" class="btn b_white TE se_decide">Rewards<span class="b_screen"></span></div>
+ 	</div>
+ 
+ 	<div class="dropDetail">
+-		<p class='dropTitle c_gold'>獲得報酬</p>
++		<p class='dropTitle c_gold'>Possible Rewards</p>
+ 		<div class="common_line lc_beige"></div>
+ 
+ 		<div id="dropListWrap">
+@@ -139,7 +139,7 @@
+ 									<div class="icon"></div>
+ 									<img data-nativeimgkey='<%="<%= code %\>"%>' data-src='resource/image_native/gift/<%="<%= code %\>"%>.png' class="giftImg">
+ 									<span class='name'><%="<%= model.firstClearRewardName[index] %\>"%></span>
+-									<span class='quantity'>所持<span><%="<%= model.firstClearRewardQuantity[index] %\>"%></span></span>
++									<span class='quantity'>Stock:<span><%="<%= model.firstClearRewardQuantity[index] %\>"%></span></span>
+ 								</div>
+ 							</li>
+ 						<%="<% } else if(code.indexOf('event') !== -1) { %\>"%>
+@@ -150,7 +150,7 @@
+ 									<%='<% if(code.indexOf("event_training") > -1 && code.split("_").length < 4){ code = "event_training_potion" }%\>'%>
+ 									<img src='/magica/resource/image_web/item/event/<%="<%= code %\>"%>.png' alt="">
+ 									<span class='name'><%="<%= model.firstClearRewardName[index] %\>"%></span>
+-									<span class='quantity'>所持<span><%="<%= model.firstClearRewardQuantity[index] %\>"%></span></span>
++									<span class='quantity'>Stock:<span><%="<%= model.firstClearRewardQuantity[index] %\>"%></span></span>
+ 								</div>
+ 							</li>
+ 						<%="<% } else { %\>"%>
+@@ -160,7 +160,7 @@
+ 									<div class="icon"></div>
+ 									<img src='/magica/resource/image_web/item/main/<%="<%= code %\>"%>.png' alt="">
+ 									<span class='name'><%="<%= model.firstClearRewardName[index] %\>"%></span>
+-									<span class='quantity'>所持<span><%="<%= model.firstClearRewardQuantity[index] %\>"%></span></span>
++									<span class='quantity'>Stock:<span><%="<%= model.firstClearRewardQuantity[index] %\>"%></span></span>
+ 								</div>
+ 							</li>
+ 						<%="<% } %\>"%>
+@@ -174,13 +174,13 @@
+ 							<%='<% if(code.indexOf("event_training") > -1 && code.split("_").length < 4){ code = "event_training_potion" }%\>'%>
+ 							<img src='/magica/resource/image_web/item/event/<%="<%= code %\>"%>.png' alt="">
+ 							<span class='name'><%="<%= model.addDropItemName %\>"%></span>
+-								<span class='quantity'>所持<span><%="<%= model.addDropItemQuantity %\>"%></span></span>
++								<span class='quantity'>Stock:<span><%="<%= model.addDropItemQuantity %\>"%></span></span>
+ 						</li>
+ 					<%="<% } else { %\>"%>
+ 						<li>
+ 							<img src='/magica/resource/image_web/item/main/<%="<%= code %\>"%>.png' alt="">
+ 							<span class='name'><%="<%= model.addDropItemName %\>"%></span>
+-								<span class='quantity'>所持<span><%="<%= model.addDropItemQuantity %\>"%></span></span>
++								<span class='quantity'>Stock:<span><%="<%= model.addDropItemQuantity %\>"%></span></span>
+ 						</li>
+ 					<%="<% } %\>"%>
+ 				<%="<% } %\>"%>
+@@ -190,32 +190,32 @@
+ 						<li>
+ 							<img data-nativeimgkey='<%="<%= code %\>"%>' data-src='resource/image_native/gift/<%="<%= code %\>"%>.png' class="giftImg">
+ 							<span class='name'><%="<%= model.rewardNameArr[index] %\>"%></span>
+-							<span class='quantity'>所持<span><%="<%= model.rewardQuantityArr[index] %\>"%></span></span>
++							<span class='quantity'>Stock:<span><%="<%= model.rewardQuantityArr[index] %\>"%></span></span>
+ 						</li>
+ 					<%="<% } else if(code.indexOf('event') !== -1) { %\>"%>
+ 						<li>
+ 							<%='<% if(code.indexOf("event_training") > -1 && code.split("_").length < 4){ code = "event_training_potion" }%\>'%>
+ 							<img src='/magica/resource/image_web/item/event/<%="<%= code %\>"%>.png' alt="">
+ 							<span class='name'><%="<%= model.rewardNameArr[index] %\>"%></span>
+-							<span class='quantity'>所持<span><%="<%= model.rewardQuantityArr[index] %\>"%></span></span>
++							<span class='quantity'>Stock:<span><%="<%= model.rewardQuantityArr[index] %\>"%></span></span>
+ 						</li>
+ 					<%="<% } else { %\>"%>
+ 						<li>
+ 							<img src='/magica/resource/image_web/item/main/<%="<%= code %\>"%>.png' alt="">
+ 							<span class='name'><%="<%= model.rewardNameArr[index] %\>"%></span>
+-							<span class='quantity'>所持<span><%="<%= model.rewardQuantityArr[index] %\>"%></span></span>
++							<span class='quantity'>Stock:<span><%="<%= model.rewardQuantityArr[index] %\>"%></span></span>
+ 						</li>
+ 					<%="<% } %\>"%>
+ 				<%="<% }) %\>"%>
+ 			</ul>
+ 		</div>
+ 
+-		<p id='dropDetailClose' class='sb_gold_02 se_cancel TE'>閉じる<span class='b_screen'></span></p>
++		<p id='dropDetailClose' class='sb_gold_02 se_cancel TE'>Close<span class='b_screen'></span></p>
+ 	</div>
+ </script>
+ 
+ <script type="text/template" id="FriendTemp">
+-	<%="<% if(model && model.card.cardName !== '未設定') { %\>"%>
++	<%="<% if(model && model.card.cardName !== 'Not Set') { %\>"%>
+ 		<div class='<%="<%= model.card.attributeId %\>"%> <%="<%= model.card.rank %\>"%> userCharaIcon'>
+ 			<%="<% att = 'att_' + model.card.attributeId.toLowerCase(); %\>"%>
+ 			<%="<% star = 'star_' + model.card.rank.toLowerCase(); %\>"%>
+@@ -288,7 +288,7 @@
+ 			<p class='charaTitle c_purple' ><%="<%= model.chara.title %\>"%></p>
+ 		<%="<% } %\>"%>
+ 
+-		<p class='lastLogin c_gold'>最終ログイン <%="<%= model.loginTimeLag %\>"%></p>
++		<p class='lastLogin c_gold'>Last Login: <%="<%= model.loginTimeLag %\>"%></p>
+ 		<div class='getYell flexBox'>
+ 			<%="<% if(model.bonusMemoriaFlag) { %\>"%>
+ 				<div class='bonusSec'>
+@@ -315,7 +315,7 @@
+ 			<div class='yell <%="<%= yellClass %\>"%>'>+<span class='pt <%="<%= yellClass %\>"%>'><%="<%= (30 * model.yellFactor) %\>"%></span></div>
+ 		</div>
+ 	<%="<% } %\>"%>
+-	<%="<% if (model && model.card.cardName !== '未設定') { %\>"%>
++	<%="<% if (model && model.card.cardName !== 'Not Set') { %\>"%>
+ 		<div class='flexBox magiaWrap'>
+ 
+ 			<%="<% var magiaClassTxt  = (model.magiaLevel == 0) ? 'off'    : ''; %\>"%>
 --- a/magica/template/quest/scene0/BattleSelect.html
 +++ b/magica/template/quest/scene0/BattleSelect.html
 @@ -3,7 +3,7 @@
