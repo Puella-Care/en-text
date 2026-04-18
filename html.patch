@@ -2914,7 +2914,7 @@
  		<div class="charaText">
 -			<%='<%= model.displayMessage %\>'%>
 +			<!-- FEAT(LiviaMedeiros): add handler for ＠ (adhoc linebreak) in `charaMessage[].message`s -->
-+			<%='<%= model.displayMessage.replace(/＠/g, '<br>') %\>'%>
++			<%='<%= model.displayMessage.replace(/＠/g, "<br>") %\>'%>
  		</div>
  	</div>
  	<div id="animationWrap2">
