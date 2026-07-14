@@ -13,9 +13,9 @@ b.content.append(this.render().el);this.createBtnView();b.ready.hide()},createBt
 ,part2:
 
 // TL(vivi-4480): "二"
-"2",
+"2"
 
-part3:
+,part3:
 
 // TL(vivi-4480): "三"
 "3"
