@@ -1055,7 +1055,7 @@
  			<div class='scrollInner'>
 --- a/magica/template/collection/StoryCollection.html
 +++ b/magica/template/collection/StoryCollection.html
-@@ -5,33 +5,33 @@
+@@ -5,33 +5,34 @@
  	<div id="tabBtn" class="commonFrame2">
  		<div class="hiddenWrap" id="storyTabScroll">
  			<ul class="common_tab t_gold">
@@ -1092,6 +1092,7 @@
 -				<li class="TE btn se_tabs movieBtn ep2ending none" data-id="ep2ending"><span>第2部EDムービー</span></li>
 +				<li class="TE btn se_tabs movieBtn" data-id="ep1opening"><span>Arc 1 OP Movie</span></li>
 +				<li class="TE btn se_tabs movieBtn ep1ending none" data-id="ep1ending"><span>Arc 1 ED Movie</span></li>
++				<li class="TE btn se_tabs movieBtn ep1ending none" data-id="ep1ending_mn"><span>Arc 1 ED (NA)</span></li>
 +				<li class="TE btn se_tabs movieBtn ep2opening none" data-id="ep2opening"><span>Arc 2 OP Movie</span></li>
 +				<li class="TE btn se_tabs movieBtn ep2ending none" data-id="ep2ending"><span>Arc 2 ED Movie</span></li>
  				<li class="TE btn se_tabs magirepo linkBtn" data-href="#/MagiRepo"></li>
@@ -1104,7 +1105,7 @@
  		<div id="unlockItems">
  			<img src="/magica/resource/image_web/page/collection/storyCollection/icon_eventstory_open_key_f.png" class="costIcon">
  			<span class="pointFrame" id="unlockItemNum"></span>
-@@ -42,14 +42,14 @@
+@@ -42,14 +43,14 @@
  				<div class="scrollInner">
  					<div class="wrap">
  						<div class="chapterTitleWrap commonFrame4 se_tabs" data-chapter="00">
@@ -1123,7 +1124,7 @@
  							</div>
  						</div>
  					</div>
-@@ -83,7 +83,7 @@
+@@ -83,7 +84,7 @@
  			<div class='panArrow chapterIdPan<%="<%= model.chapterId %\>"%>'></div>
  		</div>
  		<%="<% if (model.isStillBtn) { %\>"%>
@@ -1132,7 +1133,7 @@
  		<%="<% } %\>"%>
  		<div class='sectionListWrap chapterId<%="<%= model.chapterId %\>"%><%="<% if (model.isStillBtn) { %\>"%> gallery<%="<% } %\>"%>'></div>
  </script>
-@@ -92,20 +92,20 @@
+@@ -92,20 +93,20 @@
  		<span class="sectionTitle"><%="<%= model.title %\>"%></span>
  	<%="<% if(model.chapterNoForView) { %\>"%>
  		<h2 class="sectionNumber"><%="<%= model.chapterNoForView %\>"%> <%="<%= model.sectionNo %\>"%>話</h2>
@@ -1160,7 +1161,7 @@
  	</p>
  </script>
  
-@@ -146,7 +146,7 @@
+@@ -146,7 +147,7 @@
  <script type="text/template" id="OpenConditionPopupTemp">
  	<div class="popupInner">
  		<span class="closeDefault se_cancel popupCloseBtn TE"></span>
@@ -1169,7 +1170,7 @@
  
  		<div class="popupTextArea">
  			<%="<% _.forEach(model.conditionList,function(txt,index){ %\>"%>
-@@ -212,7 +212,7 @@
+@@ -212,7 +213,7 @@
  					</div>
  				<%="<% } %\>"%>
  				<div class="btnWrap <%='<% if (txt.isOpen === false) { %\>'%>lock<%='<% } %\>'%>">
@@ -1178,7 +1179,7 @@
  				</div>
  			</div>
  			<%="<% }) %\>"%>
-@@ -241,7 +241,7 @@
+@@ -241,7 +242,7 @@
  					</div>
  				<%="<% } %\>"%>
  				<div class="btnWrap <%='<% if (txt.isOpen === false) { %\>'%>lock<%='<% } %\>'%>">
@@ -1187,6 +1188,13 @@
  				</div>
  			</div>
  			<%="<% }) %\>"%>
+@@ -397,4 +398,4 @@
+ 			<%="<% }) %\>"%>
+ 		</div>
+ 	</div>
+-</script>
+\ No newline at end of file
++</script>
 --- a/magica/template/config/ConfigTop.html
 +++ b/magica/template/config/ConfigTop.html
 @@ -1,32 +1,32 @@
@@ -3531,6 +3539,24 @@
  		<div id="movieBtn" class="se_decide TE c_gold">MOVIE</div>
  	</div>
  </div>
+--- a/magica/template/top/Maintenance.html
++++ b/magica/template/top/Maintenance.html
+@@ -7,10 +7,10 @@
+ 			<p><%= model.maintenance.message %></p>
+ 		</div>
+ 		<div class="flexBox linkBtns">
+-			<div id="announce" class="btn se_decide b_pale TE">お知らせ</div>
+-			<div id="openBrowser" class="btn se_decide b_pink TE">公式サイトへ</div>
+-			<div class="btn se_decide b_white reloadBtn TE" >リロード</div>
++			<div id="announce" class="btn se_decide b_pale TE">Announcements</div>
++			<div id="openBrowser" class="btn se_decide b_pink TE">Totentanz</div>
++			<div class="btn se_decide b_white reloadBtn TE" >Reload</div>
+ 		</div>
+ 	</div>
+ 	<p id="copy"></p>
+-</div>
+\ No newline at end of file
++</div>
 --- a/magica/template/user/APPopup.html
 +++ b/magica/template/user/APPopup.html
 @@ -17,20 +17,20 @@

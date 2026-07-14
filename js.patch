@@ -106,6 +106,77 @@
  });
  this.sendCommand(a)
  },
+--- a/magica/js/campaign/sumo/CampaignSumoTop.js
++++ b/magica/js/campaign/sumo/CampaignSumoTop.js
+@@ -21,7 +21,12 @@
+ },
+ outerLink: function(a) {
+ a.preventDefault();
+-b.isScrolled() || c.browserOpen("http://magireco.com/")
++b.isScrolled() || c.browserOpen(
++
++// ADJUSTMENT(LiviaMedeiros): http://magireco.com/
++"https://github.com/Puella-Care/totentanz-meta"
++
++)
+ },
+ removeFunc: function(a) {
+ this.off();
+@@ -32,20 +37,15 @@
+ return {
+ needModelIdObj: [{
+ id: "user"
+-},
+-{
++}, {
+ id: "gameUser"
+-},
+-{
++}, {
+ id: "userStatusList"
+-},
+-{
++}, {
+ id: "userItemList"
+-},
+-{
++}, {
+ id: "userPatrolList"
+-}
+-],
++}],
+ fetch: function(a, b) {
+ g.pageModelGet(this.needModelIdObj)
+ },
+--- a/magica/js/collection/StoryCollection.js
++++ b/magica/js/collection/StoryCollection.js
+@@ -82,8 +82,11 @@
+ v("accomplish", ea());
+ (a = b.storage.userSectionList.findWhere({
+ sectionId: 102005
+-})) && a.toJSON().cleared && b.removeClass(b.doc.getElementById("tabBtn").getElementsByClassName("ep1ending")[0],
+-"none");
++})) && a.toJSON().cleared &&
++
++// FEAT(LiviaMedeiros): support multiple `ep1ending` nodes
++b.doc.querySelectorAll("#tabBtn .ep1ending").forEach(a => b.removeClass(a, "none"));
++
+ (a = b.storage.userSectionList.findWhere({
+ sectionId: 102204
+ })) && a.toJSON().cleared && b.removeClass(b.doc.getElementById("tabBtn").getElementsByClassName("ep2opening")[0], "none");
+@@ -244,6 +247,12 @@
+ case "ep1ending":
+ c = "resource/movie/other/102005_epilogue.usm";
+ break;
++
++// FEAT(LiviaMedeiros): add NA version of the ending
++case "ep1ending_mn":
++c = "resource/movie/other/102005_epilogue_mn.usm";
++break;
++
+ case "ep2opening":
+ c = "resource/movie/other/op_movie2.usm";
+ break;
 --- a/magica/js/quest/secondPartLast/parts/StagePartsView.js
 +++ b/magica/js/quest/secondPartLast/parts/StagePartsView.js
 @@ -18,7 +18,15 @@
@@ -151,6 +222,38 @@
  tap: !1,
  click: !1,
  snap: "li",
+--- a/magica/js/top/Maintenance.js
++++ b/magica/js/top/Maintenance.js
+@@ -21,7 +21,12 @@
+ },
+ openBrowser: function(p) {
+ p.preventDefault();
+-b.isScrolled() || a.browserOpen("http://magireco.com/")
++b.isScrolled() || a.browserOpen(
++
++// ADJUSTMENT(LiviaMedeiros): http://magireco.com/
++"https://github.com/Puella-Care/totentanz-meta"
++
++)
+ },
+ popupAnnounce: function(a) {
+ a.preventDefault();
+--- a/magica/js/top/NewVersionRecommend.js
++++ b/magica/js/top/NewVersionRecommend.js
+@@ -25,7 +25,12 @@
+ verUpLink: function(c) {
+ c.preventDefault();
+ b.isScrolled() || (c = null, b.ua.ios && (c = "https://itunes.apple.com/jp/app/%E3%83%9E%E3%82%AE%E3%82%A2%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89-%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E3%81%BE%E3%81%A9%E3%81%8B%E3%83%9E%E3%82%AE%E3%82%AB%E5%A4%96%E4%BC%9D/id1164785360?l\x3dja\x26ls\x3d1\x26mt\x3d8"),
+-b.ua.android && (c = "https://play.google.com/store/apps/details?id\x3dcom.aniplex.magireco"), c && a.browserOpen(c))
++b.ua.android && (c =
++
++// ADJUSTMENT(LiviaMedeiros): https://play.google.com/store/apps/details?id\x3dcom.aniplex.magireco
++"https://github.com/Puella-Care/client-apk/releases"
++
++), c && a.browserOpen(c))
+ },
+ contactLink: function(c) {
+ c.preventDefault();
 --- a/magica/js/view/collection/CollectionDetailView.js
 +++ b/magica/js/view/collection/CollectionDetailView.js
 @@ -118,7 +118,11 @@
