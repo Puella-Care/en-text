@@ -148,8 +148,61 @@
  fetch: function(a, b) {
  g.pageModelGet(this.needModelIdObj)
  },
+--- a/magica/js/collection/MagiRepo.js
++++ b/magica/js/collection/MagiRepo.js
+@@ -38,11 +38,36 @@
+ tabChange: function(a) {
+ a.preventDefault();
+ b.isScrolled() || a.currentTarget.classList.contains("current") ||
+-(this.currentPart = a.currentTarget.dataset.id, b.removeClass(b.doc.querySelector("#tabBtn .current"), "current"), b.addClass(a.currentTarget, "current"), this.createBtnView(), b.scrollRefresh("scrollOuter", "scrollInner", !0), b.doc.querySelector("#listTitle").innerText = "マギアレポート 第" + {
+-part1: "一",
+-part2: "二",
+-part3: "三"
+-} [this.currentPart] + "部")
++(this.currentPart = a.currentTarget.dataset.id, b.removeClass(b.doc.querySelector("#tabBtn .current"), "current"), b.addClass(a.currentTarget, "current"), this.createBtnView(), b.scrollRefresh("scrollOuter", "scrollInner", !0), b.doc.querySelector("#listTitle").innerText =
++
++// TL(vivi-4480): "マギアレポート 第"
++"Magia Report Part"
++
+++
++{
++part1:
++
++// TL(vivi-4480): "一"
++"1"
++
++,
++part2:
++
++// TL(vivi-4480): "二"
++"2"
++
++,
++part3:
++
++// TL(vivi-4480): "三"
++"3"
++
++} [this.currentPart]
++
++// TL(vivi-4480): + "部"
++// noop
++
++)
+ }
+ }),
+ g = e.View.extend({
 --- a/magica/js/collection/StoryCollection.js
 +++ b/magica/js/collection/StoryCollection.js
+@@ -57,7 +57,7 @@
+ });
+ a.eventStoryList.splice(c, 0, {
+ regularEventId: 2019,
+-eventName: "キモチ戦特別編 アリナ・イブ",
++eventName: "Kimochi Battle Special Edition: Alina Eve",
+ regularEventType: "GROUPBATTLE",
+ storyList: [{
+ storyTitle: "OP",
 @@ -82,8 +82,11 @@
  v("accomplish", ea());
  (a = b.storage.userSectionList.findWhere({
@@ -164,6 +217,39 @@
  (a = b.storage.userSectionList.findWhere({
  sectionId: 102204
  })) && a.toJSON().cleared && b.removeClass(b.doc.getElementById("tabBtn").getElementsByClassName("ep2opening")[0], "none");
+@@ -123,8 +126,8 @@
+ }
+ }
+ if (!c || 0 >= c.length) new b.PopupClass({
+-title: "ストーリー確認",
+-content: "ストーリーがありません",
++title: "Story Confirmation",
++content: "There is no story available.",
+ closeBtnText: "OK"
+ });
+ else {
+@@ -161,8 +164,8 @@
+ })
+ }
+ } else new b.PopupClass({
+-title: "ストーリー確認",
+-content: "中断したストーリーがありません",
++title: "Story Confirmation",
++content: "There is no story bookmark available.",
+ closeBtnText: "OK"
+ })
+ },
+@@ -213,8 +216,8 @@
+ var c = "000001-1 000002-1 000003-1 000003-2 000003-3 000003-4 000003-5".split(" ");
+ q = c.join(",");
+ 0 === c.length ? new b.PopupClass({
+-title: "ストーリー確認",
+-content: "ストーリーがありません",
++title: "Story Confirmation",
++content: "There is no story available.",
+ closeBtnText: "OK"
+ }) : b.preNativeFadeIn(function() {
+ x(c)
 @@ -244,6 +247,12 @@
  case "ep1ending":
  c = "resource/movie/other/102005_epilogue.usm";
@@ -177,6 +263,394 @@
  case "ep2opening":
  c = "resource/movie/other/op_movie2.usm";
  break;
+@@ -325,8 +334,8 @@
+ popupType: "typeB"
+ }, null, a, c)
+ } else new b.PopupClass({
+-title: "ギャラリー",
+-content: "表示できる一枚絵がありません。",
++title: "Gallery",
++content: "There are no images available to display.",
+ closeBtnText: "OK"
+ })
+ },
+@@ -432,7 +441,7 @@
+ },
+ outline: function(a) {
+ a.preventDefault();
+-b.isScrolled() || (a = {}, a.title = this.model.chapterNoForView + this.model.sectionNo + "話までのあらすじ", a.outline = this.model.outline.replace(/＠/g, "\x3cbr\x3e"), a.defaultCardId = this.model.outlineCardId, new b.PopupClass(a, W), h.getBaseData(b.getNativeObj()))
++b.isScrolled() || (a = {}, a.title = "Story up to " + this.model.chapterNoForView + this.model.sectionNo, a.outline = this.model.outline.replace(/＠/g, "\x3cbr\x3e"), a.defaultCardId = this.model.outlineCardId, new b.PopupClass(a, W), h.getBaseData(b.getNativeObj()))
+ },
+ storyStart: function(a) {
+ a.preventDefault();
+@@ -444,8 +453,8 @@
+ var d;
+ d = l ? a : this.model.storyArr.concat();
+ if (0 === d.length) new b.PopupClass({
+-title: "ストーリー確認",
+-content: "ストーリーがありません",
++title: "Story Confirmation",
++content: "There is no story available.",
+ closeBtnText: "OK"
+ });
+ else {
+@@ -554,7 +563,7 @@
+ model: b,
+ type: a
+ }), g.appendChild(b.render().el)
+-}) : (c = b.doc.createElement("p"), c.className = "storyCautionText ts_white", c.innerText = "対象のストーリーがありません", g.appendChild(c));
++}) : (c = b.doc.createElement("p"), c.className = "storyCautionText ts_white", c.innerText = "There is no story available here.", g.appendChild(c));
+ e.appendChild(g)
+ }
+ },
+@@ -583,8 +592,8 @@
+ }
+ }))
+ });
+-e.length && (c = {}, c.chapterId = b.chapterId, c.partNo = b.chapter.partNo, c.title = "メイン【第" + b.chapter.partNo +
+-"部】　" + b.chapter.chapterNoForView, c.stillList = e, a.push(c))
++e.length && (c = {}, c.chapterId = b.chapterId, c.partNo = b.chapter.partNo, c.title = "Main Story【Arc " + b.chapter.partNo +
++"】　" + b.chapter.chapterNoForView, c.stillList = e, a.push(c))
+ }
+ });
+ a.sort(function(a, b) {
+@@ -595,13 +604,13 @@
+ ea = function() {
+ var a = [];
+ a.push({
+-title: "プロローグ",
++title: "Prologue",
+ chapterId: 2013,
+ sectionList: [{
+ canPlay: !0,
+ cleared: !0,
+-sectionNo: "序",
+-title: "プロローグ",
++sectionNo: "OP",
++title: "Prologue",
+ storyArr: ["420131-0"]
+ }]
+ });
+@@ -633,7 +642,7 @@
+ e.sectionId = b.sectionId;
+ e.storyArr = [];
+ e.sectionNo = a.questBattle.parameterMap && a.questBattle.parameterMap.FLOOR ? "Stage" + a.questBattle.parameterMap.FLOOR : "Stage" + (d + 1);
+-e.title = n + "話";
++e.title = "Ep." + n;
+ e.storyArr = [a.questBattle.startStory];
+ c.sectionList.push(e);
+ n++
+@@ -684,7 +693,7 @@
+ g.cleared = a.cleared;
+ g.sectionId = a.sectionId;
+ g.title = a.section.title;
+-"CHARA" == a.section.questType ? (c.toJSON().chara.title && (g.title += "(" + c.toJSON().chara.title + ")"), g.sectionNo = a.section.genericIndex + "話") : "COSTUME" == a.section.questType && (e = (a.section.genericId + "").slice(-2), e = b.storage.userLive2dList.findWhere({
++"CHARA" == a.section.questType ? (c.toJSON().chara.title && (g.title += "(" + c.toJSON().chara.title + ")"), g.sectionNo = a.section.genericIndex + "Ep.") : "COSTUME" == a.section.questType && (e = (a.section.genericId + "").slice(-2), e = b.storage.userLive2dList.findWhere({
+ charaId: c.toJSON().charaId,
+ live2dId: e
+ }), c.toJSON().chara.title && (g.title += "(" + c.toJSON().chara.title + ")"), e && (g.sectionNo = e.toJSON().live2d.description));
+@@ -805,12 +814,12 @@
+ });
+ b.questType = "";
+ b.eventId = 0;
+-b.eventName = "現代神浜編";
++b.eventName = "Present Day Kamihama";
+ b.isOpen = !1;
+ b.storyList = [];
+ f.each(a.questInfoList, function(a, c, g) {
+ g = {};
+-g.storyTitle = a.questBattle.sectionIndex + "話";
++g.storyTitle = a.questBattle.sectionIndex + "Ep.";
+ g.storyIds = a.questBattle.startStory;
+ a.secret && (g.storyIds = a.questBattle.startStory + "_" + a.secret);
+ g.isOpen = a.cleared;
+@@ -824,7 +833,7 @@
+ var b = {
+ questType: "",
+ eventId: 99,
+-eventName: "Pillar of Tomorrow編",
++eventName: "Pillar of Tomorrow",
+ isOpen: !1,
+ storyList: []
+ };
+@@ -855,7 +864,7 @@
+ d = function(a) {
+ var c = b.doc.createElement("p");
+ c.className = "storyCautionText ts_white";
+-c.innerText = "対象のストーリーがありません";
++c.innerText = "There is no story available here.";
+ b.doc.getElementById(a).getElementsByClassName("scrollInner")[0].appendChild(c)
+ };
+ !a || 1 > a[0].storyList.length ? d("puellaHistoriaHiddenWrap") :
+@@ -914,8 +923,8 @@
+ l ? (q =
+ a = this.storyIdsList.join(","), d = a.indexOf(d), -1 < d && (a = a.substring(d), c = w(a))) : c = w(d);
+ 0 === c.length ? new b.PopupClass({
+-title: "ストーリー確認",
+-content: "ストーリーがありません",
++title: "Story Confirmation",
++content: "There is no story available.",
+ closeBtnText: "OK"
+ }) : b.preNativeFadeIn(function() {
+ x(c)
+@@ -985,11 +994,11 @@
+ this.startStory(w(a)))
+ }.bind(this);
+ new b.PopupClass({
+-title: "ストーリー確認",
+-content: "ストーリーを鑑賞しますか？\x3cbr\x3e\x3cspan class\x3d'c_red'\x3e※解放済みのストーリーまで連続で鑑賞することができます。\x3c/span\x3e",
+-decideBtnText: "はい",
++title: "Story Confirmation",
++content: "Would you like to read this story?\x3cbr\x3e\x3cspan class\x3d'c_red'\x3e※You can continuously read through all story episodes you've unlocked.\x3c/span\x3e",
++decideBtnText: "Yes",
+ decideBtnEvent: c,
+-closeBtnText: "いいえ"
++closeBtnText: "No"
+ })
+ }.bind(this);
+ if (0 < u) {
+@@ -1017,14 +1026,14 @@
+ b.isScrolled() || (b.g_popup_instance.popupView.close(), "" !== a && (a += ":"), q = a += c, this.startStory(w(a)))
+ }.bind(this);
+ new b.PopupClass({
+-title: "ストーリー解放",
+-content: "下記ストーリーを解放しました。",
++title: "Story Unlocked",
++content: "The following story has been unlocked.",
+ eventName: e,
+ itemNum: u,
+ exClass: "openStoryPopup",
+-decideBtnText: "すぐに読む",
++decideBtnText: "Read Now",
+ decideBtnEvent: l,
+-closeBtnText: "あとで読む"
++closeBtnText: "Read Later"
+ }, d, f)
+ }.bind(this);
+ var l = {};
+@@ -1037,30 +1046,30 @@
+ h = null;
+ l && "" !== a && (h = g);
+ new b.PopupClass({
+-title: "ストーリー解放",
+-content: "\x3cspan class\x3d'c_pink'\x3e" + A + "\x3c/span\x3eを\x3cspan class\x3d'c_pink'\x3e１個\x3c/span\x3e消費してストーリーを解放します。\x3cbr\x3eよろしいですか？",
++title: "Story Unlocked",
++content: "This will consume \x3cspan class\x3d'c_pink'\x3e1\x3c/span\x3e \x3cspan class\x3d'c_pink'\x3e" + A + "\x3c/span\x3e\x3cbr\x3eAre you sure?",
+ eventName: e,
+ itemNum: u,
+ exClass: "openStoryPopup",
+-decideBtnText: "解放する",
++decideBtnText: "Unlock",
+ decideBtnEvent: f,
+-closeBtnText: "キャンセル"
++closeBtnText: "Cancel"
+ }, d, null, h)
+ } else f = "\x3cspan class\x3d'c_pink'\x3e" + A + "\x3c/span\x3eが\x3cspan class\x3d'c_pink'\x3e１個\x3c/span\x3e不足しています。",
+-l && (f += "\x3cbr\x3e\x3cspan class\x3d'c_red'\x3e" + A + "で解放することで最後まで連続で再生できます。\x3c/span\x3e"), h = null, l && "" !== a && (h = g), new b.PopupClass({
+-title: "ストーリー解放",
++l && (f += "You are missing \x3cspan class\x3d'c_pink'\x3e1 \x3c/span\x3e\x3cspan class\x3d'c_pink'\x3e" + A + "\x3c/span\x3e."), h = null, l && "" !== a && (h = g), new b.PopupClass({
++title: "Story Unlocked",
+ content: f,
+ itemNum: u,
+ exClass: "openStoryPopup",
+-decideBtnText: "ショップへ",
++decideBtnText: "To Shop",
+ decideBtnLink: "#/ShopTop/2",
+-closeBtnText: "キャンセル"
++closeBtnText: "Cancel"
+ }, d, null, h)
+ },
+ startStory: function(a) {
+ if (0 === a.length) new b.PopupClass({
+-title: "ストーリー確認",
+-content: "ストーリーがありません",
++title: "Story Confirmation",
++content: "There is no story available.",
+ closeBtnText: "OK"
+ });
+ else {
+@@ -1176,7 +1185,7 @@
+ var a = b.storage.itemList.findWhere({
+ itemCode: "EVENTSTORY_OPEN_KEY"
+ });
+-A = a ? a.get("name") : "追想の欠片";
++A = a ? a.get("name") : "Fragment of Reminiscence";
+ E = ga();
+ F = new fa;
+ R();
+--- a/magica/js/quest/puellaHistoria/LastBattleBtnView.js
++++ b/magica/js/quest/puellaHistoria/LastBattleBtnView.js
+@@ -24,9 +24,9 @@
+ a.preventDefault();
+ b.isScrolled() || (c ? location.href = "#/PuellaHistoriaSingleRaid" : new b.PopupClass({
+ title: "Pillar of Tomorrow",
+-content: "開放するための条件\x3cbr\x3e「現代神浜編」を全てクリア",
++content: "You must clear all of the \x3cbr\x3e「Present Day Kamihama」episodes to unlock this.",
+ popupType: "typeC",
+-closeBtnText: "閉じる",
++closeBtnText: "Close",
+ exClass: "puellaHistoriaOpenStoryPop"
+ }, null, function() {
+ $(".puellaHistoriaOpenStoryPop .cancelBtn").removeClass("b_white");
+--- a/magica/js/quest/puellaHistoria/lastBattle/Utility.js
++++ b/magica/js/quest/puellaHistoria/lastBattle/Utility.js
+@@ -15,46 +15,46 @@
+ event: [{
+ num: 1,
+ storyId: "519810-0",
+-storyTitle: "1話"
++storyTitle: "Ep.1"
+ }, {
+ num: 2,
+ storyId: "104101-1",
+-storyTitle: "2話",
++storyTitle: "Ep.2",
+ secret: "KaoO4"
+ }, {
+ num: 3,
+ storyId: "104101-2",
+-storyTitle: "3話",
++storyTitle: "Ep.3",
+ secret: "KaoO4"
+ }, {
+ num: 4,
+ storyId: "104101-3",
+-storyTitle: "4話",
++storyTitle: "Ep.4",
+ secret: "KaoO4"
+ }, {
+ num: 5,
+ storyId: "104101-4",
+-storyTitle: "5話",
++storyTitle: "Ep.5",
+ secret: "KaoO4"
+ }, {
+ num: 6,
+ storyId: "104101-5",
+-storyTitle: "6話",
++storyTitle: "Ep.6",
+ secret: "KaoO4"
+ }, {
+ num: 7,
+ storyId: "104101-6",
+-storyTitle: "7話",
++storyTitle: "Ep.7",
+ secret: "KaoO4"
+ }, {
+ num: 8,
+ storyId: "104101-7",
+-storyTitle: "8話",
++storyTitle: "Ep.8",
+ secret: "KaoO4"
+ }, {
+ num: 9,
+ storyId: "519810-1",
+-storyTitle: "9話"
++storyTitle: "Ep.9"
+ }, {
+ num: 10,
+ storyId: "519810-2",
+@@ -64,42 +64,42 @@
+ num: 1,
+ storyId: "519810-11_YcZ2I",
+ charaId: 1045,
+-storyTitle: "水名 露"
++storyTitle: "Tsuyu Mizuna"
+ }, {
+ num: 2,
+ storyId: "519810-12_YcZ2I",
+ charaId: 1046,
+-storyTitle: "千鶴"
++storyTitle: "Chizuru"
+ }, {
+ num: 3,
+ storyId: "519810-13_YcZ2I",
+ charaId: 1048,
+-storyTitle: "エボニー"
++storyTitle: "Ebony"
+ }, {
+ num: 4,
+ storyId: "519810-14_YcZ2I",
+ charaId: 1049,
+-storyTitle: "オルガ"
++storyTitle: "Olga"
+ }, {
+ num: 5,
+ storyId: "519810-15_YcZ2I",
+ charaId: 1050,
+-storyTitle: "ガンヒルト"
++storyTitle: "Gunhild"
+ }, {
+ num: 6,
+ storyId: "519810-16_YcZ2I",
+ charaId: 1051,
+-storyTitle: "ヘルカ"
++storyTitle: "Heruka"
+ }, {
+ num: 7,
+ storyId: "519810-17_YcZ2I",
+ charaId: 1052,
+-storyTitle: "トヨ"
++storyTitle: "Toyo"
+ }, {
+ num: 8,
+ storyId: "519810-18_YcZ2I",
+ charaId: 1053,
+-storyTitle: "アマリュリス"
++storyTitle: "Amaryllis"
+ }]
+ }
+ },
+@@ -248,7 +248,7 @@
+ f.isEnoughAP({
+ needAP: e.questBattleModel.ap
+ }) ? ("singleRaid" == c && (location.href = "#/SupportSelect"), "groupRaid" == c && (e.PuellaHistoriaLastBattleGroupRaidPrm.battleType = "sub", b && (e.PuellaHistoriaLastBattleGroupRaidPrm.battleType = b), e.PuellaHistoriaLastBattleGroupRaidPrm.isUseItem = l, location.href = "#/DeckFormation/puellaHistoriaGroupRaid")) :
+-e.globalMenuView.apPopup(null, "APが不足しています", function() {
++e.globalMenuView.apPopup(null, "Not Enough AP.", function() {
+ f.startQuest({
+ pageType: c,
+ battleType: b,
+--- a/magica/js/quest/scene0/parts/BattleSelectChangeDifficultyLevelPopup.js
++++ b/magica/js/quest/scene0/parts/BattleSelectChangeDifficultyLevelPopup.js
+@@ -27,13 +27,13 @@
+ $(".scene0BattleSelectChangeDifficultyLevelPopup .popupTextArea").append(a.render().el);
+ d.each([{
+ btnId: 1,
+-btnText: "困難級"
++btnText: "Difficult"
+ }, {
+ btnId: 2,
+-btnText: "窮地級"
++btnText: "Perilous"
+ }, {
+ btnId: 3,
+-btnText: "絶望級"
++btnText: "Despair"
+ }], function(a, b, c) {
+ a = new h({
+ model: a
+--- a/magica/js/quest/scene0/parts/BattleSelectQuestListView.js
++++ b/magica/js/quest/scene0/parts/BattleSelectQuestListView.js
+@@ -20,7 +20,7 @@
+ a = a.model;
+ this.listId = "BattleLevel" + a.id;
+ return {
+-listTitle: "難易度:" +
++listTitle: "Difficulty:" +
+ a.difficultyLevel,
+ listId: this.listId
+ }
+--- a/magica/js/quest/scene0/parts/BtnListAfterFilm1.js
++++ b/magica/js/quest/scene0/parts/BtnListAfterFilm1.js
+@@ -64,7 +64,7 @@
+ a = a.model;
+ this.listId = "film" + a.id;
+ return {
+-listTitle: "フィルム" + a.id,
++listTitle: "Film" + a.id,
+ listId: this.listId
+ }
+ },
 --- a/magica/js/quest/secondPartLast/parts/StagePartsView.js
 +++ b/magica/js/quest/secondPartLast/parts/StagePartsView.js
 @@ -18,7 +18,15 @@
