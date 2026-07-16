@@ -27,7 +27,8 @@
 			%>
 			<div class="missionTextBox<%= missionClass %>" id="missionText<%= index+1 %>">
 				<%
-					var missionDescription = mission.description.replace(/\s+/g,"");
+					// FIX(LiviaMedeiros): remove `.replace(/\s+/g,"")`, allowing spaces in mission descriptions
+					var missionDescription = mission.description;
 				%>
 				<div class="textWrap"><p class="c_white"><%= missionDescription %></p></div>
 				<div class="clearSprite<% if(missionStatus === 'CLEAR'){ %> anim<% } %>"></div>
